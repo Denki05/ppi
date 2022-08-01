@@ -1,0 +1,28 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+# deal with backend first
+RewriteCond %{REQUEST_URI} /(backend)
+RewriteRule ^backend/assets/(.*)$ backend/web/assets/$1 [L]
+RewriteRule ^backend/css/(.*)$ backend/web/css/$1 [L]
+RewriteRule ^backend/img/(.*)$ backend/web/img/$1 [L]
+RewriteRule ^backend/js/(.*)$ backend/web/js/$1 [L]
+
+RewriteCond %{REQUEST_URI} !/backend/web/(assets|css|img|js)/
+RewriteCond %{REQUEST_URI} /(backend)
+RewriteRule ^.*$ backend/web/index.php [L]
+
+
+RewriteCond %{REQUEST_URI} /(assets|css|js|img|font|uploads)
+RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
+RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
+RewriteRule ^img/(.*)$ frontend/web/img/$1 [L]
+#RewriteRule ^uploads/(.*)$ frontend/web/uploads/$1 [L]
+RewriteRule ^uploads/(.*)$ uploads/$1 [L]
+
+RewriteCond %{REQUEST_URI} !/(frontend|backend)/web/(assets|css|js|img|font|uploads)/
+RewriteCond %{REQUEST_URI} !index.php
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ frontend/web/index.php
