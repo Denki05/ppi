@@ -23,7 +23,7 @@ BaseController::$toolbar = $toolbar;
 foreach(Yii::$app->session->getAllFlashes() as $key => $message)
     echo '<div class="alert alert-' . $key . '">' . $message . "</div>\n";
 ?>
-<input id="baseUrl" type="hidden" value="<?=Url::base()?>/sales/salesinvoicespecial/">
+<input id="baseUrl" type="hidden" value="<?=Url::base()?>/sales/salesinvoiceppn/">
 	<section class="row">
         <div class="col-12">
             <div class="card">
