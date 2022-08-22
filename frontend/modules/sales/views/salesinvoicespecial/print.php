@@ -47,7 +47,7 @@ function penyebut($nilai) {
         <td class="" style="width: 45%;">
         </td>
         <td>
-            <div class="store-name"><u>INVOICE TEST</u></div>
+            <div class="store-name"><u>INVOICE</u></div>
         </td>
     </tr>
 </table>
@@ -226,7 +226,7 @@ function penyebut($nilai) {
     </td>
   </tr>
 </table>
-<hr style="margin: 1px 0px 10px 0px;">
+<!-- <hr style="margin: 1px 0px 5px 0px;"> -->
 <?php if(!$model->isPayment()): ?>
 <table cellspacing="0" class="table-product" style="font-size: 11px; border: 1px solid;">
   <tr>
@@ -288,10 +288,10 @@ function penyebut($nilai) {
      ?>
 </table>
 <!-- <br> -->
-<table style="width: 100%; font-size: 14px;" border="0">
+<table style="width: 100%; font-size: 14px; margin-top: -12px;" border="0">
   <tr>
     <td style="width: 70%;" scope="col"><div align="left">
-      <table style="width: 100%; font-size: 14px;" border="0">
+      <table style="width: 85%; font-size: 14px;" border="0">
         <tr>
           <td width="147" scope="col"><div align="left">Terbilang</div></td>
           <td width="107" scope="col">&nbsp;</td>
@@ -329,9 +329,9 @@ function penyebut($nilai) {
         </tr>
       </table>
     </div></td>
-
+    <!-- <br> -->
     <td style="width: 30%;" scope="col"><div align="left">
-    <table style="width: 100%; margin-top: -5px; font-size: 14px;" border="0">
+    <table style="width: 100%; margin-top: 10spx; font-size: 14px;" border="0">
       <tr>
         <td width="187" scope="col"><div align="left">Sub Total</div></td>
         <td width="11" scope="col">:</td>
@@ -455,7 +455,7 @@ function penyebut($nilai) {
 <!-- <br> -->
 <table style="width: 100%; font-size: 14px;">
   <tr>
-    <td style="width: 70%;" scope="col"><div align="left">
+    <td style="width: 75%;" scope="col"><div align="left">
       <table style="width: 100%; font-size: 14px;">
         <tr>
           <td width="147" scope="col"><div align="left">Terbilang</div></td>
@@ -551,13 +551,13 @@ function penyebut($nilai) {
       <div align="center">
           <table style="width: 100%; font-size: 14px;">
               <tr>
-                <td><img src="<?=Url::base(true)?>/uploads/invoice/rev2.png" alt="" style="width: 26%"/></div></td>
+                <td><img src="<?=Url::base(true)?>/uploads/invoice/rev2.png" alt="" style="width: 20%"/></div></td>
               </tr>
           </table>
       </div>
     </td>
 
-    <td style="width: 30%;" scope="col"><div align="left">
+    <td style="width: 25%;" scope="col"><div align="left">
     <table style="width: 100%; margin-top: -5px; font-size: 14px;">
       <tr>
         <td width="187" scope="col"><div align="left">
