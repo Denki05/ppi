@@ -42,7 +42,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Product::find()->where(['product_status' => 'active']);
         $query->joinWith(array( 'factory', 'brand', 'category'));
         // add conditions that should always apply here
 

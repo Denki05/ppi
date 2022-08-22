@@ -116,7 +116,7 @@ class SalesinvoiceppnController extends BaseController
             $model->invoice_date = !empty($model->invoice_date) ? date("Y-m-d", strtotime($model->invoice_date)) : NULL;    
             $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("Y-m-d", strtotime($model->invoice_comission_pay_date)) : NULL;
             
-            $model->invoice_code = $model->getInvoiceCodePpn('invoice_code');
+            $model->invoice_code_ppn = $model->getInvoiceCodeP('invoice_code_ppn');
             $model->invoice_outstanding_amount = $model->invoice_grand_total;
 
             if(!empty($model->comission_type_id)){

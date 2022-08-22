@@ -28,7 +28,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Invoice</h4>
+                <h4 class="card-title">Invoice PPN</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -41,10 +41,15 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                     <div class="row">
                     <div class="col-lg-4">
                         <div class="row mb-1">
-                            <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_code')?></b></div>
+                            <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_code_ppn')?></b></div>
                             <div class="col-lg-1">:</div>
-                            <div class="col-lg-5"><?=isset($model->invoice_code) ? $model->invoice_code : '' ?></div>
+                            <div class="col-lg-5"><?=isset($model->invoice_code_ppn) ? $model->invoice_code_ppn : '' ?></div>
                         </div>  
+                        <div class="row mb-1">
+                            <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_type')?></b></div>
+                            <div class="col-lg-1">:</div>
+                            <div class="col-lg-5"><?=isset($model->invoice_type) ? $model->invoice_type : '' ?></div>
+                        </div>
                         <div class="row mb-1">
                             <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_date')?></b></div>
                             <div class="col-lg-1">:</div>

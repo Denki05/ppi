@@ -39,8 +39,8 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 <section class="row">
     <div class="col-lg-8">
         <div class="card">
-            <div class="card-content">
-                <div class="card-body padding-bottom-zero padding-top-zero">
+            <div class="card-content" style="background-color: #acadaf;">
+                <div class="card-body padding-bottom-zero padding-top-zero" >
                     <div class="row">
                         <div class="col-lg-6">
                             <?= $form->field($model, 'invoice_date')->textInput(['class'=>'form-control input-sm date-inputmask', "data-inputmask" =>"'alias': 'datetime','inputFormat': 'dd-mm-yyyy'"]) ?>
@@ -75,7 +75,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
     </div>
     <div class="col-lg-4">
         <div class="card">
-            <div class="card-content">
+            <div class="card-content" style="background-color: #acadaf;">
                 <div class="card-body padding-bottom-zero padding-top-zero">
                     <div class="row">
                         <div class="col-lg-12">
@@ -108,7 +108,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 <section class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-content">
+            <div class="card-content" style="background-color: #acadaf;">
                 <div class="card-body padding-bottom-zero padding-top-zero">
                     <div class="row">
                         <div class="col-lg-4">
@@ -146,7 +146,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 <section class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-content">
+            <div class="card-content" >
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">

@@ -47,7 +47,7 @@ function penyebut($nilai) {
         <td class="" style="width: 45%;">
         </td>
         <td>
-            <div class="store-name"><u>INVOICE</u></div>
+            <div class="store-name"><u>INVOICE BIASA</u></div>
         </td>
     </tr>
 </table>
@@ -308,30 +308,7 @@ function penyebut($nilai) {
           <td>:</td>
           <td><?= $model->invoice_exchange_rate?></td>
           </tr>
-        </table>
-        <br>
-        <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
-        <tr>
-          <td colspan="2"><strong>Transfer BCA SBY (Irwan Linaksita) 4720 2369 88</strong></td>
-          </tr>
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
-          </tr>
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari PPI</strong></td>
-          </tr>
         
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>PPI tidak bertanggungjawab atas pembayaran yang tidak sesuai dengan ketentuan diatas</strong></td>
-          </tr>
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>Barang yang sudah dibeli tidak dapat ditukar / dikembalikan</strong></td>
-        </tr>
-      </table>
     </div></td>
     <td style="width: 30%;" scope="col">
     <table style="width: 100%; margin-top: -20px; font-size: 14px;" border="0">

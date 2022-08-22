@@ -47,7 +47,7 @@ function penyebut($nilai) {
         <td class="" style="width: 45%;">
         </td>
         <td>
-            <div class="store-name"><u>INVOICE</u></div>
+            <div class="store-name"><u>INVOICE TEST</u></div>
         </td>
     </tr>
 </table>
@@ -296,7 +296,7 @@ function penyebut($nilai) {
           <td width="147" scope="col"><div align="left">Terbilang</div></td>
           <td width="107" scope="col">&nbsp;</td>
           <td width="368" scope="col">&nbsp;</td>
-          </tr>
+        </tr>
         <tr>
           <td colspan="3"><?= terbilang($grandTotal).' '.$currency?></td>
           </tr>
@@ -309,14 +309,10 @@ function penyebut($nilai) {
           <td><?= $model->invoice_exchange_rate?></td>
           </tr>
         </table>
-        <br>
         <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
         <tr>
-          <td colspan="2"><strong>Transfer BCA SBY (Irwan Linaksita) 4720 2369 88</strong></td>
-          </tr>
-        <tr>
             <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
+            <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
           </tr>
         <tr>
             <td style="width: 5%;"> - </td>
@@ -325,7 +321,7 @@ function penyebut($nilai) {
         
         <tr>
             <td style="width: 5%;"> - </td>
-          <td><strong>PPI tidak bertanggungjawab atas pembayaran yang tidak sesuai dengan ketentuan diatas</strong></td>
+          <td><strong>Pembayaran diluar ketentuan diatas tidak diakui</strong></td>
           </tr>
         <tr>
             <td style="width: 5%;"> - </td>
@@ -333,15 +329,15 @@ function penyebut($nilai) {
         </tr>
       </table>
     </div></td>
-    <td style="width: 30%;" scope="col">
-    <table style="width: 100%; margin-top: -20px; font-size: 14px;" border="0">
+
+    <td style="width: 30%;" scope="col"><div align="left">
+    <table style="width: 100%; margin-top: -5px; font-size: 14px;" border="0">
       <tr>
         <td width="187" scope="col"><div align="left">Sub Total</div></td>
         <td width="11" scope="col">:</td>
         <td width="101" scope="col" style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($total,0,',','.', $currency)?></div></td>
       </tr>
       <tr>
-        
         <td><div align="left">Diskon <?= $model->invoice_disc_percent?>%</div></td>
         <td>:</td>
         <td style="text-align: right;"><div align="right"><?= $model->invoice_disc_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount,0,',','.', $currency) : '-'?></div></td>
@@ -457,10 +453,10 @@ function penyebut($nilai) {
      ?>
 </table>
 <!-- <br> -->
-<table style="width: 100%; font-size: 14px;" border="0">
+<table style="width: 100%; font-size: 14px;">
   <tr>
     <td style="width: 70%;" scope="col"><div align="left">
-      <table style="width: 100%; font-size: 14px;" border="0">
+      <table style="width: 100%; font-size: 14px;">
         <tr>
           <td width="147" scope="col"><div align="left">Terbilang</div></td>
           <td width="107" scope="col">&nbsp;</td>
@@ -478,24 +474,19 @@ function penyebut($nilai) {
           <td><?= $payment->payment_exchange_rate?></td>
           </tr>
         </table>
-        <br>
         <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
-        <tr>
-          <td colspan="2"><strong>Transfer BCA SBY (Irwan Linaksita) 4720 2369 88</strong></td>
-          </tr>
-        <tr>
             <td style="width: 5%;"> - </td>
           <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
           </tr>
         <tr>
             <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari PPI</strong></td>
+          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari Kantor</strong></td>
           </tr>
         
         <tr>
             <td style="width: 5%;"> - </td>
-          <td><strong>PPI tidak bertanggungjawab atas pembayaran yang tidak sesuai dengan ketentuan diatas</strong></td>
-          </tr>
+            <td><strong>Pembayaran diluar ketentuan diatas tidak diakui</strong></td>
+        </tr>
         <tr>
             <td style="width: 5%;"> - </td>
           <td><strong>Barang yang sudah dibeli tidak dapat ditukar / dikembalikan</strong></td>
@@ -503,7 +494,7 @@ function penyebut($nilai) {
       </table>
     </div></td>
     <td style="width: 30%;" scope="col">
-    <table style="width: 100%; margin-top: -20px; font-size: 14px;" border="0">
+    <table style="width: 100%; margin-top: -20px; font-size: 14px;">
       <tr>
         <td width="187" scope="col"><div align="left">Sub Total</div></td>
         <td width="11" scope="col">:</td>
@@ -554,19 +545,29 @@ function penyebut($nilai) {
   </tr>
 </table>
 <?php endif; ?>
-<table border="0" style="font-size: 12px;">
-    <tr>
-        <td style="width: 40%; vertical-align: top; text-align: center;">
-           
-            
-        </td>
-        <td style="width: 30%">&nbsp;</td>
-        <td style="width: 30%; vertical-align: top; text-align: left;">
+<table style="width: 100%; font-size: 14px;">
+  <tr>
+    <td style="width: 80%;" scope="col" align="center">
+      <div align="center">
+          <table style="width: 100%; font-size: 14px;">
+              <tr>
+                <td><img src="<?=Url::base(true)?>/uploads/invoice/rev2.png" alt="" style="width: 26%"/></div></td>
+              </tr>
+          </table>
+      </div>
+    </td>
+
+    <td style="width: 30%;" scope="col"><div align="left">
+    <table style="width: 100%; margin-top: -5px; font-size: 14px;">
+      <tr>
+        <td width="187" scope="col"><div align="left">
             Hormat Kami,<br/><br/><br/><br/>
             
             (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
-        </td>
-    </tr>
+        </div></td>
+      </tr>
+    </table></td>
+  </tr>
 </table>

@@ -14,6 +14,7 @@ use frontend\components\PrintingHelper;
  * @property int $comission_type_id
  * @property string $invoice_date
  * @property string $invoice_code
+ * @property string $invoice_code_ppn
  * @property string $invoice_subtotal
  * @property string $invoice_disc_amount
  * @property double $invoice_disc_percent
@@ -65,12 +66,12 @@ class SalesInvoice extends \common\models\MasterModel
     public function rules()
     {
         return [
-            [['customer_id', 'salesman_id', 'invoice_date', 'invoice_code', 'invoice_subtotal', 'invoice_grand_total', 'invoice_outstanding_amount'], 'required'],
+            [['customer_id', 'salesman_id', 'invoice_date', 'invoice_subtotal', 'invoice_grand_total', 'invoice_outstanding_amount'], 'required'],
             [['customer_id', 'salesman_id', 'comission_type_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['invoice_date', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'invoice_receiver', 'invoice_destination_address', 'invoice_postal_code', 'invoice_destination_city', 'invoice_destination_province', 'payment_date', 'invoice_disc_percent2'], 'safe'],
             [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_amount2', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value', 'invoice_shipping_cost'], 'number'],
             [['invoice_status', 'invoice_payment_status', 'invoice_type'], 'string'],
-            [['invoice_code', 'invoice_number_document'], 'string', 'max' => 255],
+            [['invoice_code', 'invoice_code_ppn', 'invoice_number_document'], 'string', 'max' => 255],
             [['comission_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ComissionType::className(), 'targetAttribute' => ['comission_type_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
             [['salesman_id'], 'exist', 'skipOnError' => true, 'targetClass' => Employee::className(), 'targetAttribute' => ['salesman_id' => 'id']],
@@ -89,6 +90,7 @@ class SalesInvoice extends \common\models\MasterModel
             'comission_type_id' => 'Tipe Komisi',
             'invoice_date' => 'Tanggal Nota',
             'invoice_code' => 'Nomor Nota',
+            "invoice_code_ppn" => 'Nomor Nota PPN',
             'invoice_subtotal' => 'Subtotal',
             'invoice_disc_amount' => 'Disc Tambahan',
             'invoice_disc_amount2' => 'Disc Tambahan 2',

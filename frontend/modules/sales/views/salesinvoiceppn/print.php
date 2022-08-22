@@ -47,7 +47,7 @@ function penyebut($nilai) {
         <td class="" style="width: 45%;">
         </td>
         <td>
-            <div class="store-name"><u>INVOICE</u></div>
+            <div class="store-name"><u>INVOICE PPN</u></div>
         </td>
     </tr>
 </table>
@@ -287,7 +287,7 @@ function penyebut($nilai) {
         $grandTotal = $totalaftertax + $tips
      ?>
 </table>
-<!-- <br> -->
+<br>
 <table style="width: 100%; font-size: 14px;" border="0">
   <tr>
     <td style="width: 70%;" scope="col"><div align="left">
@@ -321,7 +321,6 @@ function penyebut($nilai) {
         <td width="101" scope="col" style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($total,0,',','.', $currency)?></div></td>
       </tr>
       <tr>
-        
         <td><div align="left">Diskon <?= $model->invoice_disc_percent?>%</div></td>
         <td>:</td>
         <td style="text-align: right;"><div align="right"><?= $model->invoice_disc_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount,0,',','.', $currency) : '-'?></div></td>

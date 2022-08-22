@@ -19,7 +19,7 @@ class SalesInvoiceSearchPpn extends SalesInvoice
     {
         return [
             [['id', 'customer_id', 'salesman_id', 'comission_type_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['invoice_date', 'invoice_code', 'invoice_status', 'invoice_payment_status', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'start_date', 'end_date', 'start_date2', 'end_date2', 'invoice_comission_value', 'payment_date', 'invoice_comission_pay_amount', 'proses_comission_pay'], 'safe'],
+            [['invoice_date', 'invoice_code_ppn', 'invoice_status', 'invoice_payment_status', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'start_date', 'end_date', 'start_date2', 'end_date2', 'invoice_comission_value', 'payment_date', 'invoice_comission_pay_amount', 'proses_comission_pay'], 'safe'],
             [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value'], 'number'],
         ];
     }
@@ -54,7 +54,7 @@ class SalesInvoiceSearchPpn extends SalesInvoice
             ],
             'sort'=>[
                 'attributes' => [
-                    'invoice_code',
+                    'invoice_code_ppn',
                     'invoice_date',
                     'invoice_status',
                     'invoice_payment_status',
@@ -74,7 +74,7 @@ class SalesInvoiceSearchPpn extends SalesInvoice
                         'desc' => ['tbl_employee.salesman_name' => SORT_DESC],
                     ],
                 ],
-                'defaultOrder' => ['invoice_code' => SORT_DESC],
+                'defaultOrder' => ['invoice_code_ppn' => SORT_DESC],
             ]
         ]);
 
@@ -106,7 +106,7 @@ class SalesInvoiceSearchPpn extends SalesInvoice
             'tbl_sales_invoice.is_deleted' => 0,
         ]);
 
-        $query->andFilterWhere(['like', 'invoice_code', $this->invoice_code])
+        $query->andFilterWhere(['like', 'invoice_code_ppn', $this->invoice_code_ppn])
             ->andFilterWhere(['like', 'tbl_customer.customer_name', $this->customer_name])
             ->andFilterWhere(['like', 'tbl_employee.salesman_name', $this->salesman_name]);
 
