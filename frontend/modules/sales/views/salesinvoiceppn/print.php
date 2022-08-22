@@ -194,7 +194,7 @@ function penyebut($nilai) {
       <tr>
         <td style="width: 30%;">No Invoice</td>
         <td style="width: 5%;" >:</td>
-        <td style="width: 65%;"><?= $model->invoice_code?></td>
+        <td style="width: 65%;"><?= $model->invoice_code_ppn ?></td>
       </tr>
       <tr>
         <td>Tanggal</td>
