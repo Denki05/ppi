@@ -11,6 +11,8 @@ use Yii;
  * @property string $bank_name
  * @property string $bank_acc_name
  * @property string $bank_acc_number
+ * @property string $bank_type
+ * @property string $bank_image
  * @property string $created_on
  * @property string $updated_on
  * @property int $created_by
@@ -39,7 +41,8 @@ class Bank extends \common\models\MasterModel
             [['bank_name', 'bank_acc_name', 'bank_acc_number'], 'required'],
             [['created_on', 'updated_on'], 'safe'],
             [['created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['bank_name', 'bank_acc_name', 'bank_acc_number'], 'string', 'max' => 255],
+            [['bank_type'], 'string'],
+            [['bank_name', 'bank_acc_name', 'bank_acc_number', 'bank_image'], 'string', 'max' => 255],
         ];
     }
 
@@ -53,6 +56,8 @@ class Bank extends \common\models\MasterModel
             'bank_name' => 'Bank Name',
             'bank_acc_name' => 'Bank Acc Name',
             'bank_acc_number' => 'Bank Acc Number',
+            'bank_type' => 'Bank Type',
+            'bank_image' => 'Bank Image',
             'created_on' => 'Created On',
             'updated_on' => 'Updated On',
             'created_by' => 'Created By',

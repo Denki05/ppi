@@ -27,6 +27,9 @@ return [
         'employee' => [
             'class' => 'frontend\modules\employee\Employee',
         ],
+        'rekening' => [
+            'class' => 'frontend\modules\rekening\Rekening',
+        ],
         'product' => [
             'class' => 'frontend\modules\product\Product',
         ],

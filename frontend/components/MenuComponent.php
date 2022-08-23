@@ -21,7 +21,7 @@ class MenuComponent extends Component{
 				'label' => 'Master Data',
 				'url' => '#',
 				'icon' => 'mbri-extension',
-				'active' => in_array($currentModule, array('customer', 'comissiontype', 'comissionpayrule', 'product', 'employee')) ? true : false,
+				'active' => in_array($currentModule, array('customer', 'comissiontype', 'comissionpayrule', 'product', 'employee', 'rekening')) ? true : false,
 				'visible' => true,
 				'items' => array(
 					[
@@ -57,6 +57,13 @@ class MenuComponent extends Component{
 						'url' => 'employee',
 						'icon' => 'la la-users',
 						'active' => $currentModule == 'employee' ? true : false,
+						'visible' => true
+					],
+					[
+						'label' => 'Rekening',
+						'url' => 'rekening',
+						'icon' => 'la la-bank',
+						'active' => $currentModule == 'rekening' ? true : false,
 						'visible' => true
 					]
 				)
