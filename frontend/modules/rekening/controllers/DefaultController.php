@@ -12,6 +12,9 @@ use app\components\BaseController;
 use yii\web\NotFoundHttpException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\web\UploadedFile;
+use yii\imagine\Image;  
+use Imagine\Image\Box;
 
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
@@ -34,21 +37,54 @@ class DefaultController extends BaseController
     
     public function actionCreate()
     {
-        BaseController::$page_caption = 'Tambah Karyawan';
+        BaseController::$page_caption = 'Tambah Rekening';
 
         $model = new Bank();
+        $model->bank_type = Bank::BANK_TYPE_NON_PPN;
+
 
         if ($model->load(Yii::$app->request->post())) {
+            $noProblem = true;
+            $trans = Yii::$app->db->beginTransaction();
 
-            $model->user_id = 1;
+            //$imageCardname = uniqid(rand());
+            $imageBankname = uniqid(rand());
+            //$model->imageCard = NULL;
+            $model->imageBank = NULL;
+            //$model->imageCard  = UploadedFile::getInstanceByName('Customer[customer_identity_card_image]');
+            $model->imageBank  = UploadedFile::getInstanceByName('Bank[bank_image]');
+            //$model->customer_identity_card_image = !empty($model->imageCard) ? $imageCardname.'.'.$model->imageCard->extension : "";
+            $model->bank_image = !empty($model->imageBank) ? $imageBankname.'.'.$model->imageBank->extension : "";
+
+            //$model->customer_birthday = !empty($model->customer_birthday) ? date("Y-m-d", strtotime($model->customer_birthday)) : "";
+            //$model->customer_store_code = $model->getStoreCode('S', 'customer_store_code');
+
             if($model->save()){
-                Yii::$app->session->setFlash('success', 'Brand '.LabelComponent::SUCCESS_SAVE);
+                
+                $path = realpath(dirname(__FILE__).'/../../../../').'/uploads/rekening';
+                if ($model->imageBank) {
+                    $model->imageBank->saveAs($path."/".$model->bank_image);
+                }
+
+            }else{
+                $errorString = ErrorGenerateComponent::generateErrorLabels($model->getErrors());
+                Yii::$app->session->setFlash('danger', 'Gagal menyimpan Data karena kesalahan berikut: '.$errorString);
+                $noProblem = false;
+            }
+
+            if($noProblem){
+                $trans->commit();
+                Yii::$app->session->setFlash('success', 'Rekening '.LabelComponent::SUCCESS_SAVE);
+
                 if (isset($_POST['saveandnew']) && $_POST['saveandnew'] == "1")
                     return $this->redirect(['create']);
                 else
                     return $this->redirect(['index']);
+                
             }
-			
+
+            //$model->customer_birthday = !empty($model->customer_birthday) ? date("d-m-Y", strtotime($model->customer_birthday)) : "";
+            $trans->rollBack();
         }
 
         return $this->render('form', [

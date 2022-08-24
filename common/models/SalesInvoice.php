@@ -12,6 +12,7 @@ use frontend\components\PrintingHelper;
  * @property int $customer_id
  * @property int $salesman_id
  * @property int $comission_type_id
+ * @property int $bank_id
  * @property string $invoice_date
  * @property string $invoice_code
  * @property string $invoice_code_ppn
@@ -37,6 +38,7 @@ use frontend\components\PrintingHelper;
  * @property TblComissionType $comissionType
  * @property TblCustomer $customer
  * @property TblEmployee $salesman
+ * @property TblBank $bank
  * @property TblSalesPayment[] $tblSalesPayments
  */
 class SalesInvoice extends \common\models\MasterModel
@@ -50,7 +52,7 @@ class SalesInvoice extends \common\models\MasterModel
     const STATUS_INVOICE_PPN = 'ppn';
     // const STATUS_INVOICE_NON_PPN = 'nonppn';
 
-    public $customer_name, $salesman_name, $payment_date;
+    public $customer_name, $salesman_name, $payment_date, $bank_type, $bank_image;
 
     /**
      * {@inheritdoc}
@@ -67,7 +69,7 @@ class SalesInvoice extends \common\models\MasterModel
     {
         return [
             [['customer_id', 'salesman_id', 'invoice_date', 'invoice_subtotal', 'invoice_grand_total', 'invoice_outstanding_amount'], 'required'],
-            [['customer_id', 'salesman_id', 'comission_type_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['customer_id', 'salesman_id', 'comission_type_id', 'bank_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['invoice_date', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'invoice_receiver', 'invoice_destination_address', 'invoice_postal_code', 'invoice_destination_city', 'invoice_destination_province', 'payment_date', 'invoice_disc_percent2'], 'safe'],
             [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_amount2', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value', 'invoice_shipping_cost'], 'number'],
             [['invoice_status', 'invoice_payment_status', 'invoice_type'], 'string'],
@@ -75,6 +77,7 @@ class SalesInvoice extends \common\models\MasterModel
             [['comission_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ComissionType::className(), 'targetAttribute' => ['comission_type_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
             [['salesman_id'], 'exist', 'skipOnError' => true, 'targetClass' => Employee::className(), 'targetAttribute' => ['salesman_id' => 'id']],
+            [['bank_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bank::className(), 'targetAttribute' => ['bank_id' => 'id']],
         ];
     }
 
@@ -88,6 +91,7 @@ class SalesInvoice extends \common\models\MasterModel
             'customer_id' => 'Customer',
             'salesman_id' => 'Sales',
             'comission_type_id' => 'Tipe Komisi',
+            'bank_id' => 'Rekening Transfer',
             'invoice_date' => 'Tanggal Nota',
             'invoice_code' => 'Nomor Nota',
             "invoice_code_ppn" => 'Nomor Nota PPN',
@@ -138,6 +142,14 @@ class SalesInvoice extends \common\models\MasterModel
     public function getComissionType()
     {
         return $this->hasOne(ComissionType::className(), ['id' => 'comission_type_id']);
+    }
+
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBankType()
+    {
+        return $this->hasOne(Bank::className(), ['id' => 'bank_id']);
     }
 
     /**

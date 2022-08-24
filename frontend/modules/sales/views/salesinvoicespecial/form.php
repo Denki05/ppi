@@ -14,6 +14,7 @@ use common\components\CurrencyComponent;
 use common\models\Employee;
 use common\models\Customer;
 use common\models\Product;
+use common\models\Bank;
 use common\models\Brand;
 use common\models\Category;
 use common\models\ComissionType;
@@ -59,6 +60,11 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                         </div>
                         <div class="col-lg-6">
                             <?= $form->field($model, 'invoice_exchange_rate')->textInput(['class'=>'form-control input-sm angka']) ?>
+                        </div>
+                        <div class="col-lg-6">
+                            <?= $form->field($model, 'bank_id')
+                                ->dropDownList(ArrayHelper::map(Bank::find()->where('is_deleted=:is', [':is' => 0])->all(),'id','bank_type' ), ['class' => 'form-control input-sm select2', 'prompt' => 'Pilih Rekening Transfer']);
+                            ?>
                         </div>
                     </div>
                 </div>

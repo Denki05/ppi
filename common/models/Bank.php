@@ -24,6 +24,13 @@ use Yii;
  */
 class Bank extends \common\models\MasterModel
 {
+    const BANK_TYPE_PPN = 'ppn';
+    const BANK_TYPE_NON_PPN = 'nonppn';
+    const BANK_LIST_BCA = 'BCA';
+    const BANK_LIST_MANDIRI = 'MANDIRI';
+    const BANK_LIST_BRI = 'BRI';
+    const BANK_LIST_BNI = 'BNI';
+    public $imageBank;
     /**
      * {@inheritdoc}
      */
@@ -42,7 +49,8 @@ class Bank extends \common\models\MasterModel
             [['created_on', 'updated_on'], 'safe'],
             [['created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['bank_type'], 'string'],
-            [['bank_name', 'bank_acc_name', 'bank_acc_number', 'bank_image'], 'string', 'max' => 255],
+            [['imageBank'],'file', 'extensions' => 'png,jpg,jpeg', 'maxSize' => 1024000, 'skipOnEmpty' => true],
+            [['bank_name', 'bank_acc_name', 'bank_acc_number', 'bank_image', 'bank_note'], 'string', 'max' => 255],
         ];
     }
 
@@ -54,15 +62,17 @@ class Bank extends \common\models\MasterModel
         return [
             'id' => 'ID',
             'bank_name' => 'Bank Name',
-            'bank_acc_name' => 'Bank Acc Name',
-            'bank_acc_number' => 'Bank Acc Number',
+            'bank_acc_name' => 'Bank Name',
+            'bank_acc_number' => 'Bank Number',
             'bank_type' => 'Bank Type',
-            'bank_image' => 'Bank Image',
+            'bank_image' => 'Foto Rekening',
+            'bank_note' => 'Catatan',
             'created_on' => 'Created On',
             'updated_on' => 'Updated On',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'is_deleted' => 'Is Deleted',
+            'imageBank' => 'Upload Rekening',
         ];
     }
 
@@ -84,5 +94,27 @@ class Bank extends \common\models\MasterModel
 
     public function getBankName(){
         return $this->bank_acc_name.' - '.$this->bank_name.' '.$this->bank_acc_number;
+    }
+
+    public function getBankType($type='')
+    {
+        $types = [
+            self::BANK_TYPE_PPN => 'PPN',
+            self::BANK_TYPE_NON_PPN => 'Non PPN',
+        ];
+
+        return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");
+    }
+
+    public function getBankList($type='')
+    {
+        $types = [
+            self::BANK_LIST_BCA => 'BCA',
+            self::BANK_LIST_MANDIRI => 'MANDIRI',
+            self::BANK_LIST_BRI => 'BRI',
+            self::BANK_LIST_BNI => 'BNI',
+        ];
+
+        return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");
     }
 }
