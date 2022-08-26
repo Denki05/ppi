@@ -51,6 +51,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 						            'bank_name',
                                     'bank_acc_name',
                                     'bank_acc_number',
+                                    'bank_type',
                                     'bank_note',
                                     [
                                         'class' => 'yii\grid\ActionColumn',

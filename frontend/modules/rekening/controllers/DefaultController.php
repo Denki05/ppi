@@ -48,7 +48,7 @@ class DefaultController extends BaseController
             $trans = Yii::$app->db->beginTransaction();
 
             //$imageCardname = uniqid(rand());
-            $imageBankname = uniqid(rand());
+            $imageBankname = !empty($model->bank_acc_name) ? $model->bank_acc_number : "";
             //$model->imageCard = NULL;
             $model->imageBank = NULL;
             //$model->imageCard  = UploadedFile::getInstanceByName('Customer[customer_identity_card_image]');

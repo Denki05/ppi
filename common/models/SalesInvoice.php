@@ -147,7 +147,7 @@ class SalesInvoice extends \common\models\MasterModel
      /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBankType()
+    public function getBank()
     {
         return $this->hasOne(Bank::className(), ['id' => 'bank_id']);
     }
@@ -429,5 +429,13 @@ class SalesInvoice extends \common\models\MasterModel
         $contentBody .= $contentFooter;
 
         return $contentBody;
+    }
+
+    public function relations()
+    {
+        return array(
+            'bank'=>array(self::HAS_MANY, 'Bank',
+                'tbl_bank(bank_id)'),
+        );
     }
 }

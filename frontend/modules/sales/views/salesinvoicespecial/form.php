@@ -63,7 +63,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                         </div>
                         <div class="col-lg-6">
                             <?= $form->field($model, 'bank_id')
-                                ->dropDownList(ArrayHelper::map(Bank::find()->where('is_deleted=:is', [':is' => 0])->all(),'id','bank_type' ), ['class' => 'form-control input-sm select2', 'prompt' => 'Pilih Rekening Transfer']);
+                                ->dropDownList(ArrayHelper::map(Bank::find()->where('is_deleted=:is', [':is' => 0])->all(),'id','bank_acc_number','bank_acc_name' ), ['class' => 'form-control input-sm select2', 'prompt' => 'Pilih Rekening']);
                             ?>
                         </div>
                     </div>

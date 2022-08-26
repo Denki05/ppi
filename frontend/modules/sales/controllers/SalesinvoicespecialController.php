@@ -8,6 +8,7 @@ use common\models\SalesInvoiceItem;
 use common\models\Category;
 use common\models\Customer;
 use common\models\Product;
+use common\models\Bank;
 use frontend\models\SalesInvoiceSearch;
 // use yii\web\Controller;
 use common\components\ErrorGenerateComponent;
@@ -80,6 +81,18 @@ class SalesinvoicespecialController extends BaseController
             'customer_province' => isset($item->customer_province) ? $item->customer_province : '',
             'customer_city' => isset($item->customer_city) ? $item->customer_city : '',
         );
+        
+        return Json::encode($hasil);
+        die();
+    }
+
+    public function actionGetbank($id)
+    {
+        $items = Bank::find()
+        ->where('id=:id',[':id'=>$id])->one();
+
+        $hasil = array('bank_acc_name' => $items->bank_acc_name,
+                'bank_acc_number' => $items->bank_acc_number);
         
         return Json::encode($hasil);
         die();

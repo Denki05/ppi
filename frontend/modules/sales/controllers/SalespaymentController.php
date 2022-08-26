@@ -78,6 +78,7 @@ class SalespaymentController extends BaseController
             'invoice_code' => $items->invoice_code,
             'invoice_date' => $items->invoice_date,
             'customer_name' => $items->customer->customerName,
+            'customer_address' => $items->customer->customer_store_address,
             'salesman_name' =>$items->salesman->employee_name,
             'comission_type_name' =>isset($items->comissionType->comission_type_name) ? $items->comissionType->comission_type_name : '',
             'invoice_disc_amount' =>$items->invoice_disc_amount,

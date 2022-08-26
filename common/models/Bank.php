@@ -30,6 +30,7 @@ class Bank extends \common\models\MasterModel
     const BANK_LIST_MANDIRI = 'MANDIRI';
     const BANK_LIST_BRI = 'BRI';
     const BANK_LIST_BNI = 'BNI';
+    
     public $imageBank;
     /**
      * {@inheritdoc}
@@ -62,7 +63,7 @@ class Bank extends \common\models\MasterModel
         return [
             'id' => 'ID',
             'bank_name' => 'Bank Name',
-            'bank_acc_name' => 'Bank Name',
+            'bank_acc_name' => 'Bank Owner Name',
             'bank_acc_number' => 'Bank Number',
             'bank_type' => 'Bank Type',
             'bank_image' => 'Foto Rekening',
@@ -116,5 +117,12 @@ class Bank extends \common\models\MasterModel
         ];
 
         return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");
+    }
+
+    public function relations()
+    {
+        return array(
+            'sales'=>array(self::HAS_MANY, 'SalesInvoice', 'bank_id'),
+        );
     }
 }

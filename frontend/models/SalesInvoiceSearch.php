@@ -18,7 +18,7 @@ class SalesInvoiceSearch extends SalesInvoice
     public function rules()
     {
         return [
-            [['id', 'customer_id', 'salesman_id', 'comission_type_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['id', 'customer_id', 'bank_id', 'salesman_id', 'comission_type_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['invoice_date', 'invoice_code', 'invoice_status', 'invoice_payment_status', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'start_date', 'end_date', 'start_date2', 'end_date2', 'invoice_comission_value', 'payment_date', 'invoice_comission_pay_amount', 'proses_comission_pay'], 'safe'],
             [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value'], 'number'],
         ];

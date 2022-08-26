@@ -4,6 +4,8 @@ use common\components\CurrencyComponent;
 use common\models\Product;
 use common\models\SalesPayment;
 use common\models\SalesInvoiceItem;
+use common\models\SalesInvoice;
+use common\models\Bank;
 
 function penyebut($nilai) {
         $nilai = abs($nilai);
@@ -392,7 +394,7 @@ function penyebut($nilai) {
     <th class="acuan" style="width: 10%;"><center>Acuan (USD)</center></th>
     <th class="qty" style="width: 5%;"><center>Qty (KG)</center></th>
     <th class="packaging" style="width: 10%;"><center>Kemasan</center></th>
-    <th  class="price" style="width: 10%;"><center>Harga</center></th>
+    <th class="price" style="width: 10%;"><center>Harga</center></th>
     <th class="discon" style="width: 10%;"><center>Diskon (Cash)</center></th>
     <th class="netto" style="width: 10%;"><center>Netto</center></th>
     <th style="width: 15%;"><center>Jumlah</center></th>
@@ -551,12 +553,11 @@ function penyebut($nilai) {
       <div align="center">
           <table style="width: 100%; font-size: 14px;">
               <tr>
-                <td><img src="<?=Url::base(true)?>/uploads/invoice/rev2.png" alt="" style="width: 20%"/></div></td>
+                <td><?= null ?></div></td>
               </tr>
           </table>
       </div>
     </td>
-
     <td style="width: 25%;" scope="col"><div align="left">
     <table style="width: 100%; margin-top: -5px; font-size: 14px;">
       <tr>
