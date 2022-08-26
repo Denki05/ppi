@@ -85,18 +85,6 @@ class SalesinvoicespecialController extends BaseController
         return Json::encode($hasil);
         die();
     }
-
-    public function actionGetbank($id)
-    {
-        $items = Bank::find()
-        ->where('id=:id',[':id'=>$id])->one();
-
-        $hasil = array('bank_acc_name' => $items->bank_acc_name,
-                'bank_acc_number' => $items->bank_acc_number);
-        
-        return Json::encode($hasil);
-        die();
-    }
     
     public function actionView($id)
     {

@@ -430,12 +430,4 @@ class SalesInvoice extends \common\models\MasterModel
 
         return $contentBody;
     }
-
-    public function relations()
-    {
-        return array(
-            'bank'=>array(self::HAS_MANY, 'Bank',
-                'tbl_bank(bank_id)'),
-        );
-    }
 }
