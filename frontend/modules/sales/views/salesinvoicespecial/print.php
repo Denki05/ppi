@@ -553,7 +553,7 @@ function penyebut($nilai) {
       <div align="center">
           <table style="width: 100%; font-size: 14px;">
               <tr>
-                <td><?= null ?></div></td>
+                <td><?= NULL ?></div></td>
               </tr>
           </table>
       </div>

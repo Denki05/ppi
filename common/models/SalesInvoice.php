@@ -52,7 +52,7 @@ class SalesInvoice extends \common\models\MasterModel
     const STATUS_INVOICE_PPN = 'ppn';
     // const STATUS_INVOICE_NON_PPN = 'nonppn';
 
-    public $customer_name, $salesman_name, $payment_date, $bank_type, $bank_image;
+    public $customer_name, $salesman_name, $payment_date, $bank_type, $bank_name;
 
     /**
      * {@inheritdoc}
@@ -68,8 +68,8 @@ class SalesInvoice extends \common\models\MasterModel
     public function rules()
     {
         return [
-            [['customer_id', 'salesman_id', 'invoice_date', 'invoice_subtotal', 'invoice_grand_total', 'invoice_outstanding_amount'], 'required'],
-            [['customer_id', 'salesman_id', 'comission_type_id', 'bank_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['customer_id', 'salesman_id', 'bank_id', 'invoice_date', 'invoice_subtotal', 'invoice_grand_total', 'invoice_outstanding_amount'], 'required'],
+            [['customer_id', 'salesman_id', 'bank_id', 'comission_type_id', 'bank_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['invoice_date', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'invoice_receiver', 'invoice_destination_address', 'invoice_postal_code', 'invoice_destination_city', 'invoice_destination_province', 'payment_date', 'invoice_disc_percent2'], 'safe'],
             [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_amount2', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value', 'invoice_shipping_cost'], 'number'],
             [['invoice_status', 'invoice_payment_status', 'invoice_type'], 'string'],
@@ -113,6 +113,7 @@ class SalesInvoice extends \common\models\MasterModel
             'invoice_comission_pay_date' => 'Tanggal Komisi',
             'salesman_name' => 'Sales',
             'customer_name' => 'Customer',
+            'bank_name' => 'Rekening',
             'created_on' => 'Created On',
             'updated_on' => 'Updated On',
             'created_by' => 'Created By',
@@ -144,7 +145,7 @@ class SalesInvoice extends \common\models\MasterModel
         return $this->hasOne(ComissionType::className(), ['id' => 'comission_type_id']);
     }
 
-     /**
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getBank()

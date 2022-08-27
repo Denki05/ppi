@@ -12,6 +12,7 @@ use frontend\components\ButtonComponent;
 use common\models\Product;
 use common\models\SalesInvoice;
 use common\models\SalesInvoiceItem;
+use common\models\Bank;
 
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);

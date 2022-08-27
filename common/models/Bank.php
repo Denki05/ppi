@@ -21,6 +21,7 @@ use Yii;
  *
  * @property TblPurchasePaymentDetail[] $tblPurchasePaymentDetails
  * @property TblSalesPaymentDetail[] $tblSalesPaymentDetails
+ * @property TblSalesInvoice[] $tblSalesInvoice
  */
 class Bank extends \common\models\MasterModel
 {
@@ -91,6 +92,14 @@ class Bank extends \common\models\MasterModel
     public function getSalesPaymentDetails()
     {
         return $this->hasMany(SalesPaymentDetail::className(), ['bank_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSalesInvoice()
+    {
+        return $this->hasMany(SalesInvoice::className(), ['bank_id' => 'id']);
     }
 
     public function getBankName(){

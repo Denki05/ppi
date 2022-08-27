@@ -27,7 +27,7 @@ use Yii;
  */
 class SalesPayment extends \common\models\MasterModel
 {
-    public $customer_name, $invoice_code;
+    public $customer_name, $invoice_code, $salesman_name;
     /**
      * {@inheritdoc}
      */

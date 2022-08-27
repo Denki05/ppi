@@ -11,7 +11,7 @@ use common\models\SalesInvoice;
  */
 class SalesInvoiceSearch extends SalesInvoice
 {
-    public $customer_name, $salesman_name, $start_date, $end_date, $start_date2, $end_date2, $payment_date, $proses_comission_pay = 0;
+    public $customer_name, $salesman_name, $bank_name, $start_date, $end_date, $start_date2, $end_date2, $payment_date, $proses_comission_pay = 0;
     /**
      * {@inheritdoc}
      */
@@ -43,7 +43,7 @@ class SalesInvoiceSearch extends SalesInvoice
     public function search($params)
     {
         $query = SalesInvoice::find()->where(['invoice_type' => NULL]);
-        $query->joinWith(array('customer', 'salesman', 'salesPayments', 'bank'));
+        $query->joinWith(array('customer', 'salesman', 'bank', 'salesPayments'));
 
         // add conditions that should always apply here
 
@@ -72,6 +72,10 @@ class SalesInvoiceSearch extends SalesInvoice
                     'salesman_name' => [
                         'asc' => ['tbl_employee.salesman_name' => SORT_ASC],
                         'desc' => ['tbl_employee.salesman_name' => SORT_DESC],
+                    ],
+                    'bank_name' => [
+                        'asc' => ['tbl_bank.bank_name' => SORT_ASC],
+                        'desc' => ['tbl_bank.bank_name' => SORT_DESC],
                     ],
                 ],
                 'defaultOrder' => ['invoice_code' => SORT_DESC],

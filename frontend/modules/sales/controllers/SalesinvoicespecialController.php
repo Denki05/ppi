@@ -69,6 +69,22 @@ class SalesinvoicespecialController extends BaseController
         die();
     }
 
+    public function actionGetbank($id)
+    {
+        $item = Bank::find()->where('id=:id',[':id'=>$id])->one();
+
+        $hasil = array();
+        if(!empty($item)){
+            $hasil = array(
+                'bank_name' => $item->bank_name,
+                'bank_acc_number' => $item->bank_acc_number,
+            );
+        }
+        
+        return Json::encode($hasil);
+        die();
+    }
+
     public function actionGetcustomer($id)
     {
         $item = Customer::find()->where('id=:id',[':id'=>$id])->one();
