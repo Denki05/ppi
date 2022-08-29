@@ -19,6 +19,7 @@ class ButtonComponent extends Controller
                 foreach($params as $key => $param) {
                     $stringParam .= $i > 0 ? '&'.$key.'='.$param : $key.'='.$param;
                 }
+            // dd($stringParam);
             }
             return '<button href="javascript:;" onclick="window.location.href = \''.Url::base().'/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id.'/create'.$stringParam.'\';" type="button" class="btn btn-outline-primary btn-sm"><i class="la la-plus"></i></button>';
             // return '<a href="'.Url::base().'/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id.'/create'.$stringParam.'">

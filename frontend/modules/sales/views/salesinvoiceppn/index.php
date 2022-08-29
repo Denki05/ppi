@@ -52,7 +52,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                 // ],
 						        'columns' => [
 						            ['class' => 'yii\grid\SerialColumn'],
-						            'invoice_code_ppn',
+						            'invoice_code',
                                     [
                                         'attribute' => 'invoice_date',
                                         'value' => function($model) {

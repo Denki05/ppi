@@ -19,6 +19,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Json;
 use kartik\mpdf\Pdf;
+use yii\helpers\VarDumper;
 
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
@@ -132,7 +133,6 @@ class SalesinvoicespecialController extends BaseController
 
             $model->invoice_date = !empty($model->invoice_date) ? date("Y-m-d", strtotime($model->invoice_date)) : NULL;    
             $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("Y-m-d", strtotime($model->invoice_comission_pay_date)) : NULL;
-            
             $model->invoice_code = $model->getInvoiceCode('invoice_code');
             $model->invoice_outstanding_amount = $model->invoice_grand_total;
 
@@ -168,10 +168,13 @@ class SalesinvoicespecialController extends BaseController
                     }
                 }
 
+                // dd($model->invoice_code);
+
                 if ($noItem) {
                     Yii::$app->session->setFlash('danger', 'Paling sedikit harus memilih 1 barang');
                     $noProblem = false;
                 }
+                // dd($model->invoice_code);
             }
             else{
                 $errorMessage = ErrorGenerateComponent::generateErrorLabels($model->getErrors());
@@ -199,7 +202,7 @@ class SalesinvoicespecialController extends BaseController
 
             $trans->rollback();
 			$model->invoice_date = !empty($model->invoice_date) ? date("d-m-Y", strtotime($model->invoice_date)) : NULL;    
-            $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("d-m-Y", strtotime($model->invoice_comission_pay_date)) : NULL;    
+            $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("d-m-Y", strtotime($model->invoice_comission_pay_date)) : NULL;
         }
 
         return $this->render('form', [

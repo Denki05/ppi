@@ -6,6 +6,7 @@ use common\models\SalesPayment;
 use common\models\SalesInvoiceItem;
 use common\models\SalesInvoice;
 use common\models\Bank;
+use yii\helpers\Html;
 
 function penyebut($nilai) {
         $nilai = abs($nilai);
@@ -553,7 +554,7 @@ function penyebut($nilai) {
       <div align="center">
           <table style="width: 100%; font-size: 14px;">
               <tr>
-                <td><?= NULL ?></div></td>
+                <td><?= $model->bank->bank_name ?></div></td>
               </tr>
           </table>
       </div>

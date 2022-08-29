@@ -53,8 +53,10 @@ class MasterModel extends \yii\db\ActiveRecord
 	public function getMaxId($yearMonth, $field) 
 	{
 		$connection = \Yii::$app->db;
-        $row = $connection->createCommand('SELECT MAX('.$field.') as mid FROM '.$this->tableName().' WHERE '.$field.' LIKE "%'.$yearMonth.'%"')->queryOne();
-        if ($row['mid']) {
+		$str =  ('SELECT MAX('.$field.') as mid FROM '.$this->tableName().' WHERE '.$field.' LIKE "'.$yearMonth.'%"');
+		// dd($str);
+        $row = $connection->createCommand($str)->queryOne();
+		if ($row['mid']) {
             return $row['mid'];
         } else {
             return 'false';
@@ -86,8 +88,8 @@ class MasterModel extends \yii\db\ActiveRecord
 	
 	public function getLatestNumber($code, $field)
 	{
-		$parts = explode('-', date("d-m-Y"));
-		$yearMonth = $parts[2] . $parts[1];
+		$parts1 = explode('-', date("d-m-Y"));
+		$yearMonth = $parts1[2] . $parts1[1];
 		$latestNumber = "";
         if ($this->getMaxId($yearMonth, $field) == 'false') {
             $latestNumber = $code . $yearMonth . '001';
@@ -104,8 +106,8 @@ class MasterModel extends \yii\db\ActiveRecord
 	public function getLatestNumberP($codeP, $fieldP)
 	{
 		$partsP = explode('-', date("d-m-Y"));
-		$ppn = 'P';
-		$yearMonthP = $ppn . $partsP[2] . $partsP[1];
+		// $ppn = 'P';
+		$yearMonthP = $partsP[2] . $partsP[1];
 		$latestNumberP = "";
         if ($this->getMaxIdP($yearMonthP, $fieldP) == 'false') {
             $latestNumberP = $codeP . $yearMonthP . '001';
@@ -152,7 +154,7 @@ class MasterModel extends \yii\db\ActiveRecord
 		$abjP = $partsP[1] <= 9 ? substr($partsP[1], 1) : $partsP[1];
 		$p2P = $this->getAbjadMonth($abjP);
 		$ppn = 'P';
-		$yearMonthP = $ppn.$p1P.$p2P;
+		$yearMonthP = $ppn . $p1P . $p2P;
 		$latestNumberP = "";
         if ($this->getMaxIdP($yearMonthP, $fieldP) == 'false') {
             $latestNumberP = $yearMonthP . '001';
@@ -162,6 +164,7 @@ class MasterModel extends \yii\db\ActiveRecord
 			$idP = (int) substr($latestNumberP, strlen($yearMonthP)) + 1;
 			$latestNumberP = $yearMonthP . str_pad($idP, 3, 0, STR_PAD_LEFT);
 		}
+
 		return $latestNumberP;
 	}
 

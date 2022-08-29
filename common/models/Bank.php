@@ -127,4 +127,19 @@ class Bank extends \common\models\MasterModel
 
         return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");
     }
+
+    public function relations()
+
+	{
+
+		// NOTE: you may need to adjust the relation name and the related
+
+		// class name for the relations automatically generated below.
+
+		return array(
+
+                  'sales'=>array(self::HAS_MANY, 'SalesInvoice', 'bank_id'),
+		);
+
+	}
 }
