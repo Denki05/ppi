@@ -38,6 +38,11 @@ class SalesinvoiceppnController extends BaseController
         ]);
     }
 
+    public function getImageurl()
+    {
+      return \Yii::getAlias('@imageurl').'/'.$this->picture;
+    }
+
     public function actionGetitemrow($id)
     {
         $item = Product::find()->where('id=:id',[':id'=>$id])->one();

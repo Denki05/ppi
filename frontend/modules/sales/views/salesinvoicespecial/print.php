@@ -554,7 +554,7 @@ function penyebut($nilai) {
       <div align="center">
           <table style="width: 100%; font-size: 14px;">
               <tr>
-                <td><?= $model->bank->bank_name ?></div></td>
+                <td><img src="<?php echo Yii::getAlias('@imageurl')."/".$model->bank->bank_image; ?>" style="width: 20%;" alt="User Image"/></div></td>
               </tr>
           </table>
       </div>
