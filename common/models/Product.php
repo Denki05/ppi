@@ -51,6 +51,14 @@ class Product extends \common\models\MasterModel
     const PRODUCT_TYPE_REGULAR = 'regular';
     const PRODUCT_TYPE_SLOW = 'slow';
     const PRODUCT_TYPE_DISCONTINUE = 'discontinue';
+    const PRODUCT_TYPE_GCF = 'gcf';
+    const PRODUCT_TYPE_SENSES = 'senses';
+    const PRODUCT_TYPE_PROJECT_FF = 'projectff';
+    const PRODUCT_TYPE_PROJECT_NON_FF = 'projectnonff';
+    const PRODUCT_TYPE_DUFTNOL = 'duftnol';
+    const PRODUCT_TYPE_SELUZ = 'seluz';
+    const PRODUCT_TYPE_LAIN = 'lain';
+
     public $image, $mode, $factory_name, $brand_name, $category_name, $productLabel;
     /**
      * {@inheritdoc}
@@ -68,7 +76,7 @@ class Product extends \common\models\MasterModel
         return [
             [[ 'product_code', 'product_name', 'factory_id', 'brand_id', 'original_brand_id', 'searah_id', 'product_gender', 'product_cost_price', 'product_sell_price', 'product_status', 'product_type'], 'required'],
             [[ 'product_is_new', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['product_gender', 'product_web_image', 'product_status'], 'string'],
+            [['product_gender', 'product_web_image', 'product_status', 'product_type'], 'string'],
             [['product_cost_price', 'product_sell_price'], 'number'],
             [['created_on', 'updated_on', 'factory_id', 'searah_id','brand_id', 'category_id', 'original_brand_id', 'mode', 'factory_name', 'brand_name', 'category_name', 'productLabel', 'product_type'], 'safe'],
             [['image'],'file', 'extensions' => 'png,jpg,jpeg', 'maxSize' => 1024000, 'skipOnEmpty' => true],
@@ -212,16 +220,23 @@ class Product extends \common\models\MasterModel
 
     public function getProductType($type='')
     {
-        $types = [
+        $types = array(
             self::PRODUCT_TYPE_SAMPLE => 'Sample',
             self::PRODUCT_TYPE_NEW => 'Baru',
             self::PRODUCT_TYPE_BESTSELLER => 'Best Seller',
             self::PRODUCT_TYPE_REGULAR => 'Regular',
             self::PRODUCT_TYPE_SLOW => 'Slow',
             self::PRODUCT_TYPE_DISCONTINUE => 'Berhenti',
-        ];
+            self::PRODUCT_TYPE_GCF => 'GCF',
+            self::PRODUCT_TYPE_SENSES => 'Senses',
+            self::PRODUCT_TYPE_PROJECT_FF => 'Project FF',
+            self::PRODUCT_TYPE_PROJECT_NON_FF => 'Project Non FF',
+            self::PRODUCT_TYPE_DUFTNOL => 'Duftnol',
+            self::PRODUCT_TYPE_SELUZ => 'Seluz',
+            self::PRODUCT_TYPE_LAIN => 'Lain',
+        );
 
-        return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");
+        return $type == '' ? $types : (isset($types[$type]) ? $types[$type] : "");
     }
 
     public function setNewFactory($name){
