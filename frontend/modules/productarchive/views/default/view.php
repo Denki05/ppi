@@ -122,7 +122,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 	            		<div class="col-lg-4"><b><?=$model->getAttributeLabel('product_status')?></b></div>
 	            		<div class="col-lg-1">:</div>
 	            		<div class="col-lg-5"><?=$model->product_status?></div>
-                	</div>	
+                	</div>
 					<div class="row mb-1">
 	            		<div class="col-lg-4"><b><?=$model->getAttributeLabel('product_live')?></b></div>
 	            		<div class="col-lg-1">:</div>

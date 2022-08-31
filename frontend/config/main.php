@@ -33,6 +33,9 @@ return [
         'product' => [
             'class' => 'frontend\modules\product\Product',
         ],
+        'productarchive' => [
+            'class' => 'frontend\modules\productarchive\ProductArchive',
+        ],
         'sales' => [
             'class' => 'frontend\modules\sales\Sales',
         ],

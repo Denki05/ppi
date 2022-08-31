@@ -9,7 +9,7 @@ use common\models\Product;
 /**
  * ProductSearch represents the model behind the search form of `common\models\Product`.
  */
-class ProductSearch extends Product
+class ProductArchiveSearch extends Product
 {
     public $factory_name, $brand_name, $category_name;
     /**
@@ -42,7 +42,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->where(['product_status' => 'active', 'product_live' => 'enabled']);
+        $query = Product::find()->where(['product_status' => 'inactive', 'product_live' => 'disabled']);
         $query->joinWith(array( 'factory', 'brand', 'category'));
         // add conditions that should always apply here
 

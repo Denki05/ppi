@@ -34,6 +34,10 @@ class AccessComponent extends Component
 				'label' => 'Barang',
 				'value' => (new AuthItem)->getPermissionsByModule('product'),
 			],
+			'productarchive' => [
+				'label' => 'Barang Arsip',
+				'value' => (new AuthItem)->getPermissionsByModule('productarchive'),
+			],
 			'employee' => [
 				'label' => 'Pegawai',
 				'value' => (new AuthItem)->getPermissionsByModule('employee'),

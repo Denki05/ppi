@@ -15,7 +15,7 @@ use common\models\Product;
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
 // if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'create'))
-    $toolbar[] = ButtonComponent::getAddButton();
+    // $toolbar[] = ButtonComponent::getAddButton();
     $toolbar[] = ButtonComponent::getImportButton();
 
 BaseController::$toolbar = $toolbar;
@@ -98,7 +98,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         'value' => function($model){
                                             return $model->getProductCondition($model->product_live);
                                         },
-                                        'filter' => (new Product)->getProductStatus(),
+                                        'filter' => (new Product)->getProductCondition(),
                                     ],
                                     [
                                         'attribute' => 'product_type',
@@ -110,7 +110,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 						            [
                                         'class' => 'yii\grid\ActionColumn',
                                         'header'   => 'Actions',
-                                        'template' => '<div style="white-space: nowrap;">{view}{update}{delete}</div>',
+                                        'template' => '<div style="white-space: nowrap;">{view}{update}</div>',
                                         'buttons'  => [
                                             'view' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'view')) {
@@ -123,21 +123,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'update')) {
                                                     $url = Url::to(['update', 'id' => $model->id]);
                                                     return Html::a('<span class="btn btn-outline-warning btn-sm"><i class="la la-pencil"></i></span> ', $url, ['title' => 'Update']);
-                                                }
-                                                return "";
-                                            },
-                                            'delete' => function ($url, $model) {
-                                                if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'delete')) {
-                                                    $url = Url::to(['delete', 'id' => $model->id]);
-                                                    return Html::a(
-                                                        '<span class="btn btn-outline-danger btn-sm"><i class="la la-trash"></i></span>',
-                                                        '#',
-                                                        [
-                                                            'title' => Yii::t('yii', 'Delete'),
-                                                            'aria-label' => Yii::t('yii', 'Delete'),
-                                                            'onclick' => "deleteclick('".$url."');"
-                                                        ]
-                                                    );
                                                 }
                                                 return "";
                                             }
