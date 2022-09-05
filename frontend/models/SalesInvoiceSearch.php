@@ -42,7 +42,7 @@ class SalesInvoiceSearch extends SalesInvoice
      */
     public function search($params)
     {
-        $query = SalesInvoice::find()->where(['invoice_type' => NULL]);
+        $query = SalesInvoice::find()->where(['invoice_type' => 'nonppn']);
         $query->joinWith(array('customer', 'salesman', 'bank', 'salesPayments'));
 
         // add conditions that should always apply here

@@ -332,7 +332,7 @@ function penyebut($nilai) {
         </tr>
       </table>
     </div></td>
-    <!-- <br> -->
+    <br>
     <td style="width: 30%;" scope="col"><div align="left">
     <table style="width: 100%; margin-top: 10spx; font-size: 14px;" border="0">
       <tr>
