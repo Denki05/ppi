@@ -50,6 +50,10 @@ class AccessComponent extends Component
 				'label' => 'Nota',
 				'value' => (new AuthItem)->getPermissionsByModule('sales.salesinvoicespecial'),
 			],
+			// 'sales.salesinvoicespecial2' => [
+			// 	'label' => 'Nota',
+			// 	'value' => (new AuthItem)->getPermissionsByModule('sales.salesinvoicespecial2'),
+			// ],
 			'sales.salesinvoice' => [
 				'label' => 'Nota Khusus',
 				'value' => (new AuthItem)->getPermissionsByModule('sales.salesinvoice'),

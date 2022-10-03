@@ -29,6 +29,25 @@ class ButtonComponent extends Controller
         return "";
     }
 
+    public static function getCheckButton($params='')
+    {
+        if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'check')) {
+            $stringParam = '?';
+            if (!empty($params)) {
+                $i = 0;
+                foreach($params as $key => $param) {
+                    $stringParam .= $i > 0 ? '&'.$key.'='.$param : $key.'='.$param;
+                }
+            // dd($stringParam);
+            }
+            return '<button href="javascript:;" onclick="window.location.href = \''.Url::base().'/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id.'/check'.$stringParam.'\';" type="button" class="btn btn-outline-primary btn-sm"><i class="la la-check"></i></button>';
+            // return '<a href="'.Url::base().'/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id.'/create'.$stringParam.'">
+            //     <button type="button" class="btn btn-sm btn-outline-primary btn-min-width mr-1 mb-1 mt-1" title="'.LabelComponent::NEW_BUTTON.'"><i class="la la-plus"></i></button>
+            // </a>';
+        }
+        return "";
+    }
+
     public static function getExportPdf($params='')
     {
         if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'exportpdf')) {

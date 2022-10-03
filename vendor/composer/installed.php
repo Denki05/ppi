@@ -137,9 +137,9 @@
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
-            'pretty_version' => 'v4.14.0',
-            'version' => '4.14.0.0',
-            'reference' => '12ab42bd6e742c70c0a52f7b82477fcd44e64b75',
+            'pretty_version' => 'v4.16.0',
+            'version' => '4.16.0.0',
+            'reference' => '523407fb06eb9e5f3d59889b3978d5bfe94299c8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
             'aliases' => array(),
@@ -166,7 +166,7 @@
         'kartik-v/yii2-mpdf' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '2679af91552c1919e10ac13fbb1f3b3eea02bbb5',
+            'reference' => '6a6506e680e4a07b1781da12bed9c080263f5f4a',
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../kartik-v/yii2-mpdf',
             'aliases' => array(
@@ -436,9 +436,9 @@
             'dev_requirement' => true,
         ),
         'sebastian/exporter' => array(
-            'pretty_version' => '3.1.4',
-            'version' => '3.1.4.0',
-            'reference' => '0c32ea2e40dbf59de29f3b49bf375176ce7dd8db',
+            'pretty_version' => '3.1.5',
+            'version' => '3.1.5.0',
+            'reference' => '73a9676f2833b9a7c36968f9d882589cd75511e6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/exporter',
             'aliases' => array(),
@@ -739,9 +739,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-debug' => array(
-            'pretty_version' => '2.1.19',
-            'version' => '2.1.19.0',
-            'reference' => '84d20d738b0698298f851fcb6fc25e748d759223',
+            'pretty_version' => '2.1.21',
+            'version' => '2.1.21.0',
+            'reference' => 'fa9fa02e242c1b744eb68045ee8e9d698134836d',
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../yiisoft/yii2-debug',
             'aliases' => array(),

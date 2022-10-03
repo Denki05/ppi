@@ -7,10 +7,9 @@ use common\models\SalesInvoice;
 use common\models\SalesInvoiceItem;
 use common\models\Category;
 use common\models\Customer;
-use common\models\InvoiceNote;
 use common\models\Product;
 use common\models\Bank;
-use frontend\models\SalesInvoiceSearch;
+use frontend\models\SalesInvoiceCheckSearch;
 // use yii\web\Controller;
 use common\components\ErrorGenerateComponent;
 use frontend\components\LabelComponent;
@@ -25,14 +24,14 @@ use yii\helpers\VarDumper;
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
  */
-class SalesinvoicespecialController extends BaseController
+class Salesinvoicespecial2Controller extends BaseController
 {
    
     public function actionIndex()
     {
-        BaseController::$page_caption = 'Nota';
+        BaseController::$page_caption = 'Nota Check';
         
-        $searchModel = new SalesInvoiceSearch();
+        $searchModel = new SalesInvoiceCheckSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -310,97 +309,6 @@ class SalesinvoicespecialController extends BaseController
             'mode' => 'update',
             'items' => $items,
         ]);
-    }
-
-    public function actionCheck()
-    {
-        // $model = SalesInvoice::find()->where(['is_deleted' => '0']);
-
-        $model = (new \yii\db\Query())
-            ->select(['tbl_sales_invoice.invoice_code', 
-                        'tbl_sales_invoice_item.product_id', 
-                        'tbl_product.brand_id',
-                        'tbl_sales_invoice.id as invoiceID',
-                        'tbl_brand.brand_name',
-                    ])
-            ->from('tbl_sales_invoice')
-            ->leftJoin('tbl_sales_invoice_item', 'tbl_sales_invoice_item.invoice_id=tbl_sales_invoice.id')
-            ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
-            ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
-            ->where(['tbl_sales_invoice.is_deleted' => '0'])
-            ->where(['tbl_sales_invoice.id' => 2375])
-            ->andWhere(['tbl_product.product_status' => 'active'])
-            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-01-01", "2022-10-01" ])
-            
-            ->all();
-
-
-        // dd($model);
-
-        $items      = array();
-        $same_brand = true;
-
-        foreach($model as $item){
-            $items[] = [
-                'product_id' => $item['product_id'],
-                'brand_id' => $item['brand_id'],
-                'invoice_code' => $item['invoice_code'],
-                'brand_name' => $item['brand_name'],
-            ];
-
-            // dd($item);
-
-            // dd($item['brand_name']);
-
-            // $list = SalesInvoiceItem::find($item['id']);
-
-            $list = (new \yii\db\Query())
-                ->select(['tbl_sales_invoice_item.product_id', 
-                            'tbl_product.brand_id',
-                            'tbl_sales_invoice_item.invoice_id'
-                        ])
-                ->from('tbl_sales_invoice_item')
-                ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
-                ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
-                ->where(['in', 'invoice_id', $item])
-                ->all();
-
-            // dd($list);
-
-            foreach($list as $val){
-                if(in_array($val['brand_id'], $items)) {
-                    $same_brand = true;
-
-                    // $model = $this->findModel($item['invoiceID']);
-                    // $model->invoice_product_type = $item['brand_name'];
-                    // $model->save();
-
-                    $model = $this->findModel($item['invoiceID']);
-                    $model->invoice_product_type = $item['brand_name'];
-                    if (!$model->save()) {
-                        $errorMessage = ErrorGenerateComponent::generateErrorLabels($model->getErrors());
-                        // $noProblem = false;
-                        Yii::$app->session->setFlash('danger', $errorMessage);
-                    }
-
-                    // dd($note->save());
-                    
-                } else {
-                    array_push($items, $val['brand_id']);
-                    $same_brand = false;
-
-                    $invoice_note = new InvoiceNote();
-                    $invoice_note->invoice_id = $item['invoiceID'];
-                    $invoice_note->invoice_code = $item['invoice_code'];
-                    if (!$invoice_note->save()) {
-                        $errorMessage = ErrorGenerateComponent::generateErrorLabels($invoice_note->getErrors());
-                        // $noProblem = false;
-                        Yii::$app->session->setFlash('danger', $errorMessage);
-                    }
-                }
-            }
-        }
-        return $this->redirect(['index']);
     }
 
     public function actionDelete($id)

@@ -114,6 +114,12 @@ class MenuComponent extends Component{
 								'active' => $currentModule == 'sales' && $currentController == 'salesinvoiceppn' ? true : false,
 								'visible' => true,
 							],
+							// [
+							// 	'label' => 'Nota Check',
+							// 	'url' => 'sales/salesinvoicespecial2',
+							// 	'active' => $currentModule == 'sales' && $currentController == 'salesinvoicespecial2' ? true : false,
+							// 	'visible' => true,
+							// ],
 						),
 					],
 					[

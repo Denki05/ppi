@@ -97,4 +97,16 @@ class SalesInvoiceItem extends \common\models\MasterModel
     {
         return $this->hasOne(Packaging::className(), ['id' => 'packaging_id']);
     }
+
+    public function relations()
+
+  {
+
+    return array(
+
+     'invoice'=>array(self::HAS_MANY,'SalesInvoice','id'),
+
+   );
+
+  }
 }

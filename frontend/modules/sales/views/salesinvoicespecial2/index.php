@@ -17,24 +17,20 @@ use common\models\Product;
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
 $toolbar[] = ButtonComponent::getAddButton();
-$toolbar[] = ButtonComponent::getCheckButton();
+
 BaseController::$toolbar = $toolbar;
 
 foreach(Yii::$app->session->getAllFlashes() as $key => $message)
     echo '<div class="alert alert-' . $key . '">' . $message . "</div>\n";
 ?>
-<input id="baseUrl" type="hidden" value="<?=Url::base()?>/sales/salesinvoicespecial/">
+<input id="baseUrl" type="hidden" value="<?=Url::base()?>/sales/salesinvoicespecial2/">
 	<section class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-head">
                     
                 </div>
-                
                 <div class="card-content">
-                    <div class="card-body">
-                        
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                            <?php Pjax::begin();?> 
@@ -74,12 +70,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         'attribute' => 'salesman_name',
                                         'value' => function($model) {
                                             return isset($model->salesman) ? $model->salesman->employee_name : "";
-                                        }
-                                    ],
-                                    [
-                                        'attribute' => 'bank_name',
-                                        'value' => function($model) {
-                                            return isset($model->bank) ? $model->bank->bank_name : "";
                                         }
                                     ],
                                     [
@@ -131,7 +121,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                 }
                                                 return "";
                                             },
-                                            
                                             'print' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'print')) {
                                                     // $url = Url::to(['export', 'id' => $model->id]);

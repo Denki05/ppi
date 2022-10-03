@@ -441,7 +441,11 @@ class SalesInvoice extends \common\models\MasterModel
 		return array(
 
                  'bank' => array(self::BELONGS_TO, 'Bank', 'id'),
+                 'item' => array(self::BELONGS_TO, 'SalesInvoiceItem', 'invoice_id'),
+
 		);
 
 	}
+
+    
 }
