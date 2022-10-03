@@ -322,20 +322,20 @@ class SalesinvoicespecialController extends BaseController
                         'tbl_product.brand_id',
                         'tbl_sales_invoice.id as invoiceID',
                         'tbl_brand.brand_name',
+                        'tbl_sales_invoice.invoice_product_type',
                     ])
             ->from('tbl_sales_invoice')
             ->leftJoin('tbl_sales_invoice_item', 'tbl_sales_invoice_item.invoice_id=tbl_sales_invoice.id')
             ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
-            ->where(['tbl_sales_invoice.id' => 2375])
-            ->andWhere(['tbl_product.product_status' => 'active'])
+            // ->andWhere(['tbl_product.product_status' => 'active'])
             ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-01-01", "2022-10-01" ])
             
             ->all();
 
 
-        // dd($model);
+        dd($model);
 
         $items      = array();
         $same_brand = true;
