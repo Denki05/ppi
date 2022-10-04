@@ -83,6 +83,12 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         }
                                     ],
                                     [
+                                        'attribute' => 'invoice_product_type',
+                                        'value' => function($model) {
+                                            return isset($model->invoice_product_type) ? $model->invoice_product_type : "";
+                                        }
+                                    ],
+                                    [
                                         'attribute' => 'invoice_grand_total',
                                         'value' => function($model) {
                                             if($model->invoice_exchange_rate > 1)

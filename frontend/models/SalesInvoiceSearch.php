@@ -61,6 +61,7 @@ class SalesInvoiceSearch extends SalesInvoice
                     'invoice_grand_total',
                     'invoice_outstanding_amount',
                     'invoice_comission_value',
+                    'invoice_product_type',
                     'payment_date' => [
                         'asc' => ['tbl_sales_payment.payment_date' => SORT_ASC],
                         'desc' => ['tbl_sales_payment.payment_date' => SORT_DESC],

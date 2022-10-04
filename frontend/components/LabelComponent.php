@@ -26,6 +26,7 @@ class LabelComponent extends Component
 	const SUCCESS_SAVE = 'berhasil disimpan!';
 	const SUCCESS_UPDATE = 'berhasil diupdate!';
 	const SUCCESS_DELETE = 'berhasil dihapus!';
+	const SUCCESS_CHECK = 'Berhasil Check Product Type!';
 	const ERROR_SAVE = 'gagal disimpan';
 	const ERROR_DELETE = 'gagal dihapus';
 	const NOT_FOUND = 'tidak ditemukan';
