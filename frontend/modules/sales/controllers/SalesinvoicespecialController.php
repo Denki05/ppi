@@ -330,15 +330,18 @@ class SalesinvoicespecialController extends BaseController
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
             // ->andWhere(['tbl_product.product_status' => 'active'])
-            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-01-01", "2022-01-31" ])
+            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-02-01", "2022-10-04" ])
             
             ->all();
 
 
-        dd($model);
+        // dd($model);
 
         $items      = array();
+
         $same_brand = true;
+
+        $noProblem = true;
 
         foreach($model as $item){
             $items[] = [
@@ -377,12 +380,11 @@ class SalesinvoicespecialController extends BaseController
 
                     $model = $this->findModel($item['invoiceID']);
                     $model->invoice_product_type = $item['brand_name'];
-
-                    $model->bank_id = 1;
+                    $model->bank_id = $model->bank_id;
 
                     if (!$model->save()) {
                         $errorMessage = ErrorGenerateComponent::generateErrorLabels($model->getErrors());
-                        // $noProblem = false;
+                        $noProblem = false;
                         Yii::$app->session->setFlash('danger', $errorMessage);
                     }
 
@@ -397,9 +399,15 @@ class SalesinvoicespecialController extends BaseController
                     $invoice_note->invoice_code = $item['invoice_code'];
                     if (!$invoice_note->save()) {
                         $errorMessage = ErrorGenerateComponent::generateErrorLabels($invoice_note->getErrors());
-                        // $noProblem = false;
+                        $noProblem = false;
                         Yii::$app->session->setFlash('danger', $errorMessage);
                     }
+                }
+
+                if ($noProblem) {
+                    $trans->commit();
+                    Yii::$app->session->setFlash('success', 'Nota Check'.LabelComponent::SUCCESS_SAVE);
+                    return $this->redirect(['index']);
                 }
             }
         }
