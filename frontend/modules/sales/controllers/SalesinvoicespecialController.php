@@ -330,7 +330,6 @@ class SalesinvoicespecialController extends BaseController
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
             // ->andWhere(['tbl_product.product_status' => 'active'])
-            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2021-01-01", "2021-12-31" ])
             
             ->all();
 
