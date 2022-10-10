@@ -81,18 +81,6 @@ class SalesinvoicespecialController extends BaseController
 		} else {
 			echo "<option>Please select a Brand</option>";
 		}
-        // $item = Product::find()
-        //     ->where('id=:id',[':id'=>$id])
-        //     ->one();
-
-        // $hasil = array(
-        //     'product_name' => $item->product_name,
-        //     'id' => $item->id,
-        //     'product_sell_price' => $item->product_sell_price,
-        // );
-        
-        // return Json::encode($hasil);
-        // die();
     }
 
     public function actionGetitemcustomer($id)
