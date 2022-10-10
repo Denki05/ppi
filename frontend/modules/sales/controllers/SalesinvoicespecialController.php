@@ -42,43 +42,57 @@ class SalesinvoicespecialController extends BaseController
         ]);
     }
 
+    // public function actionGetbrand($id)
+    // {				
+    //     $items = Product::find()
+	// 			->where(['brand_id' => $id])
+	// 			->orderBy('id DESC')
+	// 			->all();
+				
+
+	// 	if (!empty($items)) {
+	// 		foreach($items as $item) {
+	// 			echo "<option value='".$item->id."'>".$item->brand_name."</option>";
+	// 		}
+	// 	} else {
+	// 		echo "<option>-</option>";
+	// 	}
+		
+    // }
+
     //Query Product Select
     public function actionGetitemrow($id)
     {
-        $item = Product::find()
-            ->where('id=:id',[':id'=>$id])
-            ->one();
+        $items = Product::find()
+                ->select([
+                    'tbl_product.id', 
+                    'tbl_product.product_name', 
+                    'tbl_product.product_code', 
+                    'tbl_product.product_sell_price'
+                ])
+				->where(['brand_id' => $id])
+                ->andWhere('is_deleted=:is',[':is'=> 0])
+				->all();
+				
+		if (!empty($items)) {
+			foreach($items as $item) {
+				echo "<option value='".$item->id."'>".$item->product_code.' -- '.$item->product_name."</option>";
+			}
+		} else {
+			echo "<option>Please select a Brand</option>";
+		}
+        // $item = Product::find()
+        //     ->where('id=:id',[':id'=>$id])
+        //     ->one();
 
-        $hasil = array(
-            'product_name' => $item->product_name,
-            'id' => $item->id,
-            'product_sell_price' => $item->product_sell_price,
-            'brand_id' => $item->brand_id
-        );
+        // $hasil = array(
+        //     'product_name' => $item->product_name,
+        //     'id' => $item->id,
+        //     'product_sell_price' => $item->product_sell_price,
+        // );
         
-        return Json::encode($hasil);
-        die();
-    }
-
-    //Query Brand Select
-    public function actionGetbrandrow($id)
-    {
-        $item = Product::find()
-            ->select([
-                    'tbl_brand.id', 
-                    'tbl_brand.brand_name', 
-            ])
-            ->leftJoin('tbl_brand', 'tbl_brand.id=tbl_product.brand_id')
-            ->where('tbl_brand.id=:id',[':id'=>$id])
-            ->one();
-
-        $hasil = array(
-            'id' => $item->id,
-            'brand_name' => $item->brand_name
-        );
-        
-        return Json::encode($hasil);
-        die();
+        // return Json::encode($hasil);
+        // die();
     }
 
     public function actionGetitemcustomer($id)

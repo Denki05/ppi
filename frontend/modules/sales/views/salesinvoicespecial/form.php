@@ -5,7 +5,6 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 // use yii\widgets\ActiveForm;
 use yii\bootstrap\ActiveForm;
-
 use frontend\components\LabelComponent;
 use frontend\components\AccessComponent;
 use app\components\BaseController;
@@ -67,23 +66,16 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                             ?>
                         </div>
                         <div class="col-lg-6">
-                            <?= $form->field($model, 'invoice_product_type')
-                                ->dropDownList(ArrayHelper::map(Product::find()
-                                                        ->select([
-                                                            'tbl_brand.id', 
-                                                            'tbl_product.brand_id', 
-                                                            'tbl_brand.brand_name', 
-                                                            'tbl_brand.brand_type'
-                                                        ])
-                                                        ->leftJoin('tbl_brand', 'tbl_brand.id=tbl_product.brand_id')
-                                                        ->where('tbl_brand.brand_type=:is', [':is' => 'ppi'])
-                                                        ->groupBy(['tbl_brand.brand_name'])
-                                                        ->orderBy(['tbl_brand.brand_name' => SORT_DESC])
-                                                        ->all(),'id','brand_name' ), 
-                                                            [
-                                                                'class' => 'form-control input-sm invoice-brand-type select2', 
-                                                                'prompt' => 'Pilih Invoice Brand Type'
-                                                            ]);
+                            <?php $dataBrand = ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(), 'id', 'brand_name'); 
+                                echo $form->field($model, 'invoice_product_type')->dropDownList($dataBrand, 
+                                [
+                                    'prompt' => 'Select Invoice Brand Type',
+                                    'class' => 'form-control input-sm brand-id select2', 
+                                    'onchange'=>'
+                                        $.post( "'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getitemrow?id=').'"+$(this).val(), function( data ) {
+                                            $( "select#invoice-item-brand" ).html( data );
+                                    });'
+                               ]); 
                             ?>
                         </div>
                     </div>
@@ -172,7 +164,17 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                 <table class="table-template">
                                     <tr id="row-{index}" class="row-item">
                                         <td>
-                                            <?= Html::dropDownList('item[{index}][product_id]', '', ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), ['class' => 'form-control input-sm product-id', 'prompt' => 'Pilih Barang']) ?>
+                                            <?= Html::dropDownList('item[{index}][product_id]', '', ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), 
+                                                [
+                                                    'class' => 'form-control input-sm product-id', 
+                                                    'prompt' => 'Pilih Barang', 
+                                                    'id' => 'invoice-item-brand', 
+                                                    'onchange'=>'
+                                                        $.post( "'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getitemrow?id=').'"+$(this).val(), function( data ) {
+                                                            $( "select#invoice-item-brand" ).html( data );
+                                                    });'
+                                                ]) 
+                                            ?>
                                         </td>
                                         <td>
                                             <?=Html::textInput('item[{index}][invoice_item_qty]', '', array('class' => 'form-control invoice-item-qty angka input-sm'));?>
@@ -545,18 +547,18 @@ $(document).on('change', '.product-id', function(){
     var tr = $(this).closest('tr');
     var id = $(this).val();
     var url = $('#baseUrl').val();
-    var brandId = $('.invoice-brand-type').val();
+    // var brandId = $('.invoice-brand-type').val();
 
     if($(this).val() != ''){
         $.get(url+'/getitemrow',{id:id},function(response){
             let data = $.parseJSON(response);
             
-            alert(brandId);
+            // alert(data);
             tr.find(".invoice-item-price-label").html('$'+format_usd(data.product_sell_price));
             tr.find(".invoice-item-price").val(data.product_sell_price);
             tr.find(".invoice-item-qty").val('1');
             tr.find(".invoice-item-disc-amount").val(0);
-            tr.find(".invoice-item-disc-percent").val(0);
+            tr.find(".invoice-item-disc-percent" ).val(0);
 
             if($('#salesinvoice-invoice_exchange_rate').val() > 1){
                 var price = parseFloat($('#salesinvoice-invoice_exchange_rate').val()) * parseFloat(data.product_sell_price);
@@ -772,5 +774,16 @@ $(document).ready(function(){
 
     });
 });
+
+// $(document).on('change', '.brand-id', function(){
+//     var id = $(this).val();
+//     var url = $('#baseUrl').val();
+
+//     $.get(url+'/getbrand',{id:id},function(response){
+//         let data = $.parseJSON(response);
+       
+//         alert(data);
+//     });
+// });
 
 </script>
