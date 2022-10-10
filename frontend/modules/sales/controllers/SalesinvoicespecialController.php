@@ -71,12 +71,12 @@ class SalesinvoicespecialController extends BaseController
                     'tbl_product.product_sell_price'
                 ])
 				->where(['brand_id' => $id])
-                ->andWhere('is_deleted=:is',[':is'=> 0])
+                ->andWhere('is_deleted=:is',[':is'=>0])
 				->all();
 				
 		if (!empty($items)) {
 			foreach($items as $item) {
-				echo "<option value='".$item->id."'>".$item->product_code.' -- '.$item->product_name."</option>";
+				echo "<option value='".$item->id."'>".$item->productName."</option>";
 			}
 		} else {
 			echo "<option>Please select a Brand</option>";

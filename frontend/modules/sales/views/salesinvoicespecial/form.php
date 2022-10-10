@@ -169,10 +169,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                     'class' => 'form-control input-sm product-id', 
                                                     'prompt' => 'Pilih Barang', 
                                                     'id' => 'invoice-item-brand', 
-                                                    'onchange'=>'
-                                                        $.post( "'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getitemrow?id=').'"+$(this).val(), function( data ) {
-                                                            $( "select#invoice-item-brand" ).html( data );
-                                                    });'
                                                 ]) 
                                             ?>
                                         </td>
