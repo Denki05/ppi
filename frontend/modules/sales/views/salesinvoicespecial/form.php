@@ -66,6 +66,26 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                 ->dropDownList(ArrayHelper::map(Bank::find()->where('is_deleted=:is', [':is' => 0])->all(),'id','bank_acc_number','bank_acc_name' ), ['class' => 'form-control input-sm select2', 'prompt' => 'Pilih Rekening']);
                             ?>
                         </div>
+                        <div class="col-lg-6">
+                            <?= $form->field($model, 'invoice_product_type')
+                                ->dropDownList(ArrayHelper::map(Product::find()
+                                                        ->select([
+                                                            'tbl_brand.id', 
+                                                            'tbl_product.brand_id', 
+                                                            'tbl_brand.brand_name', 
+                                                            'tbl_brand.brand_type'
+                                                        ])
+                                                        ->leftJoin('tbl_brand', 'tbl_brand.id=tbl_product.brand_id')
+                                                        ->where('tbl_brand.brand_type=:is', [':is' => 'ppi'])
+                                                        ->groupBy(['tbl_brand.brand_name'])
+                                                        ->orderBy(['tbl_brand.brand_name' => SORT_DESC])
+                                                        ->all(),'id','brand_name' ), 
+                                                            [
+                                                                'class' => 'form-control input-sm invoice-brand-type select2', 
+                                                                'prompt' => 'Pilih Invoice Brand Type'
+                                                            ]);
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -511,15 +531,27 @@ $(document).on('click', '.btn-remove', function(e){
 
 });
 
+$(document).on('change', '.invoice-brand-type', function(){
+    var id = $(this).val();
+    var url = $('#baseUrl').val();
+
+    $.get(url+'/getbrandrow',{id:id},function(response){
+        let data = $.parseJSON(response);
+       alert(data.id);
+    });
+});
+
 $(document).on('change', '.product-id', function(){
     var tr = $(this).closest('tr');
     var id = $(this).val();
     var url = $('#baseUrl').val();
+    var brandId = $('.invoice-brand-type').val();
 
     if($(this).val() != ''){
         $.get(url+'/getitemrow',{id:id},function(response){
             let data = $.parseJSON(response);
             
+            alert(brandId);
             tr.find(".invoice-item-price-label").html('$'+format_usd(data.product_sell_price));
             tr.find(".invoice-item-price").val(data.product_sell_price);
             tr.find(".invoice-item-qty").val('1');

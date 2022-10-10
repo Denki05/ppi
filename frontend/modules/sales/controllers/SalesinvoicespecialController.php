@@ -10,6 +10,7 @@ use common\models\Customer;
 use common\models\InvoiceNote;
 use common\models\Product;
 use common\models\Bank;
+use common\models\Brand;
 use frontend\models\SalesInvoiceSearch;
 // use yii\web\Controller;
 use common\components\ErrorGenerateComponent;
@@ -41,14 +42,39 @@ class SalesinvoicespecialController extends BaseController
         ]);
     }
 
+    //Query Product Select
     public function actionGetitemrow($id)
     {
-        $item = Product::find()->where('id=:id',[':id'=>$id])->one();
+        $item = Product::find()
+            ->where('id=:id',[':id'=>$id])
+            ->one();
 
         $hasil = array(
             'product_name' => $item->product_name,
             'id' => $item->id,
             'product_sell_price' => $item->product_sell_price,
+            'brand_id' => $item->brand_id
+        );
+        
+        return Json::encode($hasil);
+        die();
+    }
+
+    //Query Brand Select
+    public function actionGetbrandrow($id)
+    {
+        $item = Product::find()
+            ->select([
+                    'tbl_brand.id', 
+                    'tbl_brand.brand_name', 
+            ])
+            ->leftJoin('tbl_brand', 'tbl_brand.id=tbl_product.brand_id')
+            ->where('tbl_brand.id=:id',[':id'=>$id])
+            ->one();
+
+        $hasil = array(
+            'id' => $item->id,
+            'brand_name' => $item->brand_name
         );
         
         return Json::encode($hasil);
