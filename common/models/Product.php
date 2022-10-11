@@ -23,7 +23,6 @@ use Yii;
  * @property string $product_sell_price
  * @property string $product_web_image
  * @property string $product_status
- * @property string $product_live
  * @property string $created_on
  * @property string $updated_on
  * @property int $created_by
@@ -71,9 +70,9 @@ class Product extends \common\models\MasterModel
     public function rules()
     {
         return [
-            [[ 'product_code', 'product_name', 'factory_id', 'brand_id', 'original_brand_id', 'searah_id', 'product_gender', 'product_cost_price', 'product_sell_price', 'product_status', 'product_live', 'product_type'], 'required'],
+            [[ 'product_code', 'product_name', 'factory_id', 'brand_id', 'original_brand_id', 'searah_id', 'product_gender', 'product_cost_price', 'product_sell_price', 'product_status', 'product_type'], 'required'],
             [[ 'product_is_new', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['product_gender', 'product_web_image', 'product_status', 'product_live', 'product_type'], 'string'],
+            [['product_gender', 'product_web_image', 'product_status', 'product_type'], 'string'],
             [['product_cost_price', 'product_sell_price'], 'number'],
             [['created_on', 'updated_on', 'factory_id', 'searah_id','brand_id', 'category_id', 'original_brand_id', 'mode', 'factory_name', 'brand_name', 'category_name', 'productLabel', 'product_type'], 'safe'],
             [['image'],'file', 'extensions' => 'png,jpg,jpeg', 'maxSize' => 1024000, 'skipOnEmpty' => true],
@@ -132,7 +131,6 @@ class Product extends \common\models\MasterModel
             'product_web_image' => 'Web',
             'image' => 'Upload',
             'product_status' => 'Status',
-            'product_live' => 'Kondisi',
             'created_on' => 'Created On',
             'updated_on' => 'Updated On',
             'created_by' => 'Created By',
@@ -517,7 +515,6 @@ class Product extends \common\models\MasterModel
             $product->product_sell_price = $sellPrice;
             $product->product_web_image = $web === '-' ? '' : $web;
             $product->product_status = empty($status) ? 'inactive' : 'active';
-            $product->product_live = empty($condition) ? 'disabled' : 'enabled';
 
             if(!$product->save()){
                     print_r($product->getErrors());

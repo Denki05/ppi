@@ -66,12 +66,12 @@ class SalesInvoiceSearchPpn extends SalesInvoice
                         'desc' => ['tbl_sales_payment.payment_date' => SORT_DESC],
                     ],
                     'customer_name' => [
-                        'asc' => ['tbl_customer.customer_name' => SORT_ASC],
-                        'desc' => ['tbl_customer.customer_name' => SORT_DESC],
+                        'asc' => ['tbl_customer.customer_store_name' => SORT_ASC],
+                        'desc' => ['tbl_customer.customer_store_name' => SORT_DESC],
                     ],
                     'salesman_name' => [
-                        'asc' => ['tbl_employee.salesman_name' => SORT_ASC],
-                        'desc' => ['tbl_employee.salesman_name' => SORT_DESC],
+                        'asc' => ['tbl_employee.employee_name' => SORT_ASC],
+                        'desc' => ['tbl_employee.employee_name' => SORT_DESC],
                     ],
                 ],
                 'defaultOrder' => ['invoice_code' => SORT_DESC],
@@ -107,8 +107,8 @@ class SalesInvoiceSearchPpn extends SalesInvoice
         ]);
 
         $query->andFilterWhere(['like', 'invoice_code', $this->invoice_code])
-            ->andFilterWhere(['like', 'tbl_customer.customer_name', $this->customer_name])
-            ->andFilterWhere(['like', 'tbl_employee.salesman_name', $this->salesman_name]);
+            ->andFilterWhere(['like', 'tbl_customer.customer_store_name', $this->customer_name])
+            ->andFilterWhere(['like', 'tbl_employee.employee_name', $this->salesman_name]);
 
         $query->andFilterWhere(['invoice_status' => $this->invoice_status]);
         $query->andFilterWhere(['invoice_payment_status' => $this->invoice_payment_status]);

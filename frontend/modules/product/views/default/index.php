@@ -93,13 +93,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         },
                                         'filter' => (new Product)->getProductStatus(),
                                     ],
-                                    [
-                                        'attribute' => 'product_live',
-                                        'value' => function($model){
-                                            return $model->getProductCondition($model->product_live);
-                                        },
-                                        'filter' => (new Product)->getProductStatus(),
-                                    ],
+                                    
                                     [
                                         'attribute' => 'product_type',
                                         'value' => function($model){

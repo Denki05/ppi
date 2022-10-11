@@ -42,7 +42,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->where(['product_status' => 'active', 'product_live' => 'enabled']);
+        $query = Product::find()->where(['product_status' => 'active']);
         $query->joinWith(array( 'factory', 'brand', 'category'));
         // add conditions that should always apply here
 
@@ -58,7 +58,6 @@ class ProductSearch extends Product
                     'product_name',
                     'product_code',
                     'product_status',
-                    'product_live',
                     'factory_name' => [
                         'asc' => ['tbl_factory.factory_name' => SORT_ASC],
                         'desc' => ['tbl_factory.factory_name' => SORT_DESC],
@@ -112,7 +111,6 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'tbl_category.category_name', $this->category_name]);
 
         $query->andFilterWhere(['product_status' => $this->product_status]);
-        $query->andFilterWhere(['product_live' => $this->product_live]);
         $query->andFilterWhere(['product_type' => $this->product_type]);
             
 

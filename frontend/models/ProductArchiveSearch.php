@@ -19,7 +19,7 @@ class ProductArchiveSearch extends Product
     {
         return [
             [['id', 'factory_id', 'brand_id', 'category_id', 'product_is_new', 'original_brand_id', 'searah_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['product_material_code', 'product_material_name', 'product_code', 'product_name', 'product_gender', 'product_web_image', 'product_status', 'product_live', 'created_on', 'updated_on', 'factory_name', 'brand_name', 'category_name', 'product_type'], 'safe'],
+            [['product_material_code', 'product_material_name', 'product_code', 'product_name', 'product_gender', 'product_web_image', 'product_status', 'created_on', 'updated_on', 'factory_name', 'brand_name', 'category_name', 'product_type'], 'safe'],
             [['product_cost_price', 'product_sell_price'], 'number'],
         ];
     }
@@ -42,7 +42,7 @@ class ProductArchiveSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->where(['product_status' => 'inactive', 'product_live' => 'disabled']);
+        $query = Product::find()->where(['product_status' => 'inactive']);
         $query->joinWith(array( 'factory', 'brand', 'category'));
         // add conditions that should always apply here
 
@@ -58,7 +58,6 @@ class ProductArchiveSearch extends Product
                     'product_name',
                     'product_code',
                     'product_status',
-                    'product_live',
                     'factory_name' => [
                         'asc' => ['tbl_factory.factory_name' => SORT_ASC],
                         'desc' => ['tbl_factory.factory_name' => SORT_DESC],
@@ -112,7 +111,6 @@ class ProductArchiveSearch extends Product
             ->andFilterWhere(['like', 'tbl_category.category_name', $this->category_name]);
 
         $query->andFilterWhere(['product_status' => $this->product_status]);
-        $query->andFilterWhere(['product_live' => $this->product_live]);
         $query->andFilterWhere(['product_type' => $this->product_type]);
             
 

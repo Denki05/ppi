@@ -53,7 +53,7 @@ class MenuComponent extends Component{
 						'visible' => true,
 					],
 					[
-						'label' => 'Barang Arsip',
+						'label' => 'Barang Archives',
 						'url' => 'productarchive',
 						'icon' => 'la la-tags	',
 						'active' => $currentModule == 'productarchive' ? true : false,
