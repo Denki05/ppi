@@ -536,4 +536,8 @@ class Product extends \common\models\MasterModel
     public function getProductName(){
         return $this->product_code.' -- '.$this->product_name;
     } 
+
+    public function getProductPrice(){
+        return $this->product_sell_price;
+    } 
 }

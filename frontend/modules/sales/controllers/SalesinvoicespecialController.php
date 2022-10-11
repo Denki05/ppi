@@ -42,45 +42,39 @@ class SalesinvoicespecialController extends BaseController
         ]);
     }
 
-    // public function actionGetbrand($id)
-    // {				
-    //     $items = Product::find()
-	// 			->where(['brand_id' => $id])
-	// 			->orderBy('id DESC')
-	// 			->all();
-				
-
-	// 	if (!empty($items)) {
-	// 		foreach($items as $item) {
-	// 			echo "<option value='".$item->id."'>".$item->brand_name."</option>";
-	// 		}
-	// 	} else {
-	// 		echo "<option>-</option>";
-	// 	}
-		
-    // }
-
     //Query Product Select
-    public function actionGetitemrow($id)
+    public function actionGetbrand($id)
     {
         $items = Product::find()
-                ->select([
-                    'tbl_product.id', 
-                    'tbl_product.product_name', 
-                    'tbl_product.product_code', 
-                    'tbl_product.product_sell_price'
-                ])
 				->where(['brand_id' => $id])
-                ->andWhere('is_deleted=:is',[':is'=>0])
 				->all();
 				
 		if (!empty($items)) {
 			foreach($items as $item) {
+
 				echo "<option value='".$item->id."'>".$item->productName."</option>";
 			}
 		} else {
 			echo "<option>Please select a Brand</option>";
 		}
+    }
+
+    public function actionGetitemrow($id)
+    {
+        $item = Product::find()
+				->where(['id' => $id])
+				->one();
+        
+        $hasil = array(
+            'id' => $item->id,
+            'product_name' => $item->product_name,
+            'product_sell_price' => $item->product_sell_price
+        );
+
+        return Json::encode($hasil);
+        die();
+				
+		
     }
 
     public function actionGetitemcustomer($id)

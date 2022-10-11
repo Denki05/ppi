@@ -66,15 +66,20 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                             ?>
                         </div>
                         <div class="col-lg-6">
-                            <?php $dataBrand = ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(), 'id', 'brand_name'); 
+                            <?php 
+                                $dataBrand = array();
+                                foreach(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all() as $lt) {
+                                    $dataBrand[$lt->id] = $lt->brand_name;
+                                }   
                                 echo $form->field($model, 'invoice_product_type')->dropDownList($dataBrand, 
                                 [
                                     'prompt' => 'Select Invoice Brand Type',
                                     'class' => 'form-control input-sm brand-id select2', 
+                                    'id' => 'invoice-brand-type', 
                                     'onchange'=>'
-                                        $.post( "'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getitemrow?id=').'"+$(this).val(), function( data ) {
+                                        $.post( "'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getbrand?id=').'"+$(this).val(), function( data ) {
                                             $( "select#invoice-item-brand" ).html( data );
-                                    });'
+                                        });'
                                ]); 
                             ?>
                         </div>
@@ -190,7 +195,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         </td>
                                         <td class="text-right">
                                             <span class="invoice-item-price-label"></span>
-                                            <?=Html::hiddenInput('item[{index}][invoice_item_price]', '', array('class' => 'form-control invoice-item-price'));?>
+                                            <?=Html::hiddenInput('item[{index}][invoice_item_price]', '', array('class' => 'form-control invoice-item-price', 'id' => 'invoice-item-price'));?>
                                         </td>
                                         <td class="text-right">
                                             <span class="invoice-item-row-total-label"></span>
@@ -351,7 +356,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     </tbody>
                                 </table>
                             </div>
-                            <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row"><i class="la la-plus-circle"></i> Tambah baris</button>
+                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" style="display: none"><i class="la la-plus-circle"></i> Tambah baris</button>
                         </div>
                     </div>
                 </div>
@@ -533,7 +538,7 @@ $(document).on('change', '.invoice-brand-type', function(){
     var id = $(this).val();
     var url = $('#baseUrl').val();
 
-    $.get(url+'/getbrandrow',{id:id},function(response){
+    $.get(url+'/getbrand',{id:id},function(response){
         let data = $.parseJSON(response);
        alert(data.id);
     });
@@ -565,6 +570,7 @@ $(document).on('change', '.product-id', function(){
                 tr.find(".invoice-item-row-total-label").html('$'+format_usd(data.product_sell_price));
                 tr.find(".invoice-item-row-total").val(data.product_sell_price);
             }
+            
             
             countItemSubtotal(tr)
             countTotal();
@@ -771,15 +777,12 @@ $(document).ready(function(){
     });
 });
 
-// $(document).on('change', '.brand-id', function(){
-//     var id = $(this).val();
-//     var url = $('#baseUrl').val();
+$(document).ready(function(){
 
-//     $.get(url+'/getbrand',{id:id},function(response){
-//         let data = $.parseJSON(response);
-       
-//         alert(data);
-//     });
-// });
+    $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
 
+        $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
+
+    }); 
+});
 </script>
