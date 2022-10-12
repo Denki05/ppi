@@ -87,9 +87,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                     <?= $form->field($model, 'product_status')
                         ->dropDownList($model->getProductStatus(), ['empty' => LabelComponent::CHOOSE_DROPDOWN, 'class' => 'form-control input-sm']);
                     ?>
-                    <?= $form->field($model, 'product_live')
-                        ->dropDownList($model->getProductCondition(), ['empty' => LabelComponent::CHOOSE_DROPDOWN, 'class' => 'form-control input-sm']);
-                    ?>
                     <?= $form->field($model, 'product_type')
                         ->dropDownList($model->getProductType(), ['empty' => LabelComponent::CHOOSE_DROPDOWN, 'class' => 'form-control input-sm', 'prompt' => 'Pilih Tipe Barang']);
                     ?>

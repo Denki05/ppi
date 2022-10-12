@@ -22,6 +22,7 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\Json;
 use kartik\mpdf\Pdf;
 use yii\helpers\VarDumper;
+use yii\data\Sort;
 
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
@@ -45,18 +46,30 @@ class SalesinvoicespecialController extends BaseController
     //Query Product Select
     public function actionGetbrand($id)
     {
-        $items = Product::find()
-				->where(['brand_id' => $id])
-				->all();
-				
-		if (!empty($items)) {
-			foreach($items as $item) {
 
-				echo "<option value='".$item->id."'>".$item->productName."</option>";
-			}
-		} else {
-			echo "<option>Please select a Brand</option>";
-		}
+        // $items = Product::find()
+		// 		->where(['brand_id' => $id])
+        //         ->andWhere(['is_deleted' => '0'])
+        //         ->orderBy(['id' => SORT_DESC])
+		// 		->all();
+
+        $countProducts = Product::find()
+            ->where(['brand_id'=>$id, 'is_deleted' => 0])
+            ->count();
+        $products = Product::find()
+            ->where(['brand_id'=>$id, 'is_deleted' => 0])
+            ->orderBy('product_name ASC')
+            ->all();
+        if($countProducts > 0)
+        {
+            foreach ($products as $product) {
+                echo "<option value='".$product->id."'>".Yii::t('app',$product->productName)."</option>";
+            }
+        }
+        else
+        {
+            echo "<option>-</option>";
+        }
     }
 
     public function actionGetitemrow($id)
@@ -72,7 +85,7 @@ class SalesinvoicespecialController extends BaseController
         );
 
         return Json::encode($hasil);
-        die();
+        die(); 
 				
 		
     }
@@ -351,6 +364,7 @@ class SalesinvoicespecialController extends BaseController
             ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
+            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2020-01-01", "2020-12-31" ])
             // ->andWhere(['tbl_product.product_status' => 'active'])
             
             ->all();

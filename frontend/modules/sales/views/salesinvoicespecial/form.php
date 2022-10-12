@@ -66,21 +66,19 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                             ?>
                         </div>
                         <div class="col-lg-6">
-                            <?php 
-                                $dataBrand = array();
-                                foreach(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all() as $lt) {
-                                    $dataBrand[$lt->id] = $lt->brand_name;
-                                }   
-                                echo $form->field($model, 'invoice_product_type')->dropDownList($dataBrand, 
-                                [
-                                    'prompt' => 'Select Invoice Brand Type',
-                                    'class' => 'form-control input-sm brand-id select2', 
-                                    'id' => 'invoice-brand-type', 
-                                    'onchange'=>'
-                                        $.post( "'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getbrand?id=').'"+$(this).val(), function( data ) {
-                                            $( "select#invoice-item-brand" ).html( data );
-                                        });'
-                               ]); 
+                            <?= $form->field($model, 'invoice_product_type')
+                                    ->dropDownList(ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(),'id','brand_name' ), 
+                                        [
+                                            'class' => 'form-control input-sm brand-id invoice-brand-type select2', 
+                                            'prompt' => 'Pilih Invoice Brand Type', 
+                                            'id' => 'invoice-brand-type', 
+                                            'onchange'=>'
+                                                $.post("'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getbrand?id=') . '"+$(this).val(), 
+                                                function( data ) {
+                                                    $( "#invoice-item-brand" ).html( data );
+                                                });
+                                            '
+                                        ]);
                             ?>
                         </div>
                     </div>
@@ -171,7 +169,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         <td>
                                             <?= Html::dropDownList('item[{index}][product_id]', '', ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), 
                                                 [
-                                                    'class' => 'form-control input-sm product-id', 
+                                                    'class' => 'form-control input-sm product-id invoice-item-brand', 
                                                     'prompt' => 'Pilih Barang', 
                                                     'id' => 'invoice-item-brand', 
                                                 ]) 
@@ -182,7 +180,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         </td>
                                         <td>
                                             <?=Html::dropDownList('item[{index}][packaging_id]', '', ArrayHelper::map(Packaging::find()->where('is_deleted=:is', [':is' => 0])->all(), 'id', 'packaging_name'),
-                                             array('class' => 'form-control packaging-id input-sm'));?>
+                                             array('class' => 'form-control input-sm packaging-id'));?>
                                         </td>
                                         <td>
                                             <div class="form-group position-relative has-icon-left">
@@ -534,15 +532,34 @@ $(document).on('click', '.btn-remove', function(e){
 
 });
 
-$(document).on('change', '.invoice-brand-type', function(){
-    var id = $(this).val();
-    var url = $('#baseUrl').val();
+// $('.invoice-brand-type').change(function(){
+//     var id = $(this).val();
 
-    $.get(url+'/getbrand',{id:id},function(response){
-        let data = $.parseJSON(response);
-       alert(data.id);
-    });
-});
+//     if(id == 'Senses'){
+//         $(".invoice-item-brand").val('247');
+//     }
+//     if(id == "GCF"){
+//         $('.invoice-item-brand').val("287");
+//     }
+//     if(id == 'PPI'){
+//         $('.invoice-item-brand').val("327");
+//     }
+//     if(id == '-'){
+//         $('.invoice-item-brand').val('333');
+//     }
+//     if(id == 'LD'){
+//         $('.invoice-item-brand').val('367');
+//     }
+// });
+
+// $(document).on('change', '.invoice-brand-type', function(){
+//     var id = $(this).val();
+//     var url = $('#baseUrl').val();
+
+//     $.get(url+'/getbrand',{id:id},function(response){
+//         let data = $.parseJSON(response);
+//     });
+// });
 
 $(document).on('change', '.product-id', function(){
     var tr = $(this).closest('tr');
