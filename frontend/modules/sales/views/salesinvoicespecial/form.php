@@ -72,12 +72,21 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                             'class' => 'form-control input-sm brand-id invoice-brand-type select2', 
                                             'prompt' => 'Pilih Invoice Brand Type', 
                                             'id' => 'invoice-brand-type', 
-                                            'onchange'=>'
-                                                $.post("'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getbrand?id=') . '"+$(this).val(), 
-                                                function( data ) {
-                                                    $( "#invoice-item-brand" ).html( data );
-                                                });
-                                            '
+                                            // 'onchange'=>'
+                                            //     $.post("'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getbrand?id=') . '"+$(this).val(), 
+                                            //     function( data ) {
+                                            //         $( "#invoice-item-brand" ).html( data );
+                                            //     });
+                                            // '
+                                            'onchange' => '
+                                                $.post(
+                                                    "' . Url::toRoute('getbrand') . '", 
+                                                    {id: $(this).val()}, 
+                                                    function(res){
+                                                        $("select#invoice-item-brand").html(res);
+                                                    }
+                                                );
+                                            ',
                                         ]);
                             ?>
                         </div>

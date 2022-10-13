@@ -44,32 +44,42 @@ class SalesinvoicespecialController extends BaseController
     }
 
     //Query Product Select
-    public function actionGetbrand($id)
+    public function actionGetbrand()
     {
+        // $countProducts = Product::find()
+        //     ->where(['brand_id'=>$id, 'is_deleted' => 0])
+        //     ->count();
+        // $products = Product::find()
+        //     ->where(['brand_id'=>$id])
+        //     ->andWhere('is_deleted=:is', [':is'=>'0'])
+        //     ->orderBy('id ASC')
+        //     ->all();
+        // if($countProducts > 0)
+        // {
+        //     foreach ($products as $product) {
+        //         echo "<option value='".$product->id."'>".$product->id."-".$product->product_name."</option>";
+        //     }
+        // }
+        // else
+        // {
+        //     echo "<option>-</option>";
+        // }
 
-        // $items = Product::find()
-		// 		->where(['brand_id' => $id])
-        //         ->andWhere(['is_deleted' => '0'])
-        //         ->orderBy(['id' => SORT_DESC])
-		// 		->all();
-
-        $countProducts = Product::find()
-            ->where(['brand_id'=>$id, 'is_deleted' => 0])
-            ->count();
-        $products = Product::find()
-            ->where(['brand_id'=>$id])
-            ->andWhere('is_deleted=:is', [':is'=>'0'])
-            ->orderBy('product_name ASC')
-            ->all();
-        if($countProducts > 0)
-        {
-            foreach ($products as $product) {
-                echo "<option value='".$product->id."'>".$product->brand_id." ".$product->productName."</option>";
-            }
-        }
-        else
-        {
-            echo "<option>-</option>";
+        if ($id = Yii::$app->request->post('id')) {
+            $countProducts = Product::find()
+                ->where(['brand_id' => $id])
+                ->count();
+    
+            if ($countProducts > 0) {
+                $products = Product::find()
+                    ->where(['brand_id' => $id])
+                    ->orderBy('id ASC')
+                    ->all();
+                foreach ($products as $product)
+                    echo "<option value='" . $product->id . "'>". $product->id. $product->productName . "</option>";
+            } else
+                echo "<option>-</option>";
+    
         }
     }
 
