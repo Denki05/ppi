@@ -57,13 +57,14 @@ class SalesinvoicespecialController extends BaseController
             ->where(['brand_id'=>$id, 'is_deleted' => 0])
             ->count();
         $products = Product::find()
-            ->where(['brand_id'=>$id, 'is_deleted' => 0])
+            ->where(['brand_id'=>$id])
+            ->andWhere('is_deleted=:is', [':is'=>'0'])
             ->orderBy('product_name ASC')
             ->all();
         if($countProducts > 0)
         {
             foreach ($products as $product) {
-                echo "<option value='".$product->id."'>".Yii::t('app',$product->productName)."</option>";
+                echo "<option value='".$product->id."'>".$product->brand_id." ".$product->productName."</option>";
             }
         }
         else

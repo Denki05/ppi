@@ -354,7 +354,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     </tbody>
                                 </table>
                             </div>
-                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" style="display: none"><i class="la la-plus-circle"></i> Tambah baris</button>
+                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" ><i class="la la-plus-circle"></i> Tambah baris</button>
                         </div>
                     </div>
                 </div>
@@ -794,12 +794,12 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
+// $(document).ready(function(){
 
-    $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
+//     $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
 
-        $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
+//         $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
 
-    }); 
-});
+//     }); 
+// });
 </script>
