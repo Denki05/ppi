@@ -178,6 +178,7 @@ class SalesinvoicespecialController extends BaseController
             
             $trans = Yii::$app->db->beginTransaction();
 
+            $model->invoice_type = 'nonppn';
             $model->invoice_date = !empty($model->invoice_date) ? date("Y-m-d", strtotime($model->invoice_date)) : NULL;    
             $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("Y-m-d", strtotime($model->invoice_comission_pay_date)) : NULL;
             $model->invoice_code = $model->getInvoiceCode('invoice_code');
@@ -375,7 +376,7 @@ class SalesinvoicespecialController extends BaseController
             ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
-            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2020-01-01", "2020-12-31" ])
+            // ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2020-01-01", "2020-12-31" ])
             // ->andWhere(['tbl_product.product_status' => 'active'])
             
             ->all();
@@ -417,45 +418,45 @@ class SalesinvoicespecialController extends BaseController
             // dd($list);
 
             foreach($list as $val){
-                if(in_array($val['brand_id'], $items)) {
-                    $same_brand = true;
+                    if(in_array($val['brand_id'], $items)) {
+                        $same_brand = true;
 
-                    // $model = $this->findModel($item['invoiceID']);
-                    // $model->invoice_product_type = $item['brand_name'];
-                    // $model->save();
+                        // $model = $this->findModel($item['invoiceID']);
+                        // $model->invoice_product_type = $item['brand_name'];
+                        // $model->save();
 
-                    $model = $this->findModel($item['invoiceID']);
-                    $model->invoice_product_type = $item['brand_name'];
-                    
-                    $model->bank_id = !empty($model->bank_id) ? $model->bank_id : NULL;
+                        $model = $this->findModel($item['invoiceID']);
+                        $model->invoice_product_type = $item['brand_name'];
+                        
+                        $model->bank_id = !empty($model->bank_id) ? $model->bank_id : NULL;
 
-                    if (!$model->save()) {
-                        $errorMessage = ErrorGenerateComponent::generateErrorLabels($model->getErrors());
-                        // $noProblem = false;
-                        Yii::$app->session->setFlash('danger', $errorMessage);
+                        if (!$model->save()) {
+                            $errorMessage = ErrorGenerateComponent::generateErrorLabels($model->getErrors());
+                            // $noProblem = false;
+                            Yii::$app->session->setFlash('danger', $errorMessage);
+                        }
+
+                        // dd($note->save());
+                        
+                    } else {
+                        array_push($items, $val['brand_id']);
+                        $same_brand = false;
+
+                        $invoice_note = new InvoiceNote();
+                        $invoice_note->invoice_id = $item['invoiceID'];
+                        $invoice_note->invoice_code = $item['invoice_code'];
+                        if (!$invoice_note->save()) {
+                            $errorMessage = ErrorGenerateComponent::generateErrorLabels($invoice_note->getErrors());
+                            // $noProblem = false;
+                            Yii::$app->session->setFlash('danger', $errorMessage);
+                        }
                     }
 
-                    // dd($note->save());
-                    
-                } else {
-                    array_push($items, $val['brand_id']);
-                    $same_brand = false;
-
-                    $invoice_note = new InvoiceNote();
-                    $invoice_note->invoice_id = $item['invoiceID'];
-                    $invoice_note->invoice_code = $item['invoice_code'];
-                    if (!$invoice_note->save()) {
-                        $errorMessage = ErrorGenerateComponent::generateErrorLabels($invoice_note->getErrors());
-                        // $noProblem = false;
-                        Yii::$app->session->setFlash('danger', $errorMessage);
+                    if ($noProblem) {
+                        // $trans->commit();
+                        Yii::$app->session->setFlash('success', 'Nota '.LabelComponent::SUCCESS_CHECK);
+                        // return $this->redirect(['index']);
                     }
-                }
-
-                if ($noProblem) {
-                    // $trans->commit();
-                    Yii::$app->session->setFlash('success', 'Nota '.LabelComponent::SUCCESS_CHECK);
-                    // return $this->redirect(['index']);
-                }
             }
         }
         return $this->redirect(['index']);
