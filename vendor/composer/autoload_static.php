@@ -45,6 +45,7 @@ class ComposerStaticInita408910f5ea8cc97a33179937e0bbdef
         ),
         'k' => 
         array (
+            'kartik\\select2\\' => 15,
             'kartik\\plugins\\depdrop\\' => 23,
             'kartik\\mpdf\\' => 12,
             'kartik\\depdrop\\' => 15,
@@ -157,6 +158,10 @@ class ComposerStaticInita408910f5ea8cc97a33179937e0bbdef
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'kartik\\select2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2/src',
         ),
         'kartik\\plugins\\depdrop\\' => 
         array (

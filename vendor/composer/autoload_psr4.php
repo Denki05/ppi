@@ -15,6 +15,7 @@ return array(
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
+    'kartik\\select2\\' => array($vendorDir . '/kartik-v/yii2-widget-select2/src'),
     'kartik\\plugins\\depdrop\\' => array($vendorDir . '/kartik-v/dependent-dropdown'),
     'kartik\\mpdf\\' => array($vendorDir . '/kartik-v/yii2-mpdf/src'),
     'kartik\\depdrop\\' => array($vendorDir . '/kartik-v/yii2-widget-depdrop/src'),

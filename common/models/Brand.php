@@ -85,4 +85,9 @@ class Brand extends \common\models\MasterModel
     {
         return $this->hasMany(Product::className(), ['original_brand_id' => 'id']);
     }
+
+    public static function getBrand()
+    {
+        return self::find()->select(['brand_name', 'id'])->where('brand_type=:is', [':is'=>'ppi'])->indexBy('id')->column();
+    }
 }

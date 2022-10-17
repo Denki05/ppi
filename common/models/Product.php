@@ -537,4 +537,17 @@ class Product extends \common\models\MasterModel
     public function getProductPrice(){
         return $this->product_sell_price;
     } 
+
+    public static function getProductList($brandID, $dependent = false)
+    {
+        $product = self::find()
+            ->where(['brand_id' => $brandID])
+            ->andWhere('is_deleted=:is', [':is'=> 0]);
+
+        if ($product) {
+            return $product->select(['id', 'product_name', 'product_sell_price'])->asArray()->all();
+        } else {
+            return $product->select(['product_name'])->indexBy('id')->column();
+        }
+    }
 }

@@ -20,6 +20,8 @@ use common\models\ComissionType;
 use common\models\SalesInvoiceItem;
 use common\models\SalesInvoice;
 use common\models\Packaging;
+use kartik\depdrop\DepDrop;
+
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
 $toolbar[] = ButtonComponent::getBackButton();
@@ -66,28 +68,30 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                             ?>
                         </div>
                         <div class="col-lg-6">
-                            <?= $form->field($model, 'invoice_product_type')
-                                    ->dropDownList(ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(),'id','brand_name' ), 
-                                        [
-                                            'class' => 'form-control input-sm brand-id invoice-brand-type select2', 
-                                            'prompt' => 'Pilih Invoice Brand Type', 
-                                            'id' => 'invoice-brand-type', 
-                                            // 'onchange'=>'
-                                            //     $.post("'.Yii::$app->urlManager->createUrl('sales/salesinvoicespecial/getbrand?id=') . '"+$(this).val(), 
-                                            //     function( data ) {
-                                            //         $( "#invoice-item-brand" ).html( data );
-                                            //     });
-                                            // '
-                                            'onchange' => '
-                                                $.post(
-                                                    "' . Url::toRoute('getbrand') . '", 
-                                                    {id: $(this).val()}, 
-                                                    function(res){
-                                                        $("select#invoice-item-brand").html(res);
-                                                    }
-                                                );
-                                            ',
-                                        ]);
+                            <?php
+                                $brandID = [
+                                    247 => 'Senses',
+                                    287 => 'GCF',
+                                    327 => 'PPI',
+                                    333 => '-', 
+                                    367 => 'LD'
+                                ];
+                            ?>
+
+                            <?=
+                                $form->field($model, 'invoice_product_type')->dropDownList($brandID, ['id'=>'brand-id', 'class' => 'form-control input-sm select2', 'prompt' => 'Pilih Invoice Brand Type']);
+                            ?>
+                        </div>
+                        <div class="col-lg-6">
+                            <?=
+                                $form->field($model, 'invoice_code_ppn')->widget(DepDrop::classname(), [
+                                    'options'=>['id'=>'product-id', 'class' => 'form-control input-sm select2'],
+                                    'pluginOptions'=>[
+                                        'depends'=>['brand-id'],
+                                        'placeholder'=>'Select...',
+                                        'url'=>Url::to(['/sales/salesinvoicespecial/getproduct'])
+                                    ]
+                                ]);
                             ?>
                         </div>
                     </div>

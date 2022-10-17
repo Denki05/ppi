@@ -23,6 +23,7 @@ use yii\helpers\Json;
 use kartik\mpdf\Pdf;
 use yii\helpers\VarDumper;
 use yii\data\Sort;
+use kartik\select2\Select2;
 
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
@@ -41,6 +42,40 @@ class SalesinvoicespecialController extends BaseController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionGetproduct()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // $out = [];
+        // if (isset($_POST['depdrop_parents'])) {
+        //     $parents = $_POST['depdrop_parents'];
+        //     if ($parents != null) {
+        //         $brand_id = $parents[0];
+        //         $out = Product::getProductList($brand_id); 
+        //         // the getSubCatList function will query the database based on the
+        //         // cat_id and return an array like below:
+        //         // [
+        //         //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+        //         //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+        //         // ];
+        //         return ['output'=>$out, 'selected'=>''];
+        //     }
+        // }
+        // return ['output'=>'', 'selected'=>''];
+        $out = [];
+        
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+                if ($parents != null){
+                    $brand_id = $parents[0];
+                    $out = Product::find()
+                           ->where(['brand_id'=>$brand_id])
+                           ->andWhere('is_deleted=:is', [':is'=> 0])
+                           ->select(['id','product_name AS name'])->asArray()->all();
+                           return ['output'=>$out, 'selected'=>''];
+                }
+        }
     }
 
     public function actionGetitemrow($id)
