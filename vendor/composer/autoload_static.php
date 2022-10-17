@@ -45,7 +45,10 @@ class ComposerStaticInita408910f5ea8cc97a33179937e0bbdef
         ),
         'k' => 
         array (
+            'kartik\\plugins\\depdrop\\' => 23,
             'kartik\\mpdf\\' => 12,
+            'kartik\\depdrop\\' => 15,
+            'kartik\\base\\' => 12,
         ),
         'c' => 
         array (
@@ -155,9 +158,21 @@ class ComposerStaticInita408910f5ea8cc97a33179937e0bbdef
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
+        'kartik\\plugins\\depdrop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/dependent-dropdown',
+        ),
         'kartik\\mpdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf/src',
+        ),
+        'kartik\\depdrop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-depdrop/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
         'cebe\\markdown\\' => 
         array (
