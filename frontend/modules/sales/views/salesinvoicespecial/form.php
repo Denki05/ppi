@@ -21,6 +21,8 @@ use common\models\SalesInvoiceItem;
 use common\models\SalesInvoice;
 use common\models\Packaging;
 use kartik\depdrop\DepDrop;
+use kartik\select2\Select2;
+
 
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
@@ -88,7 +90,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     'options'=>['id'=>'product-id', 'class' => 'form-control input-sm select2'],
                                     'pluginOptions'=>[
                                         'depends'=>['brand-id'],
-                                        'placeholder'=>'Select...',
+                                        'placeholder'=>'Select Invoice Brand',
                                         'url'=>Url::to(['/sales/salesinvoicespecial/getproduct'])
                                     ]
                                 ]);
@@ -182,9 +184,8 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         <td>
                                             <?= Html::dropDownList('item[{index}][product_id]', '', ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), 
                                                 [
-                                                    'class' => 'form-control input-sm product-id invoice-item-brand', 
-                                                    'prompt' => 'Pilih Barang', 
-                                                    'id' => 'invoice-item-brand', 
+                                                    'class' => 'form-control input-sm product-id', 
+                                                    'prompt' => 'Pilih Barang'
                                                 ]) 
                                             ?>
                                         </td>
