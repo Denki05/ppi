@@ -22,7 +22,7 @@ use common\models\SalesInvoice;
 use common\models\Packaging;
 use kartik\depdrop\DepDrop;
 use kartik\select2\Select2;
-
+use yii\bootstrap\Dropdown;
 
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
@@ -36,7 +36,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 
 ?>
 <input id="baseUrl" type="hidden" value="<?=Url::base()?>/sales/salesinvoicespecial">
-<?php $form = ActiveForm::begin(['id' => 'application_form']); ?>
+<?php $form = ActiveForm::begin(['id' => 'application_form']); ?>   
 <?php echo Html::hiddenInput('saveandnew', '0', ['id' => 'hiddensaveandnew']);?>
 <?php //echo $form->errorSummary(array($model));?>
 
@@ -70,32 +70,49 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                             ?>
                         </div>
                         <div class="col-lg-6">
-                            <?php
-                                $brandID = [
-                                    247 => 'Senses',
-                                    287 => 'GCF',
-                                    327 => 'PPI',
-                                    333 => '-', 
-                                    367 => 'LD'
-                                ];
+                            <?php 
+                                $brand = [
+                                    ['id' => '247', 'brand_name' => 'Senses'],
+                                    ['id' => '287', 'brand_name' => 'GCF'],
+                                    ]; 
                             ?>
+                            <?= $form->field($model, 'invoice_product_type')->dropDownList(
+                                ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(), 'id', 'brand_name'),
+                                    [
+                                        'prompt'=>'Select Invoice Brand',
+                                        'class' => 'form-control input-sm select2',
+                                        'onchange' => '
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "'.Yii::$app->urlManager->createUrl(["/sales/salesinvoicespecial/getbrand"]).'",
+                                                data: {search_reference: $(this).val()},
+                                                dataType: "json",
+                                                success: function(response){
 
-                            <?=
-                                $form->field($model, 'invoice_product_type')->dropDownList($brandID, ['id'=>'brand-id', 'class' => 'form-control input-sm select2', 'prompt' => 'Pilih Invoice Brand Type']);
-                            ?>
-                        </div>
-                        <div class="col-lg-6">
-                            <?=
-                                $form->field($model, 'invoice_code_ppn')->widget(DepDrop::classname(), [
-                                    'options'=>['id'=>'product-id', 'class' => 'form-control input-sm select2'],
-                                    'pluginOptions'=>[
-                                        'depends'=>['brand-id'],
-                                        'placeholder'=>'Select Invoice Brand',
-                                        'url'=>Url::to(['/sales/salesinvoicespecial/getproduct'])
+                                                    $("#invoice-item-brand").prop("disabled", false);
+                                                    $("#invoice-item-brand").empty();
+                                                    var count = response.length;
+
+                                                    if(count === 0) {
+                                                        $("#invoice-item-brand").empty();
+                                                        $("#invoice-item-brand").prop("disabled", "disabled");
+                                                        $("#invoice-item-brand").append("<option value=\'"+id+"\'>Sorry, there are no options available for this selection</option>");
+                                                    } else {
+                                                        $("#invoice-item-brand").append("<option value=\'"+id+"\'>Select Product</option>");
+                                                        for(var i = 0; i<count; i++){
+                                                            var id = response[i][\'id\'];
+                                                            var product_name = response[i][\'product_name\'];
+                                                            $("#invoice-item-brand").append("<option value=\'"+id+"\'>"+product_name+"</option>");
+                                                        }
+                                                    }
+
+                                                }
+                                            });
+                                        '
                                     ]
-                                ]);
+                                );
                             ?>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -185,7 +202,8 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                             <?= Html::dropDownList('item[{index}][product_id]', '', ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), 
                                                 [
                                                     'class' => 'form-control input-sm product-id', 
-                                                    'prompt' => 'Pilih Barang'
+                                                    'prompt' => 'Pilih Barang', 
+                                                    'id' => 'invoice-item-brand'
                                                 ]) 
                                             ?>
                                         </td>

@@ -24,6 +24,7 @@ use kartik\mpdf\Pdf;
 use yii\helpers\VarDumper;
 use yii\data\Sort;
 use kartik\select2\Select2;
+use yii\db\Query;
 
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
@@ -47,22 +48,6 @@ class SalesinvoicespecialController extends BaseController
     public function actionGetproduct()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        // $out = [];
-        // if (isset($_POST['depdrop_parents'])) {
-        //     $parents = $_POST['depdrop_parents'];
-        //     if ($parents != null) {
-        //         $brand_id = $parents[0];
-        //         $out = Product::getProductList($brand_id); 
-        //         // the getSubCatList function will query the database based on the
-        //         // cat_id and return an array like below:
-        //         // [
-        //         //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
-        //         //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
-        //         // ];
-        //         return ['output'=>$out, 'selected'=>''];
-        //     }
-        // }
-        // return ['output'=>'', 'selected'=>''];
         $out = [];
         
         if (isset($_POST['depdrop_parents'])) {
@@ -76,6 +61,28 @@ class SalesinvoicespecialController extends BaseController
                            return ['output'=>$out, 'selected'=>''];
                 }
         }
+    }
+
+    public function actionGetbrand()
+    {
+
+        $search_reference = Yii::$app->request->post('search_reference');
+
+        $query = new Query;
+        $query->select('id, product_code, product_name, product_sell_price')->from('tbl_product')->where(['brand_id' => $search_reference]);
+        $rows = $query->all();
+
+        $data = [];
+        if(!empty($rows)) {
+            foreach($rows as $row) {
+                $data[] = ['id' => $row['id'], 'product_code' => $row['product_code'], 'product_name' => $row['product_name'], 'product_sell_price' => $row['product_sell_price']];
+            }
+        } else {
+            $data = '';
+        }
+
+        return $this->asJson($data);
+
     }
 
     public function actionGetitemrow($id)
@@ -170,7 +177,8 @@ class SalesinvoicespecialController extends BaseController
             $noProblem = true;
 
             $items = $_POST['item'];
-            
+            // $model->items = Yii::$app->request->post('Item',[]);
+
             $trans = Yii::$app->db->beginTransaction();
 
             $model->invoice_type = 'nonppn';

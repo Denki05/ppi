@@ -176,9 +176,14 @@ class SalesInvoice extends \common\models\MasterModel
         return $this->hasMany(SalesPayment::className(), ['invoice_id' => 'id']);
     }
 
-    public function getSalesInvoiceItems()
+    public function getItems()
     {
         return $this->hasMany(SalesInvoiceItem::className(), ['invoice_id' => 'id']);
+    }
+
+    public function setItems($value)
+    {
+        $this->loadRelated('items', $value);
     }
     
     public function getStatusLabel($status='')
