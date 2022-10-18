@@ -45,24 +45,6 @@ class SalesinvoicespecialController extends BaseController
         ]);
     }
 
-    public function actionGetproduct()
-    {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $out = [];
-        
-        if (isset($_POST['depdrop_parents'])) {
-            $parents = $_POST['depdrop_parents'];
-                if ($parents != null){
-                    $brand_id = $parents[0];
-                    $out = Product::find()
-                           ->where(['brand_id'=>$brand_id])
-                           ->andWhere('is_deleted=:is', [':is'=> 0])
-                           ->select(['id','product_name AS name'])->asArray()->all();
-                           return ['output'=>$out, 'selected'=>''];
-                }
-        }
-    }
-
     public function actionGetbrand()
     {
 
@@ -70,7 +52,7 @@ class SalesinvoicespecialController extends BaseController
 
         $query = new Query;
         $query->select('id, product_code, product_name, product_sell_price')->from('tbl_product')->where(['brand_id' => $search_reference]);
-        $rows = $query->all();
+        $rows = $query->orderBy('product_name')->all();
 
         $data = [];
         if(!empty($rows)) {

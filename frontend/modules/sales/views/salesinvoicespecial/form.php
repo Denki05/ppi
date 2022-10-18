@@ -81,6 +81,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     [
                                         'prompt'=>'Select Invoice Brand',
                                         'class' => 'form-control input-sm select2',
+                                        'id' => 'invoice-brand-type', 
                                         'onchange' => '
                                             $.ajax({
                                                 type: "POST",
@@ -102,7 +103,8 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                         for(var i = 0; i<count; i++){
                                                             var id = response[i][\'id\'];
                                                             var product_name = response[i][\'product_name\'];
-                                                            $("#invoice-item-brand").append("<option value=\'"+id+"\'>"+product_name+"</option>");
+                                                            var product_code = response[i][\'product_code\'];
+                                                            $("#invoice-item-brand").append("<option value=\'"+id+"\'>"+product_code+" -- "+product_name+"</option>");
                                                         }
                                                     }
 
@@ -386,7 +388,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     </tbody>
                                 </table>
                             </div>
-                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" ><i class="la la-plus-circle"></i> Tambah baris</button>
+                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" style="display:none"><i class="la la-plus-circle"></i> Tambah baris</button>
                         </div>
                     </div>
                 </div>
@@ -826,12 +828,12 @@ $(document).ready(function(){
     });
 });
 
-// $(document).ready(function(){
+$(document).ready(function(){
 
-//     $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
+    $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
 
-//         $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
+        $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
 
-//     }); 
-// });
+    }); 
+});
 </script>
