@@ -70,12 +70,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                             ?>
                         </div>
                         <div class="col-lg-6">
-                            <?php 
-                                $brand = [
-                                    ['id' => '247', 'brand_name' => 'Senses'],
-                                    ['id' => '287', 'brand_name' => 'GCF'],
-                                    ]; 
-                            ?>
                             <?= $form->field($model, 'invoice_product_type')->dropDownList(
                                 ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(), 'id', 'brand_name'),
                                     [
