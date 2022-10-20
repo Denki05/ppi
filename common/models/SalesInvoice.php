@@ -49,6 +49,11 @@ class SalesInvoice extends \common\models\MasterModel
     const STATUS_PAYMENT_PARTIAL = 'partial';
     const STATUS_PAYMENT_PAID = 'paid';
     const STATUS_INVOICE_PPN = 'ppn';
+    const INVOICE_TYPE_SENSES = '247';
+    const INVOICE_TYPE_GCF = '287';
+    const INVOICE_TYPE_PPI = '327';
+    const INVOICE_TYPE_NONE = '333';
+    const INVOICE_TYPE_LD = '367';
     // const STATUS_INVOICE_NON_PPN = 'nonppn';
 
     public $customer_name, $salesman_name, $payment_date, $bank_type, $bank_name;
@@ -176,14 +181,9 @@ class SalesInvoice extends \common\models\MasterModel
         return $this->hasMany(SalesPayment::className(), ['invoice_id' => 'id']);
     }
 
-    public function getItems()
+    public function getSalesInvoiceItems()
     {
         return $this->hasMany(SalesInvoiceItem::className(), ['invoice_id' => 'id']);
-    }
-
-    public function setItems($value)
-    {
-        $this->loadRelated('items', $value);
     }
     
     public function getStatusLabel($status='')
@@ -192,6 +192,19 @@ class SalesInvoice extends \common\models\MasterModel
             self::STATUS_NEW => 'Baru',
             self::STATUS_SENT => 'Sent',
             self::STATUS_CLOSE => 'Tutup',
+        );
+        
+        return $status == '' ? $statuses : (isset($statuses[$status]) ? $statuses[$status] : "");
+    }
+
+    public function getInvoiceType($status='')
+    {
+        $statuses = array(
+            self::INVOICE_TYPE_SENSES => 'Senses',
+            self::INVOICE_TYPE_GCF => 'GCF',
+            self::INVOICE_TYPE_PPI => 'PPI',
+            self::INVOICE_TYPE_NONE => '-',
+            self::INVOICE_TYPE_LD => 'LD',
         );
         
         return $status == '' ? $statuses : (isset($statuses[$status]) ? $statuses[$status] : "");

@@ -47,13 +47,19 @@ class Product extends \common\models\MasterModel
     const PRODUCT_CONDITION_DISABLED = 'disabled';
     const CURRENCY_RUPIAH = 'rupiah';
     const CURRENCY_DOLAR = 'dolar';
-    const PRODUCT_TYPE_GCF = '10';
-    const PRODUCT_TYPE_SENSES = '20';
-    const PRODUCT_TYPE_PROJECT_FF = '30';
-    const PRODUCT_TYPE_PROJECT_NON_FF = '40';
-    const PRODUCT_TYPE_DUFTNOL = '50';
-    const PRODUCT_TYPE_SELUZ = '60';
-    const PRODUCT_TYPE_LAIN = '90';
+    // const PRODUCT_TYPE_GCF = '10';
+    // const PRODUCT_TYPE_SENSES = '20';
+    // const PRODUCT_TYPE_PROJECT_FF = '30';
+    // const PRODUCT_TYPE_PROJECT_NON_FF = '40';
+    // const PRODUCT_TYPE_DUFTNOL = '50';
+    // const PRODUCT_TYPE_SELUZ = '60';
+    // const PRODUCT_TYPE_LAIN = '90';
+    const PRODUCT_TYPE_SAMPLE = 'sample';
+    const PRODUCT_TYPE_NEW = 'new';
+    const PRODUCT_TYPE_BESTSELLER = 'bestseller';
+    const PRODUCT_TYPE_REGULAR = 'regular';
+    const PRODUCT_TYPE_SLOW = 'slow';
+    const PRODUCT_TYPE_DISCONTINUE = 'discontinue';
 
     public $image, $mode, $factory_name, $brand_name, $category_name, $productLabel;
     /**
@@ -203,15 +209,15 @@ class Product extends \common\models\MasterModel
         return empty($status) ? $statuses : (isset($statuses[$status]) ? $statuses[$status] : "");
     }
 
-    public function getProductCondition($condition='')
-    {
-        $conditions = [
-           self::PRODUCT_CONDITION_ENABLED => 'Enabled',
-           self::PRODUCT_CONDITION_DISABLED => 'Disabled',
-        ];
+    // public function getProductCondition($condition='')
+    // {
+    //     $conditions = [
+    //        self::PRODUCT_CONDITION_ENABLED => 'Enabled',
+    //        self::PRODUCT_CONDITION_DISABLED => 'Disabled',
+    //     ];
 
-        return empty($condition) ? $conditions : (isset($conditions[$condition]) ? $conditions[$condition] : "");
-    }
+    //     return empty($condition) ? $conditions : (isset($conditions[$condition]) ? $conditions[$condition] : "");
+    // }
 
     public function getProductGender($gender='')
     {
@@ -224,16 +230,30 @@ class Product extends \common\models\MasterModel
         return empty($gender) ? $genders : (isset($genders[$gender]) ? $genders[$gender] : "");
     }
 
+    // public function getProductType($type='')
+    // {
+    //     $types = array(
+    //         self::PRODUCT_TYPE_GCF => 'GCF',
+    //         self::PRODUCT_TYPE_SENSES => 'Senses',
+    //         self::PRODUCT_TYPE_PROJECT_FF => 'Project FF',
+    //         self::PRODUCT_TYPE_PROJECT_NON_FF => 'Project Non FF',
+    //         self::PRODUCT_TYPE_DUFTNOL => 'Duftnol',
+    //         self::PRODUCT_TYPE_SELUZ => 'Seluz',
+    //         self::PRODUCT_TYPE_LAIN => 'Lain',
+    //     );
+
+    //     return $type == '' ? $types : (isset($types[$type]) ? $types[$type] : "");
+    // }
+
     public function getProductType($type='')
     {
         $types = array(
-            self::PRODUCT_TYPE_GCF => 'GCF',
-            self::PRODUCT_TYPE_SENSES => 'Senses',
-            self::PRODUCT_TYPE_PROJECT_FF => 'Project FF',
-            self::PRODUCT_TYPE_PROJECT_NON_FF => 'Project Non FF',
-            self::PRODUCT_TYPE_DUFTNOL => 'Duftnol',
-            self::PRODUCT_TYPE_SELUZ => 'Seluz',
-            self::PRODUCT_TYPE_LAIN => 'Lain',
+            self::PRODUCT_TYPE_SAMPLE => 'Sample',
+            self::PRODUCT_TYPE_NEW => 'Baru',
+            self::PRODUCT_TYPE_BESTSELLER => 'Best Seller',
+            self::PRODUCT_TYPE_REGULAR => 'Regular',
+            self::PRODUCT_TYPE_SLOW => 'Slow',
+            self::PRODUCT_TYPE_DISCONTINUE => 'Berhenti',
         );
 
         return $type == '' ? $types : (isset($types[$type]) ? $types[$type] : "");

@@ -97,7 +97,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     [
                                         'attribute' => 'product_type',
                                         'value' => function($model){
-                                            return $model->getProductType($model->product_type);
+                                            return $model->getProductType($model->product_type) ? $model->product_type : '<center>-</center>' ;
                                         },
                                         'filter' => (new Product)->getProductType(),
                                     ],

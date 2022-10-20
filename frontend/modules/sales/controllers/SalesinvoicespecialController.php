@@ -50,9 +50,16 @@ class SalesinvoicespecialController extends BaseController
 
         $search_reference = Yii::$app->request->post('search_reference');
 
-        $query = new Query;
-        $query->select('id, product_code, product_name, product_sell_price')->from('tbl_product')->where(['brand_id' => $search_reference]);
-        $rows = $query->orderBy('product_name')->all();
+        // $query = new Query;
+        // $query->select('id, product_code, product_name, product_sell_price')->from('tbl_product')->where(['brand_id' => $search_reference]);
+        // $rows = $query->orderBy('product_name')->all();
+
+        $rows = Product::find()
+            ->select('id, product_code, product_name, product_sell_price')
+            ->where(['brand_id'=>$search_reference])
+            ->andWhere('is_deleted=:is',[':is'=>0])
+            ->orderBY('product_name')
+            ->all();
 
         $data = [];
         if(!empty($rows)) {
@@ -64,6 +71,21 @@ class SalesinvoicespecialController extends BaseController
         }
 
         return $this->asJson($data);
+
+        // $posts = \common\models\Post::find()
+        //         ->where(['category_id' => $id])
+        //         ->orderBy('id DESC')
+        //         ->all();
+
+        // if (!empty($posts)) {
+        //     $option = '<option>-Select Option-</option>';
+        //     foreach($posts as $post) {
+        //         $options .= "<option value='".$post->id."'>".$post->title."</option>";
+        //     }
+        //     return $options;
+        // } else {
+        //     return "<option>-</option>";
+        // }
 
     }
 
@@ -251,6 +273,7 @@ class SalesinvoicespecialController extends BaseController
 		
 		$model = $this->findModel($id);
         $model->invoice_date = !empty($model->invoice_date) ? date("d-m-Y", strtotime($model->invoice_date)) : NULL;
+        // $model->invoice_product_type = $model->invoice_product_type;
         $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("d-m-Y", strtotime($model->invoice_comission_pay_date)) : '';    
 
         $items = array();

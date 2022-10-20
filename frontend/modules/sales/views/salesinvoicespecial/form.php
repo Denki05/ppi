@@ -74,7 +74,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                 ArrayHelper::map(Brand::find()->where('brand_type=:is', [':is' => 'ppi'])->all(), 'id', 'brand_name'),
                                     [
                                         'prompt'=>'Select Invoice Brand',
-                                        'class' => 'form-control input-sm select2',
+                                        'class' => 'form-control input-sm invoice-brand-type select2',
                                         'id' => 'invoice-brand-type', 
                                         'onchange' => '
                                             $.ajax({
@@ -250,7 +250,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                             <?php if ($i !== "{index}"):?>
                                         <tr id="row-<?=$i?>" class="row-item">
                                             <td>
-                                                <?= Html::dropDownList('item['.$i.'][product_id]', $item['product_id'], ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), ['class' => 'form-control input-sm product-id select2', 'prompt' => 'Pilih Barang']) ?>
+                                                <?= Html::dropDownList('item['.$i.'][product_id]', $item['product_id'], ArrayHelper::map(Product::find()->andWhere('is_deleted=:is', [':is' => 0])->orderBy(['product_name' => SORT_ASC])->all(),'id','productName'), ['class' => 'form-control input-sm product-id select2', 'prompt' => 'Pilih Barang', 'id' => 'invoice-item-brand-update']) ?>
                                             </td>
                                             <td>
                                                 <?=Html::textInput('item['.$i.'][invoice_item_qty]', $item['invoice_item_qty'], array('class' => 'form-control invoice-item-qty angka input-sm'));?>
@@ -382,7 +382,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     </tbody>
                                 </table>
                             </div>
-                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" style="display:none"><i class="la la-plus-circle"></i> Tambah baris</button>
+                                <button href="javascript:;" onclick="" type="button" class="btn btn-outline-info btn-sm btn-add-row" ><i class="la la-plus-circle"></i> Tambah baris</button>
                         </div>
                     </div>
                 </div>
@@ -822,12 +822,12 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
+// $(document).ready(function(){
 
-    $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
+//     $('#invoice-brand-type').change(function(){ // where Dcl_tbo_sk is my model & table (model_table)
 
-        $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
+//         $('.btn-add-row').toggle(); // hiddenDiv replace our Dcl_nilaiblksk as model & table (model_table)
 
-    }); 
-});
+//     }); 
+// });
 </script>
