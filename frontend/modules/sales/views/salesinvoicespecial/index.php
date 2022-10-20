@@ -86,7 +86,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         'attribute' => 'invoice_product_type',
                                         'value' => function($model) {
                                             return $model->getInvoiceType($model->invoice_product_type);
-                                            // return isset($model->invoice_product_type) ? $model->invoice_product_type : "";
                                         }
                                     ],
                                     [
