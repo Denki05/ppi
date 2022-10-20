@@ -384,7 +384,7 @@ class SalesinvoicespecialController extends BaseController
             ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
-            // ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2020-01-01", "2020-12-31" ])
+            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2019-01-01", "2019-12-31" ])
             // ->andWhere(['tbl_product.product_status' => 'active'])
             
             ->all();
@@ -434,7 +434,7 @@ class SalesinvoicespecialController extends BaseController
                         // $model->save();
 
                         $model = $this->findModel($item['invoiceID']);
-                        $model->invoice_product_type = $item['brand_name'];
+                        $model->invoice_product_type = $item['brand_id'];
                         
                         $model->bank_id = !empty($model->bank_id) ? $model->bank_id : NULL;
 

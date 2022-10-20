@@ -42,7 +42,9 @@ class SalesInvoiceSearch extends SalesInvoice
      */
     public function search($params)
     {
-        $query = SalesInvoice::find()->where(['invoice_type' => 'nonppn']);
+        $query = SalesInvoice::find()
+            ->where(['invoice_type' => 'nonppn']);
+            // ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-01-01", "2022-10-01" ]);
         $query->joinWith(array('customer', 'salesman', 'bank', 'salesPayments'));
 
         // add conditions that should always apply here
