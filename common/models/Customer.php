@@ -42,12 +42,18 @@ use Yii;
  */
 class Customer extends \common\models\MasterModel
 {
-    const CUSTOMER_TYPE_AGEN = 'agen';
-    const CUSTOMER_TYPE_BIGRESELLER = 'bigreseller';
-    const CUSTOMER_TYPE_SMALLRESELLER = 'smallreseller';
-    const CUSTOMER_TYPE_GENERALRESELLER = 'generalreseller';
+    const CUSTOMER_TYPE_AGEN = 'AgenPerfumeryTrusted';
+    const CUSTOMER_TYPE_BIGRESELLER = 'BigReseller';
+    const CUSTOMER_TYPE_SMALLRESELLER = 'SmallReseller';
+    // const CUSTOMER_TYPE_GENERALRESELLER = 'generalreseller';
     const CUSTOMER_TYPE_INDUSTRY = 'industry';
     const CUSTOMER_TYPE_GENERAL = 'general';
+    const CUSTOMER_TYPE_BIG_PERFUMERY = 'BigPerfumery(Toko/Multicabang)';
+    const CUSTOMER_TYPE_SM_PERFUMERY = 'SmPerfumery(Toko/Multicabang)';
+    const CUSTOMER_TYPE_HOME_INDUSTRI_KOSMETIK = 'HomeIndustriKosmetik';
+    const CUSTOMER_TYPE_HOME_INDUSTRI_PKRT = 'HomeIndustriPkrt';
+    const CUSTOMER_TYPE_INDUSTRI_KOSEMTIK = 'IndustriKosmetik';
+    const CUSTOMER_TYPE_INDUSTRI_PKRT = 'IndustriPkrt';
     const CUSTOMER_STATUS_ACTIVE = 'active';
     const CUSTOMER_STATUS_INACTIVE = 'inactive';
     public $imageCard, $imageNpwp;
@@ -82,6 +88,7 @@ class Customer extends \common\models\MasterModel
     {
         return [
             'id' => 'ID',
+            'customer_type_id' => 'Customer Type',
             'customer_store_code' => 'Kode Toko',
             'customer_store_name' => 'Nama Toko',
             'customer_zone' => 'Wilayah',
@@ -144,12 +151,17 @@ class Customer extends \common\models\MasterModel
     public function getCustomerType($type='')
     {
         $types = [
-            self::CUSTOMER_TYPE_AGEN => 'Agen',
+            self::CUSTOMER_TYPE_AGEN => 'Agen Perfumery Trusted',
             self::CUSTOMER_TYPE_BIGRESELLER => 'Reseller Besar',
             self::CUSTOMER_TYPE_SMALLRESELLER => 'Reseller Kecil',
-            self::CUSTOMER_TYPE_GENERALRESELLER => 'Reseller Umum',
             self::CUSTOMER_TYPE_INDUSTRY => 'Industri',
             self::CUSTOMER_TYPE_GENERAL => 'Umum',
+            self::CUSTOMER_TYPE_BIG_PERFUMERY => 'BIG Perfumery(Toko/Multicabang)',
+            self::CUSTOMER_TYPE_SM_PERFUMERY => 'SM Perfumery(Toko/Multicabang)',
+            self::CUSTOMER_TYPE_HOME_INDUSTRI_KOSMETIK => 'Home Industri Kosmetik',
+            self::CUSTOMER_TYPE_HOME_INDUSTRI_PKRT => 'Home Industri PKRT',
+            self::CUSTOMER_TYPE_INDUSTRI_KOSEMTIK => 'Industri Kosmetik',
+            self::CUSTOMER_TYPE_INDUSTRI_PKRT => 'Industri PKRT'
         ];
 
         return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");

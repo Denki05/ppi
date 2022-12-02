@@ -54,7 +54,6 @@ class SalesInvoice extends \common\models\MasterModel
     const INVOICE_TYPE_PPI = '327';
     const INVOICE_TYPE_NONE = '333';
     const INVOICE_TYPE_LD = '367';
-    // const STATUS_INVOICE_NON_PPN = 'nonppn';
 
     public $customer_name, $salesman_name, $payment_date, $bank_type, $bank_name;
 

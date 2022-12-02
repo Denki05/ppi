@@ -4,6 +4,9 @@ use common\components\CurrencyComponent;
 use common\models\Product;
 use common\models\SalesPayment;
 use common\models\SalesInvoiceItem;
+use common\models\SalesInvoice;
+use common\models\Bank;
+use yii\helpers\Html;
 
 function penyebut($nilai) {
         $nilai = abs($nilai);
@@ -226,7 +229,7 @@ function penyebut($nilai) {
     </td>
   </tr>
 </table>
-<hr style="margin: 1px 0px 10px 0px;">
+<!-- <hr style="margin: 1px 0px 5px 0px;"> -->
 <?php if(!$model->isPayment()): ?>
 <table cellspacing="0" class="table-product" style="font-size: 11px; border: 1px solid;">
   <tr>
@@ -288,15 +291,15 @@ function penyebut($nilai) {
      ?>
 </table>
 <!-- <br> -->
-<table style="width: 100%; font-size: 14px;" border="0">
+<table style="width: 100%; font-size: 14px; margin-top: -12px;" border="0">
   <tr>
     <td style="width: 70%;" scope="col"><div align="left">
-      <table style="width: 100%; font-size: 14px;" border="0">
+      <table style="width: 85%; font-size: 14px;" border="0">
         <tr>
           <td width="147" scope="col"><div align="left">Terbilang</div></td>
           <td width="107" scope="col">&nbsp;</td>
           <td width="368" scope="col">&nbsp;</td>
-          </tr>
+        </tr>
         <tr>
           <td colspan="3"><?= terbilang($grandTotal).' '.$currency?></td>
           </tr>
@@ -308,17 +311,36 @@ function penyebut($nilai) {
           <td>:</td>
           <td><?= $model->invoice_exchange_rate?></td>
           </tr>
+        </table>
+        <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
+        <tr>
+            <td style="width: 5%;"> - </td>
+            <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
+          </tr>
+        <tr>
+            <td style="width: 5%;"> - </td>
+          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari PPI</strong></td>
+          </tr>
         
+        <tr>
+            <td style="width: 5%;"> - </td>
+          <td><strong>Pembayaran diluar ketentuan diatas tidak diakui</strong></td>
+          </tr>
+        <tr>
+            <td style="width: 5%;"> - </td>
+          <td><strong>Barang yang sudah dibeli tidak dapat ditukar / dikembalikan</strong></td>
+        </tr>
+      </table>
     </div></td>
-    <td style="width: 30%;" scope="col">
-    <table style="width: 100%; margin-top: -20px; font-size: 14px;" border="0">
+    <br>
+    <td style="width: 30%;" scope="col"><div align="left">
+    <table style="width: 100%; margin-top: 10spx; font-size: 14px;" border="0">
       <tr>
         <td width="187" scope="col"><div align="left">Sub Total</div></td>
         <td width="11" scope="col">:</td>
         <td width="101" scope="col" style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($total,0,',','.', $currency)?></div></td>
       </tr>
       <tr>
-        
         <td><div align="left">Diskon <?= $model->invoice_disc_percent?>%</div></td>
         <td>:</td>
         <td style="text-align: right;"><div align="right"><?= $model->invoice_disc_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount,0,',','.', $currency) : '-'?></div></td>
@@ -373,7 +395,7 @@ function penyebut($nilai) {
     <th class="acuan" style="width: 10%;"><center>Acuan (USD)</center></th>
     <th class="qty" style="width: 5%;"><center>Qty (KG)</center></th>
     <th class="packaging" style="width: 10%;"><center>Kemasan</center></th>
-    <th  class="price" style="width: 10%;"><center>Harga</center></th>
+    <th class="price" style="width: 10%;"><center>Harga</center></th>
     <th class="discon" style="width: 10%;"><center>Diskon (Cash)</center></th>
     <th class="netto" style="width: 10%;"><center>Netto</center></th>
     <th style="width: 15%;"><center>Jumlah</center></th>
@@ -434,10 +456,10 @@ function penyebut($nilai) {
      ?>
 </table>
 <!-- <br> -->
-<table style="width: 100%; font-size: 14px;" border="0">
+<table style="width: 100%; font-size: 14px;">
   <tr>
-    <td style="width: 70%;" scope="col"><div align="left">
-      <table style="width: 100%; font-size: 14px;" border="0">
+    <td style="width: 75%;" scope="col"><div align="left">
+      <table style="width: 100%; font-size: 14px;">
         <tr>
           <td width="147" scope="col"><div align="left">Terbilang</div></td>
           <td width="107" scope="col">&nbsp;</td>
@@ -455,24 +477,19 @@ function penyebut($nilai) {
           <td><?= $payment->payment_exchange_rate?></td>
           </tr>
         </table>
-        <br>
         <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
-        <tr>
-          <td colspan="2"><strong>Transfer BCA SBY (Irwan Linaksita) 4720 2369 88</strong></td>
-          </tr>
-        <tr>
             <td style="width: 5%;"> - </td>
           <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
           </tr>
         <tr>
             <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari PPI</strong></td>
+          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari Kantor</strong></td>
           </tr>
         
         <tr>
             <td style="width: 5%;"> - </td>
-          <td><strong>PPI tidak bertanggungjawab atas pembayaran yang tidak sesuai dengan ketentuan diatas</strong></td>
-          </tr>
+            <td><strong>Pembayaran diluar ketentuan diatas tidak diakui</strong></td>
+        </tr>
         <tr>
             <td style="width: 5%;"> - </td>
           <td><strong>Barang yang sudah dibeli tidak dapat ditukar / dikembalikan</strong></td>
@@ -480,7 +497,7 @@ function penyebut($nilai) {
       </table>
     </div></td>
     <td style="width: 30%;" scope="col">
-    <table style="width: 100%; margin-top: -20px; font-size: 14px;" border="0">
+    <table style="width: 100%; margin-top: -20px; font-size: 14px;">
       <tr>
         <td width="187" scope="col"><div align="left">Sub Total</div></td>
         <td width="11" scope="col">:</td>
@@ -531,19 +548,28 @@ function penyebut($nilai) {
   </tr>
 </table>
 <?php endif; ?>
-<table border="0" style="font-size: 12px;">
-    <tr>
-        <td style="width: 40%; vertical-align: top; text-align: center;">
-           
-            
-        </td>
-        <td style="width: 30%">&nbsp;</td>
-        <td style="width: 30%; vertical-align: top; text-align: left;">
+<table style="width: 100%; font-size: 14px;">
+  <tr>
+    <td style="width: 80%;" scope="col" align="center">
+      <div align="center">
+          <table style="width: 100%; font-size: 14px;">
+              <tr>
+                <td><img src="<?php echo Yii::getAlias('@imageurl')."/".$model->bank->bank_image; ?>" style="width: 20%;" alt="User Image"/></div></td>
+              </tr>
+          </table>
+      </div>
+    </td>
+    <td style="width: 25%;" scope="col"><div align="left">
+    <table style="width: 100%; margin-top: -5px; font-size: 14px;">
+      <tr>
+        <td width="187" scope="col"><div align="left">
             Hormat Kami,<br/><br/><br/><br/>
             
             (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
-        </td>
-    </tr>
+        </div></td>
+      </tr>
+    </table></td>
+  </tr>
 </table>
