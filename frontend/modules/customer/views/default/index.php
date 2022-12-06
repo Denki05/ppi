@@ -10,6 +10,7 @@ use frontend\components\AccessComponent;
 use common\components\CurrencyComponent;
 use frontend\components\ButtonComponent;
 use app\components\BaseController;
+use common\models\Customer;
 // use kartik\grid\GridView;
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
@@ -51,7 +52,13 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     'customer_store_name',
                                     'customer_store_address',
                                     'customer_city',
-                                    'customer_type',
+                                    [
+                                        'attribute' => 'customer_type',
+                                        'value' => function($model){
+                                            return $model->getCustomerType($model->customer_type);
+                                        },
+                                        'filter' => (new Customer)->getCustomerType(),
+                                    ], 
                                     [
                                         'attribute' => 'customer_tempo_limit',
                                         'value' => function($model){

@@ -25,6 +25,7 @@ use Yii;
  * @property string $customer_bank_acc_number
  * @property string $customer_bank_acc_name
  * @property int $customer_has_ppn
+ * @property int $customer_free_shipping
  * @property string $customer_status
  * @property string $customer_owner_name
  * @property string $customer_birthday
@@ -42,18 +43,17 @@ use Yii;
  */
 class Customer extends \common\models\MasterModel
 {
-    const CUSTOMER_TYPE_AGEN = 'AgenPerfumeryTrusted';
-    const CUSTOMER_TYPE_BIGRESELLER = 'BigReseller';
-    const CUSTOMER_TYPE_SMALLRESELLER = 'SmallReseller';
-    // const CUSTOMER_TYPE_GENERALRESELLER = 'generalreseller';
-    const CUSTOMER_TYPE_INDUSTRY = 'industry';
-    const CUSTOMER_TYPE_GENERAL = 'general';
-    const CUSTOMER_TYPE_BIG_PERFUMERY = 'BigPerfumery(Toko/Multicabang)';
-    const CUSTOMER_TYPE_SM_PERFUMERY = 'SmPerfumery(Toko/Multicabang)';
-    const CUSTOMER_TYPE_HOME_INDUSTRI_KOSMETIK = 'HomeIndustriKosmetik';
-    const CUSTOMER_TYPE_HOME_INDUSTRI_PKRT = 'HomeIndustriPkrt';
-    const CUSTOMER_TYPE_INDUSTRI_KOSEMTIK = 'IndustriKosmetik';
-    const CUSTOMER_TYPE_INDUSTRI_PKRT = 'IndustriPkrt';
+    const CUSTOMER_TYPE_UMUM = '1100-umum(semuaProspek)';
+    const CUSTOMER_TYPE_AGEN = '1110-agenPerfumeryTrusted';
+    const CUSTOMER_TYPE_BIGRESELLER = '1111-bigReseller';
+    const CUSTOMER_TYPE_SMRESELLER = '1112-smReseller';
+    const CUSTOMER_TYPE_BIG_PERFUMERY = '1121-bigPerfumery(toko/multicabang)';
+    const CUSTOMER_TYPE_SM_PERFUMERY = '1122-smPerfumery(toko/multicabang)';
+    const CUSTOMER_TYPE_UMUM_PROJECT = '2100-umumProject(semuaProspek)';
+    const CUSTOMER_TYPE_HOME_INDUSTRI_KOSMETIK = '2110-homeIndustriKosmetik';
+    const CUSTOMER_TYPE_HOME_INDUSTRI_PKRT = '2111-homeIndustriPkrt';
+    const CUSTOMER_TYPE_INDUSTRI_KOSEMTIK = '2120-industriKosmetik(ppn)';
+    const CUSTOMER_TYPE_INDUSTRI_PKRT = '2121-industriPkrt(ppn)';
     const CUSTOMER_STATUS_ACTIVE = 'active';
     const CUSTOMER_STATUS_INACTIVE = 'inactive';
     public $imageCard, $imageNpwp;
@@ -73,7 +73,7 @@ class Customer extends \common\models\MasterModel
         return [
             [['customer_store_code', 'customer_store_name', 'customer_store_address'], 'required'],
             [['customer_type', 'customer_status'], 'string'],
-            [['customer_has_tempo', 'customer_tempo_limit', 'customer_has_ppn', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['customer_has_tempo', 'customer_tempo_limit', 'customer_has_ppn', 'customer_free_shipping', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['customer_credit_limit'], 'number'],
             [['imageCard', 'imageNpwp'],'file', 'extensions' => 'png,jpg,jpeg', 'maxSize' => 1024000, 'skipOnEmpty' => true],
             [['customer_birthday', 'created_on', 'updated_on', 'customer_note'], 'safe'],
@@ -106,6 +106,7 @@ class Customer extends \common\models\MasterModel
             'customer_bank_acc_number' => 'Nomor Rekening',
             'customer_bank_acc_name' => 'Atas Nama',
             'customer_has_ppn' => 'PPN',
+            'customer_free_shipping' => 'Free Shipping',
             'customer_status' => 'Status Customer',
             'customer_owner_name' => 'Nama Customer',
             'customer_birthday' => 'Tanggal Lahir',
@@ -151,17 +152,17 @@ class Customer extends \common\models\MasterModel
     public function getCustomerType($type='')
     {
         $types = [
+            self::CUSTOMER_TYPE_UMUM  => 'Umum (Semua Prospek)',
             self::CUSTOMER_TYPE_AGEN => 'Agen Perfumery Trusted',
-            self::CUSTOMER_TYPE_BIGRESELLER => 'Reseller Besar',
-            self::CUSTOMER_TYPE_SMALLRESELLER => 'Reseller Kecil',
-            self::CUSTOMER_TYPE_INDUSTRY => 'Industri',
-            self::CUSTOMER_TYPE_GENERAL => 'Umum',
+            self::CUSTOMER_TYPE_BIGRESELLER => 'BIG Reseller',
+            self::CUSTOMER_TYPE_SMRESELLER => 'SM Reseller',
             self::CUSTOMER_TYPE_BIG_PERFUMERY => 'BIG Perfumery(Toko/Multicabang)',
             self::CUSTOMER_TYPE_SM_PERFUMERY => 'SM Perfumery(Toko/Multicabang)',
+            self::CUSTOMER_TYPE_UMUM_PROJECT => 'Umum Project(Semua Prospek)',
             self::CUSTOMER_TYPE_HOME_INDUSTRI_KOSMETIK => 'Home Industri Kosmetik',
             self::CUSTOMER_TYPE_HOME_INDUSTRI_PKRT => 'Home Industri PKRT',
-            self::CUSTOMER_TYPE_INDUSTRI_KOSEMTIK => 'Industri Kosmetik',
-            self::CUSTOMER_TYPE_INDUSTRI_PKRT => 'Industri PKRT'
+            self::CUSTOMER_TYPE_INDUSTRI_KOSEMTIK => 'Industri Kosmetik(PPN)',
+            self::CUSTOMER_TYPE_INDUSTRI_PKRT => 'Industri PKRT(PPN)'
         ];
 
         return empty($type) ? $types : (isset($types[$type]) ? $types[$type] : "");

@@ -372,13 +372,34 @@ function penyebut($nilai) {
         
         <td><div align="left">Biaya Kirim</div></td>
         <td>:</td>
-        <td align="right" style="text-align: right;"><?= $tips >= 0.1 ? CurrencyComponent::formatMoney($tips,0,',','.', $currency) : '-'?></td>
+        <?php if($model->customer->customer_free_shipping === 0): ?>
+          <td align="right" style="text-align: right;"><?= $tips >= 0.1 ? CurrencyComponent::formatMoney($tips,0,',','.', $currency) : '-'?></td>
+        <?php else: ?>
+          <?php
+            $shipCost = 0;
+          ?>
+          <td style="text-align: right;">
+            <div align="right">
+              <?= CurrencyComponent::formatMoney($shipCost,0,',','.', $currency) ?>
+            </div>
+          </td>
+        <?php endif; ?>
       </tr>
       <tr>
-        
         <td><div align="left"><strong>Grand Total</strong></div></td>
         <td>:</td>
-        <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
+        <?php if($model->customer->customer_free_shipping === 0): ?>
+          <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
+        <?php else: ?>
+          <?php
+            $freeShip = $grandTotal - $tips;
+          ?>
+          <td style="text-align: right;">
+            <div align="right">
+              <?= CurrencyComponent::formatMoney($freeShip,0,',','.', $currency) ?>
+            </div>
+          </td>
+        <?php endif; ?>
       </tr>
     </table></td>
   </tr>
@@ -542,7 +563,11 @@ function penyebut($nilai) {
         
         <td><div align="left"><strong>Grand Total</strong></div></td>
         <td>:</td>
-        <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
+        <?php if($model->customer_free_shipping == 0): ?>
+          
+        <?php else: ?>
+          <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
+        <?php endif; ?>
       </tr>
     </table></td>
   </tr>

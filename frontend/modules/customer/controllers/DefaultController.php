@@ -51,7 +51,7 @@ class DefaultController extends BaseController
         BaseController::$page_caption = 'Tambah Customer';
 
         $model = new Customer();
-        $model->customer_type = Customer::CUSTOMER_TYPE_GENERAL;
+        $model->customer_type = Customer::CUSTOMER_TYPE_UMUM;
 
         if ($model->load(Yii::$app->request->post())) {
             $noProblem = true;
@@ -88,7 +88,7 @@ class DefaultController extends BaseController
 
             if($noProblem){
                 $trans->commit();
-                Yii::$app->session->setFlash('success', 'Merek '.LabelComponent::SUCCESS_SAVE);
+                Yii::$app->session->setFlash('success', 'Customer '.LabelComponent::SUCCESS_SAVE);
 
                 if (isset($_POST['saveandnew']) && $_POST['saveandnew'] == "1")
                     return $this->redirect(['create']);
@@ -151,7 +151,7 @@ class DefaultController extends BaseController
 
             if($noProblem){
                 $trans->commit();
-                Yii::$app->session->setFlash('success', 'Brand '.LabelComponent::SUCCESS_SAVE);
+                Yii::$app->session->setFlash('success', 'Customer '.LabelComponent::SUCCESS_UPDATE);
 
                 if (isset($_POST['saveandnew']) && $_POST['saveandnew'] == "1")
                     return $this->redirect(['create']);

@@ -61,6 +61,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                     <?= $form->field($model, 'customer_bank_acc_number')->textInput(['class'=>'form-control input-sm']) ?>
                     <?= $form->field($model, 'customer_bank_acc_name')->textInput(['class'=>'form-control input-sm']) ?>
                     <?= $form->field($model, 'customer_has_ppn')->checkbox(['class' => 'i-checks'])->label('Dikenakan PPN?', ['class' => 'icheck-bold-label']) ?>
+                    <?= $form->field($model, 'customer_free_shipping')->checkbox(['class' => 'i-checks'])->label('Customer Free Shipping?', ['class' => 'icheck-bold-label']) ?>
                     
                 </div>
             </div>

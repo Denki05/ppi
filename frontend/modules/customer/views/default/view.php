@@ -89,6 +89,11 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 	            		<div class="col-lg-1">:</div>
 	            		<div class="col-lg-5"><?=$model->customer_has_ppn === 1 ? 'Ya' : 'Tidak'?></div>
                 	</div>
+					<div class="row mb-1">
+	            		<div class="col-lg-4"><b><?=$model->getAttributeLabel('customer_free_shipping')?></b></div>
+	            		<div class="col-lg-1">:</div>
+	            		<div class="col-lg-5"><?=$model->customer_free_shipping === 1 ? 'Ya' : 'Tidak'?></div>
+                	</div>
                 </div>
             </div>
         </div>
