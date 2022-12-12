@@ -187,14 +187,15 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'resi')) {
                                                     if($model->isPayment() && $model->invoice_cost_resi == 0){
                                                         $url = Url::to(['resi', 'id' => $model->id]);
-                                                        return Html::a('<span class="btn btn-outline-warning btn-sm"><i class="la la-dollar"></i></span> ', $url, ['title' => 'Update Resi']);
+                                                        return Html::a('<span class="btn btn-outline-warning btn-sm"><i class="la la-money"></i></span> ', $url, [
+                                                            'title' => 'Update Resi',
+                                                            'data-toggle' => 'modal',
+                                                            'data-target' => '#resiModal',
+                                                        ]);
                                                     }
                                                 }
                                                 return "";
-                                            },
-                                            
-
-                                            
+                                            }
                                         ],
                                         'headerOptions' => ['style' => 'width:7%'],
                                     ],
@@ -205,6 +206,40 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                     </div>
                 </div>
             </div>
+            <?php
+                Modal::begin(['id' => 'resiModal',]);
+                    Pjax::begin(['id'=>'pjax-modal', 'timeout'=>false,
+                        'enablePushState'=>false,
+                        'enableReplaceState'=>false,]);
+
+                    Pjax::end();
+                Modal::end();  
+                ?>
+
+                <?php
+                $this->registerJs('
+                    $("#resiModal").on("shown.bs.modal", function (event) {
+                        var button = $(event.relatedTarget)
+                        var href = button.attr("href")
+                        $.pjax.reload("#pjax-modal", {
+                            "timeout":false,
+                            "url":href,
+                            "replace":false,  
+                        });  
+                    })
+                ');    
+                ?>
+
+                <?php
+                        Modal::begin([
+                        'header' => '<h1 align="center">Tambah Donatur</h1>',
+                        'id' => 'modal',
+                        'size' => 'modal-lg',
+                        ]); 
+
+                        echo "<div id='modalContent'><div>";
+                        Modal::end()
+            ?>
         </div>
     </section>
 

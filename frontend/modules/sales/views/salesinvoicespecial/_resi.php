@@ -1,38 +1,25 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\components\BaseController;
+use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use yii\db\ActiveRecord;
 ?>
+
 <?php $form = ActiveForm::begin(); ?>
 
-<?php 
+<h2 align="center" style="font-weight: bold"> Update Cost Resi <p style="color:red;">#<?= $model->invoice_code ?> <p></h2> 
+<div class="box box-info">
+    <div class="box-body">
 
-    $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
-    
-
-    foreach(Yii::$app->session->getAllFlashes() as $key => $message)
-	echo '<div class="alert alert-' . $key . '">' . $message . "</div>\n";
-
-?>
-
-<section class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-body padding-bottom-zero padding-top-zero">
-                    <div class="row">
-                        <div class="col-lg-12">
-                           <?= $form->field($model, 'invoice_cost_resi')->textInput(['class'=>'form-control input-sm angka']) ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <?= $form->field($model, 'invoice_cost_resi')->textInput(['class'=>'form-control input-sm']) ?>
         </div>
-    </div>
-</section>
 
-    <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+    </div>
+    <div class="box-footer">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-info pull-right']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+</div>
