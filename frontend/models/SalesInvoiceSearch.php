@@ -5,6 +5,7 @@ namespace frontend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\SalesInvoice;
+use Yii;
 
 /**
  * SalesInvoiceSearch represents the model behind the search form of `common\models\SalesInvoice`.
@@ -44,7 +45,7 @@ class SalesInvoiceSearch extends SalesInvoice
     {
         $query = SalesInvoice::find()
             ->where(['invoice_type' => 'nonppn']);
-            // ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-01-01", "2022-10-01" ]);
+            //->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-01-01", "2022-10-01" ]);
         $query->joinWith(array('customer', 'salesman', 'bank', 'salesPayments'));
 
         // add conditions that should always apply here

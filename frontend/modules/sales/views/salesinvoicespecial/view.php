@@ -240,6 +240,17 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td colspan="5" class="text-right"><span><b><?= (new SalesInvoice)->getAttributeLabel('invoice_cost_resi')?></b></span></td>
+                                        <td class="text-right">
+                                                <?php if($model->invoice_exchange_rate > 1): ?>
+                                                    <?= CurrencyComponent::formatMoney($model->invoice_cost_resi) ?>
+                                                <?php else: ?>
+                                                    <?= CurrencyComponent::formatMoney($model->invoice_cost_resi,0,',','.', Product::CURRENCY_DOLAR) ?>
+                                                <?php endif; ?>
+                                              <br>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="5" class="text-right"><span><b><?= (new SalesInvoice)->getAttributeLabel('invoice_grand_total')?></b></span></td>
                                         <td class="text-right">
                                             <strong><span class="invoice-grand-total">

@@ -108,7 +108,12 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     ]
                                 );
                             ?>
-                        </div>                        
+                        </div>
+                        <div class="col-lg-6">
+                           <?= $form->field($model, 'invoice_payment_type')
+                                ->dropDownList(['cash' => 'CASH', 'tempo' => 'TEMPO'], ['class' => 'form-control input-sm select2', 'prompt' => 'Pilih Type Transaksi']);
+                           ?>
+                        </div>                     
                     </div>
                 </div>
             </div>
@@ -371,6 +376,19 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                             </div>
                                         </td>
                                         <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right"><span><b><?= (new SalesInvoice)->getAttributeLabel('invoice_cost_resi')?></b></span></td>
+                                        <td>
+                                            <div class="form-group position-relative has-icon-left">
+                                            <?php if($mode == 'update'): ?>
+                                                <input type="text" class="form-control form-control-sm input-sm  angka" name="SalesInvoice[invoice_cost_resi]" value="<?= isset($model->invoice_cost_resi) ? $model->invoice_cost_resi : 0 ?>">
+                                                <?php endif; ?>
+                                                <div class="form-control-position">
+                                                    <i class=" primary font-small-3 currency-label">$</i>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="5" class="text-right"><span><b><?= (new SalesInvoice)->getAttributeLabel('invoice_grand_total')?></b></span></td>

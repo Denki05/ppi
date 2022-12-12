@@ -45,6 +45,11 @@ class SalesinvoicespecialController extends BaseController
         ]);
     }
 
+    // public function getImageurl()
+    // {
+    //   return \Yii::getAlias('@imageurl').'/'.$this->picture;
+    // }
+
     public function actionGetbrand()
     {
 
@@ -185,6 +190,20 @@ class SalesinvoicespecialController extends BaseController
 
             $trans = Yii::$app->db->beginTransaction();
 
+            // free ongkir
+            if(($model->customer->customer_free_shipping == 1) && ($model->invoice_payment_type == 'cash')){
+                $model->invoice_shipping_cost = 0;
+                $model->invoice_grand_total = ($model->invoice_subtotal - $model->invoice_disc_amount - $model->invoice_disc_amount2) + $model->invoice_shipping_cost;
+            }elseif(($model->customer->customer_free_shipping == 0) && ($model->invoice_payment_type == 'cash')){
+                $model->invoice_grand_total = ($model->invoice_subtotal - $model->invoice_disc_amount - $model->invoice_disc_amount2) + $model->invoice_shipping_cost;
+            }elseif(($model->customer->customer_free_shipping == 1) && ($model->invoice_payment_type == 'tempo')){
+                $model->invoice_shipping_cost = 0;
+                $model->invoice_grand_total = ($model->invoice_subtotal - $model->invoice_disc_amount - $model->invoice_disc_amount2) + $model->invoice_shipping_cost;
+            }elseif(($model->customer->customer_free_shipping == 0) && ($model->invoice_payment_type == 'tempo')){
+                $model->invoice_shipping_cost = $model->invoice_cost_resi;
+                $model->invoice_grand_total = ($model->invoice_subtotal - $model->invoice_disc_amount - $model->invoice_disc_amount2) + $model->invoice_shipping_cost;
+            }
+
             $model->invoice_type = 'nonppn';
             $model->invoice_date = !empty($model->invoice_date) ? date("Y-m-d", strtotime($model->invoice_date)) : NULL;    
             $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("Y-m-d", strtotime($model->invoice_comission_pay_date)) : NULL;
@@ -299,10 +318,9 @@ class SalesinvoicespecialController extends BaseController
             $items = $_POST['item'];
             
             $trans = Yii::$app->db->beginTransaction();
-
+    
             $model->invoice_date = !empty($model->invoice_date) ? date("Y-m-d", strtotime($model->invoice_date)) : NULL;    
             $model->invoice_comission_pay_date = !empty($model->invoice_comission_pay_date) ? date("Y-m-d", strtotime($model->invoice_comission_pay_date)) : NULL;
-            
             $model->invoice_outstanding_amount = $model->invoice_grand_total;
 
             if(!empty($model->comission_type_id)){
@@ -476,6 +494,30 @@ class SalesinvoicespecialController extends BaseController
         $model->save();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionResi($id) {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if($model->invoice_payment_type == 'tempo' && $model->customer->customer_free_shipping == 0){
+                $model->invoice_shipping_cost = $model->invoice_cost_resi;
+                $model->invoice_grand_total = ($model->invoice_subtotal - $model->invoice_disc_amount - $model->invoice_disc_amount2) + $model->invoice_shipping_cost;
+            }
+
+            $model->save();
+
+            return $this->redirect(['index']);
+        }elseif (Yii::$app->request->isAjax) {
+            return $this->renderAjax('_resi', [
+                'model' => $model
+            ]);
+        } else {
+            return $this->render('_resi', [
+                'model' => $model,
+                'mode' => 'update'
+            ]);
+        }
     }
 
     public function actionExport($id)

@@ -142,4 +142,9 @@ class ButtonComponent extends Controller
     {
         return '<button type="button" href="javascript:;" onclick="submitbutton(\'application.apply\')" class="btn btn-outline-success btn-sm" title="'.LabelComponent::SAVE_BUTTON.'"><i class="la la-save"></i></button>';
     }
+
+    public static function getUpdateButton()
+    {
+        return '<button type="button" href="javascript:;" onclick="submitbutton(\'application.apply\')" class="btn btn-outline-success btn-sm" title="'.LabelComponent::SAVE_BUTTON.'"><i class="la la-save"></i></button>';
+    }
 }

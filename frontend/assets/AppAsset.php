@@ -64,6 +64,7 @@ class AppAsset extends AssetBundle
         "js/vendors/jquery.inputmask.bundle.min.js",
         "js/scripts/form-inputmask.js",
         "js/iCheck/icheck.min.js",
+        "js/ajax-modal-popup.js",
     ];
     public $depends = [
         'yii\web\YiiAsset',

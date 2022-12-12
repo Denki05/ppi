@@ -41,10 +41,15 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                     <div class="row">
                     <div class="col-lg-4">
                         <div class="row mb-1">
-                            <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_code_ppn')?></b></div>
+                            <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_code')?></b></div>
                             <div class="col-lg-1">:</div>
-                            <div class="col-lg-5"><?=isset($model->invoice_code_ppn) ? $model->invoice_code_ppn : '' ?></div>
-                        </div>  
+                            <div class="col-lg-5"><?=isset($model->invoice_code) ? $model->invoice_code : '' ?></div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_number_document')?></b></div>
+                            <div class="col-lg-1">:</div>
+                            <div class="col-lg-5"><?=isset($model->invoice_number_document) ? $model->invoice_number_document : '' ?></div>
+                        </div>
                         <div class="row mb-1">
                             <div class="col-lg-4"><b><?=$model->getAttributeLabel('invoice_type')?></b></div>
                             <div class="col-lg-1">:</div>

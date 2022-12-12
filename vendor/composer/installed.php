@@ -215,9 +215,9 @@
             'dev_requirement' => false,
         ),
         'mpdf/mpdf' => array(
-            'pretty_version' => 'v8.1.2',
-            'version' => '8.1.2.0',
-            'reference' => 'a8a22f4874157e490d41b486053a20bec42e182c',
+            'pretty_version' => 'v8.1.3',
+            'version' => '8.1.3.0',
+            'reference' => '59ba1a9374211174996d8530a855dedfbd5f5681',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mpdf/mpdf',
             'aliases' => array(),

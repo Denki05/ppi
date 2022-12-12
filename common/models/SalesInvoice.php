@@ -74,8 +74,8 @@ class SalesInvoice extends \common\models\MasterModel
             [['customer_id', 'salesman_id', 'invoice_date', 'invoice_subtotal', 'invoice_grand_total', 'invoice_outstanding_amount'], 'required'],
             [['customer_id', 'salesman_id', 'bank_id', 'comission_type_id', 'bank_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['invoice_date', 'invoice_comission_pay_date', 'created_on', 'updated_on', 'customer_name', 'salesman_name', 'invoice_receiver', 'invoice_destination_address', 'invoice_postal_code', 'invoice_destination_city', 'invoice_destination_province', 'payment_date', 'invoice_disc_percent2'], 'safe'],
-            [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_amount2', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value', 'invoice_shipping_cost'], 'number'],
-            [['invoice_status', 'invoice_payment_status', 'invoice_type', 'invoice_product_type'], 'string'],
+            [['invoice_subtotal', 'invoice_disc_amount', 'invoice_disc_amount2', 'invoice_disc_percent', 'invoice_tax_amount', 'invoice_tax_percent', 'invoice_grand_total', 'invoice_outstanding_amount', 'invoice_exchange_rate', 'invoice_comission_value', 'invoice_shipping_cost', 'invoice_cost_resi'], 'number'],
+            [['invoice_status', 'invoice_payment_status', 'invoice_payment_type', 'invoice_type', 'invoice_product_type'], 'string'],
             [['invoice_code', 'invoice_number_document'], 'string', 'max' => 255],
             [['comission_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ComissionType::className(), 'targetAttribute' => ['comission_type_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
@@ -109,6 +109,7 @@ class SalesInvoice extends \common\models\MasterModel
             'invoice_number_document' => 'Nomer Dokumen',
             'invoice_status' => 'Status Nota',
             'invoice_payment_status' => 'Status Pembayaran',
+            'invoice_payment_type' => 'Status Type Pembayaran Invoice', 
             'invoice_type' => 'Type Invoice',
             'invoice_product_type' => 'Invoice Brand Type',
             'invoice_exchange_rate' => 'Nilai Kurs',
@@ -129,6 +130,7 @@ class SalesInvoice extends \common\models\MasterModel
             'invoice_destination_province' => 'Provinsi',
             'payment_date' => 'Tanggal Bayar Terakhir',
             'invoice_shipping_cost' => 'Ongkos Kirim',
+            'invoice_cost_resi' => 'Resi Ongkos Kirim',
         ];
     }
 

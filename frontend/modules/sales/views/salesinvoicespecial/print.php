@@ -291,119 +291,126 @@ function penyebut($nilai) {
      ?>
 </table>
 <!-- <br> -->
-<table style="width: 100%; font-size: 14px; margin-top: -12px;" border="0">
-  <tr>
-    <td style="width: 70%;" scope="col"><div align="left">
-      <table style="width: 85%; font-size: 14px;" border="0">
-        <tr>
-          <td width="147" scope="col"><div align="left">Terbilang</div></td>
-          <td width="107" scope="col">&nbsp;</td>
-          <td width="368" scope="col">&nbsp;</td>
-        </tr>
-        <tr>
-          <td colspan="3"><?= terbilang($grandTotal).' '.$currency?></td>
-          </tr>
-          <!-- <tr style="height: 1px;">
-          <td colspan="3" style="height: 1px;">&nbsp;</td>
-          </tr> -->
+  <?php if($model->invoice_payment_type == 'tempo' && $model->invoice_payment_status == 'new'): ?>
+  
+  <?php elseif($model->invoice_payment_type == 'cash' && $model->invoice_payment_status == 'new'): ?>
+    <table style="width: 100%; font-size: 14px; margin-top: -12px;" border="0">
           <tr>
-          <td>*Kurs USD</td>
-          <td>:</td>
-          <td><?= $model->invoice_exchange_rate?></td>
+            <td style="width: 70%;" scope="col"><div align="left">
+              <table style="width: 85%; font-size: 14px;" border="0">
+                <tr>
+                  <td width="147" scope="col"><div align="left">Terbilang</div></td>
+                  <td width="107" scope="col">&nbsp;</td>
+                  <td width="368" scope="col">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><?= terbilang($grandTotal).' '.$currency?></td>
+                  </tr>
+                  <!-- <tr style="height: 1px;">
+                  <td colspan="3" style="height: 1px;">&nbsp;</td>
+                  </tr> -->
+                  <tr>
+                  <td>*Kurs USD</td>
+                  <td>:</td>
+                  <td><?= $model->invoice_exchange_rate?></td>
+                  </tr>
+                </table>
+                <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
+                <tr>
+                    <td style="width: 5%;"> - </td>
+                    <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
+                  </tr>
+                <tr>
+                    <td style="width: 5%;"> - </td>
+                  <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari PPI</strong></td>
+                  </tr>
+                
+                <tr>
+                    <td style="width: 5%;"> - </td>
+                  <td><strong>Pembayaran diluar ketentuan diatas tidak diakui</strong></td>
+                  </tr>
+                <tr>
+                    <td style="width: 5%;"> - </td>
+                  <td><strong>Barang yang sudah dibeli tidak dapat ditukar / dikembalikan</strong></td>
+                </tr>
+              </table>
+            </div></td>
+            <br>
+            <td style="width: 30%;" scope="col"><div align="left">
+            <table style="width: 100%; margin-top: 10spx; font-size: 14px;" border="0">
+              <tr>
+                <td width="187" scope="col"><div align="left">Sub Total</div></td>
+                <td width="11" scope="col">:</td>
+                <td width="101" scope="col" style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($total,0,',','.', $currency)?></div></td>
+              </tr>
+              <tr>
+                <td><div align="left">Diskon <?= $model->invoice_disc_percent?>%</div></td>
+                <td>:</td>
+                <td style="text-align: right;"><div align="right"><?= $model->invoice_disc_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount,0,',','.', $currency) : '-'?></div></td>
+              </tr>
+              <tr>
+                <td><div align="left">Voucher</div></td>
+                <td>:</td>
+                <td style="border-bottom: solid 1px; text-align: right;"><div align="right"><?= $model->invoice_disc_amount2 >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount2,0,',','.', $currency) : '-'?></div></td>
+              </tr>
+              <tr>
+                
+                <td><div align="left"></div></td>
+                <td>:</td>
+                <td style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($totalafterdiscon,0,',','.', $currency) ?></div></td>
+              </tr>
+              <tr>
+                
+                <td><div align="left">PPN <?= $model->invoice_tax_percent?>%</div></td>
+                <td>:</td>
+                <td style="border-bottom: solid 1px; text-align: right;"><div align="right"><?= $model->invoice_tax_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_tax_amount,0,',','.', $currency) : '-'?></div></td>
+              </tr>
+              <tr>
+                
+                <td><div align="left">Total</div></td>
+                <td>:</td>
+                <td style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($totalaftertax,0,',','.', $currency)?></div></td>
+              </tr>
+              <tr>
+                
+                <td><div align="left">Biaya Kirim</div></td>
+                <td>:</td>
+                <td align="right" style="text-align: right;"><?= $tips >= 0.1 ? CurrencyComponent::formatMoney($tips,0,',','.', $currency) : '-'?></td>
+              </tr>
+              <tr>
+                <td><div align="left"><strong>Grand Total</strong></div></td>
+                <td>:</td>
+                <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
+              </tr>
+            </table></td>
           </tr>
         </table>
-        <table style="width: 100%; border-style: solid; border-size:1px;" cellspacing="0" class="note">
-        <tr>
-            <td style="width: 5%;"> - </td>
-            <td><strong>Pembayaran Cheque / Wesel / BG dianggap sah bila telah diuangkan</strong></td>
+        <table style="width: 100%; font-size: 14px;">
+          <tr>
+            <td style="width: 80%;" scope="col" align="center">
+              <div align="center">
+                  <table style="width: 100%; font-size: 14px;">
+                      <tr>
+                        <td><img src="<?php echo Yii::getAlias('@imageurl')."/".$model->bank->bank_image; ?>" style="width: 20%;" alt="User Image"/></div></td>
+                      </tr>
+                  </table>
+              </div>
+            </td>
+            <td style="width: 25%;" scope="col"><div align="left">
+            <table style="width: 100%; margin-top: -5px; font-size: 14px;">
+              <tr>
+                <td width="187" scope="col"><div align="left">
+                    Hormat Kami,<br/><br/><br/><br/>
+                    
+                    (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+                </div></td>
+              </tr>
+            </table></td>
           </tr>
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran TUNAI wajib disertai TANDA TERIMA TUNAI resmi dari PPI</strong></td>
-          </tr>
-        
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>Pembayaran diluar ketentuan diatas tidak diakui</strong></td>
-          </tr>
-        <tr>
-            <td style="width: 5%;"> - </td>
-          <td><strong>Barang yang sudah dibeli tidak dapat ditukar / dikembalikan</strong></td>
-        </tr>
-      </table>
-    </div></td>
-    <br>
-    <td style="width: 30%;" scope="col"><div align="left">
-    <table style="width: 100%; margin-top: 10spx; font-size: 14px;" border="0">
-      <tr>
-        <td width="187" scope="col"><div align="left">Sub Total</div></td>
-        <td width="11" scope="col">:</td>
-        <td width="101" scope="col" style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($total,0,',','.', $currency)?></div></td>
-      </tr>
-      <tr>
-        <td><div align="left">Diskon <?= $model->invoice_disc_percent?>%</div></td>
-        <td>:</td>
-        <td style="text-align: right;"><div align="right"><?= $model->invoice_disc_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount,0,',','.', $currency) : '-'?></div></td>
-      </tr>
-      <tr>
-        <td><div align="left">Voucher</div></td>
-        <td>:</td>
-        <td style="border-bottom: solid 1px; text-align: right;"><div align="right"><?= $model->invoice_disc_amount2 >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_disc_amount2,0,',','.', $currency) : '-'?></div></td>
-      </tr>
-      <tr>
-        
-        <td><div align="left"></div></td>
-        <td>:</td>
-        <td style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($totalafterdiscon,0,',','.', $currency) ?></div></td>
-      </tr>
-      <tr>
-        
-        <td><div align="left">PPN <?= $model->invoice_tax_percent?>%</div></td>
-        <td>:</td>
-        <td style="border-bottom: solid 1px; text-align: right;"><div align="right"><?= $model->invoice_tax_amount >= 0.1 ? CurrencyComponent::formatMoney($model->invoice_tax_amount,0,',','.', $currency) : '-'?></div></td>
-      </tr>
-      <tr>
-        
-        <td><div align="left">Total</div></td>
-        <td>:</td>
-        <td style="text-align: right;"><div align="right"><?= CurrencyComponent::formatMoney($totalaftertax,0,',','.', $currency)?></div></td>
-      </tr>
-      <tr>
-        
-        <td><div align="left">Biaya Kirim</div></td>
-        <td>:</td>
-        <?php if($model->customer->customer_free_shipping === 0): ?>
-          <td align="right" style="text-align: right;"><?= $tips >= 0.1 ? CurrencyComponent::formatMoney($tips,0,',','.', $currency) : '-'?></td>
-        <?php else: ?>
-          <?php
-            $shipCost = 0;
-          ?>
-          <td style="text-align: right;">
-            <div align="right">
-              <?= CurrencyComponent::formatMoney($shipCost,0,',','.', $currency) ?>
-            </div>
-          </td>
-        <?php endif; ?>
-      </tr>
-      <tr>
-        <td><div align="left"><strong>Grand Total</strong></div></td>
-        <td>:</td>
-        <?php if($model->customer->customer_free_shipping === 0): ?>
-          <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
-        <?php else: ?>
-          <?php
-            $freeShip = $grandTotal - $tips;
-          ?>
-          <td style="text-align: right;">
-            <div align="right">
-              <?= CurrencyComponent::formatMoney($freeShip,0,',','.', $currency) ?>
-            </div>
-          </td>
-        <?php endif; ?>
-      </tr>
-    </table></td>
-  </tr>
-</table>
+        </table>
+  <?php endif; ?>
 <?php else: ?>
 <?php 
   //========================================================================================================================================================================================================================================================================
@@ -518,7 +525,7 @@ function penyebut($nilai) {
       </table>
     </div></td>
     <td style="width: 30%;" scope="col">
-    <table style="width: 100%; margin-top: -20px; font-size: 14px;">
+    <table style="width: 100%; margin-top: -5px; font-size: 14px;">
       <tr>
         <td width="187" scope="col"><div align="left">Sub Total</div></td>
         <td width="11" scope="col">:</td>
@@ -563,16 +570,11 @@ function penyebut($nilai) {
         
         <td><div align="left"><strong>Grand Total</strong></div></td>
         <td>:</td>
-        <?php if($model->customer_free_shipping == 0): ?>
-          
-        <?php else: ?>
-          <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
-        <?php endif; ?>
+        <td style="text-align: right;"><div align="right"><strong><?= CurrencyComponent::formatMoney($grandTotal,0,',','.', $currency)?></strong></div></td>
       </tr>
     </table></td>
   </tr>
 </table>
-<?php endif; ?>
 <table style="width: 100%; font-size: 14px;">
   <tr>
     <td style="width: 80%;" scope="col" align="center">
@@ -598,3 +600,5 @@ function penyebut($nilai) {
     </table></td>
   </tr>
 </table>
+<?php endif; ?>
+
