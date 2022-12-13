@@ -21,5 +21,5 @@ use yii\db\ActiveRecord;
     <div class="box-footer">
         <?= Html::submitButton('Save', ['class' => 'btn btn-info pull-right']) ?>
     </div>
-
 </div>
+<?php ActiveForm::end();?>

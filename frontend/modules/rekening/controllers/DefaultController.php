@@ -47,17 +47,16 @@ class DefaultController extends BaseController
             $noProblem = true;
             $trans = Yii::$app->db->beginTransaction();
 
-            //$imageCardname = uniqid(rand());
+            
             $imageBankname = 'Rek-' . $model->bank_acc_number;
-            //$model->imageCard = NULL;
+           
             $model->imageBank = NULL;
-            //$model->imageCard  = UploadedFile::getInstanceByName('Customer[customer_identity_card_image]');
+            
             $model->imageBank  = UploadedFile::getInstanceByName('Bank[bank_image]');
-            //$model->customer_identity_card_image = !empty($model->imageCard) ? $imageCardname.'.'.$model->imageCard->extension : "";
+            
             $model->bank_image = !empty($model->imageBank) ? $imageBankname.'.'.$model->imageBank->extension : "";
 
-            //$model->customer_birthday = !empty($model->customer_birthday) ? date("Y-m-d", strtotime($model->customer_birthday)) : "";
-            //$model->customer_store_code = $model->getStoreCode('S', 'customer_store_code');
+            
 
             if($model->save()){
                 

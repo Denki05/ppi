@@ -49,11 +49,14 @@ class SalesInvoice extends \common\models\MasterModel
     const STATUS_PAYMENT_PARTIAL = 'partial';
     const STATUS_PAYMENT_PAID = 'paid';
     const STATUS_INVOICE_PPN = 'ppn';
-    const INVOICE_TYPE_SENSES = '247';
-    const INVOICE_TYPE_GCF = '287';
-    const INVOICE_TYPE_PPI = '327';
-    const INVOICE_TYPE_NONE = '333';
-    const INVOICE_TYPE_LD = '367';
+    const STATUS_PRODUCT_TYPE_SENSES = '247';
+    const STATUS_PRODUCT_TYPE_GCF = '287';
+    const STATUS_PRODUCT_TYPE_PPI = '327';
+    const STATUS_PRODUCT_TYPE_LD = '367';
+    const STATUS_PRODUCT_TYPE_NONE = '333';
+    const STATUS_PRODUCT_TYPE_ALKOHOL = '435';
+    const STATUS_PRODUCT_TYPE_LAIN = '436';
+    const STATUS_PRODUCT_TYPE_NGINDEN = '437';
 
     public $customer_name, $salesman_name, $payment_date, $bank_type, $bank_name;
 
@@ -198,14 +201,17 @@ class SalesInvoice extends \common\models\MasterModel
         return $status == '' ? $statuses : (isset($statuses[$status]) ? $statuses[$status] : "");
     }
 
-    public function getInvoiceType($status='')
+    public function getStatusBrand($status='')
     {
         $statuses = array(
-            self::INVOICE_TYPE_SENSES => 'Senses',
-            self::INVOICE_TYPE_GCF => 'GCF',
-            self::INVOICE_TYPE_PPI => 'PPI',
-            self::INVOICE_TYPE_NONE => '-',
-            self::INVOICE_TYPE_LD => 'LD',
+            self::STATUS_PRODUCT_TYPE_SENSES => 'Senses',
+            self::STATUS_PRODUCT_TYPE_GCF => 'GCF',
+            self::STATUS_PRODUCT_TYPE_PPI => 'PPI',
+            self::STATUS_PRODUCT_TYPE_LD => 'LD',
+            self::STATUS_PRODUCT_TYPE_ALKOHOL => 'Alkohol',
+            self::STATUS_PRODUCT_TYPE_LAIN => 'Lain - lain',
+            self::STATUS_PRODUCT_TYPE_NGINDEN => 'Nginden',
+            self::STATUS_PRODUCT_TYPE_NONE => '-',
         );
         
         return $status == '' ? $statuses : (isset($statuses[$status]) ? $statuses[$status] : "");

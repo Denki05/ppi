@@ -89,7 +89,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                     [
                                         'attribute' => 'invoice_product_type',
                                         'value' => function($model) {
-                                            return $model->getInvoiceType($model->invoice_product_type);
+                                            return $model->getStatusBrand($model->invoice_product_type);
                                         }
                                     ],
                                     [
@@ -214,9 +214,9 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 
                     Pjax::end();
                 Modal::end();  
-                ?>
+            ?>
 
-                <?php
+            <?php
                 $this->registerJs('
                     $("#resiModal").on("shown.bs.modal", function (event) {
                         var button = $(event.relatedTarget)
@@ -228,17 +228,6 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                         });  
                     })
                 ');    
-                ?>
-
-                <?php
-                        Modal::begin([
-                        'header' => '<h1 align="center">Tambah Donatur</h1>',
-                        'id' => 'modal',
-                        'size' => 'modal-lg',
-                        ]); 
-
-                        echo "<div id='modalContent'><div>";
-                        Modal::end()
             ?>
         </div>
     </section>

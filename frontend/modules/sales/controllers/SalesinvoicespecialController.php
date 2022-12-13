@@ -26,6 +26,7 @@ use yii\data\Sort;
 use kartik\select2\Select2;
 use yii\db\Query;
 
+
 /**
  * DefaultController implements the CRUD actions for DiscMaster model.
  */
@@ -402,7 +403,7 @@ class SalesinvoicespecialController extends BaseController
             ->leftJoin('tbl_product', 'tbl_sales_invoice_item.product_id=tbl_product.id')
             ->leftJoin('tbl_brand', 'tbl_product.brand_id=tbl_brand.id')
             ->where(['tbl_sales_invoice.is_deleted' => '0'])
-            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2021-10-01", "2021-12-31" ])
+            ->andWhere(['between', 'tbl_sales_invoice.invoice_date', "2022-10-01", "2022-12-31" ])
             // ->andWhere(['tbl_product.product_status' => 'active'])
             
             ->all();
