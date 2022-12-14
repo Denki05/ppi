@@ -593,8 +593,10 @@ class SalesinvoicespecialController extends BaseController
     {
         $model = $this->findModel($id);
         // for($i=1; $i<=2; $i++){
-            $mark = 'COPY';
-            
+            if($model->isPayment())
+                $mark = 'PAID';
+            else
+                $mark = 'COPY';
             $content = $this->renderPartial('_proforma', [
                 'model' => $model
             ]);

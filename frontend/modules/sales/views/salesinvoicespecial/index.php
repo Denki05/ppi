@@ -131,7 +131,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 						            [
                                         'class' => 'yii\grid\ActionColumn',
                                         'header'   => 'Actions',
-                                        'template' => '<div style="white-space: nowrap; margin-bottom: 5px;">{view}{export}{print}</div><div style="white-space: nowrap;">{update}{delete}{resi}</div>',
+                                        'template' => '<div style="white-space: nowrap; margin-bottom: 5px;">{view}{export}{print}{proforma}</div><div style="white-space: nowrap;">{update}{delete}{resi}</div>',
                                         'buttons'  => [
                                             'export' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'export')) {
@@ -149,6 +149,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                 }
                                                 return "";
                                             },
+                                            
                                             'view' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'view')) {
                                                     $url = Url::to(['view', 'id' => $model->id]);
@@ -186,7 +187,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                             'resi' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'resi')) {
                                                     if($model->isPayment() && $model->invoice_cost_resi == 0){
-                                                        $url = Url::to(['resi', 'id' => $model->id]);
+                                                        $url = Url::to(['resi',  'id' => $model->id]);
                                                         return Html::a('<span class="btn btn-outline-warning btn-sm"><i class="la la-money"></i></span> ', $url, [
                                                             'title' => 'Update Resi',
                                                             'data-toggle' => 'modal',
