@@ -131,7 +131,7 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 						            [
                                         'class' => 'yii\grid\ActionColumn',
                                         'header'   => 'Actions',
-                                        'template' => '<div style="white-space: nowrap; margin-bottom: 5px;">{view}{export}{print}{proforma}</div><div style="white-space: nowrap;">{update}{delete}{resi}</div>',
+                                        'template' => '<div style="white-space: nowrap; margin-bottom: 5px;">{view}{export}{print}</div><div style="white-space: nowrap;">{update}{delete}{resi}</div>',
                                         'buttons'  => [
                                             'export' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'export')) {
