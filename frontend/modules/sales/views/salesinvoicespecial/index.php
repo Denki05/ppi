@@ -14,7 +14,6 @@ use frontend\components\ButtonComponent;
 use app\components\BaseController;
 use common\models\Product;
 use yii\bootstrap\Modal;
-// use kartik\grid\GridView;
 
 $this->title = BaseController::getCustomPageTitle(BaseController::$page_caption);
 $toolbar[] = ButtonComponent::getAddButton();
@@ -131,16 +130,16 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
 						            [
                                         'class' => 'yii\grid\ActionColumn',
                                         'header'   => 'Actions',
-                                        'template' => '<div style="white-space: nowrap; margin-bottom: 5px;">{view}{export}{print}</div><div style="white-space: nowrap;">{update}{delete}{resi}</div>',
+                                        'template' => '<div style="white-space: nowrap; margin-bottom: 5px;">{view}{proforma}{print}</div><div style="white-space: nowrap;">{update}{delete}{resi}</div>',
                                         'buttons'  => [
-                                            'export' => function ($url, $model) {
-                                                if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'export')) {
-                                                    $url = Url::to(['export', 'id' => $model->id]);
-                                                    $status = $model->invoice_payment_status === SalesInvoice::STATUS_PAYMENT_PAID ? 1 : 0;
-                                                    return Html::a('<span class="btn btn-outline-info btn-sm"><i class="la la-print"></i></span> ', '#', ['title' => 'Export', 'class' => 'btn-print', 'id' => 'id-invoice-'.$model->id.'-'.$status]);
-                                                }
-                                                return "";
-                                            },
+                                            // 'export' => function ($url, $model) {
+                                            //     if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'export')) {
+                                            //         $url = Url::to(['export', 'id' => $model->id]);
+                                            //         $status = $model->invoice_payment_status === SalesInvoice::STATUS_PAYMENT_PAID ? 1 : 0;
+                                            //         return Html::a('<span class="btn btn-outline-info btn-sm"><i class="la la-print"></i></span> ', '#', ['title' => 'Export', 'class' => 'btn-print', 'id' => 'id-invoice-'.$model->id.'-'.$status]);
+                                            //     }
+                                            //     return "";
+                                            // },
                                             'print' => function ($url, $model) {
                                                 if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'print')) {
                                                     // $url = Url::to(['export', 'id' => $model->id]);
@@ -196,7 +195,15 @@ foreach(Yii::$app->session->getAllFlashes() as $key => $message)
                                                     }
                                                 }
                                                 return "";
-                                            }
+                                            },
+                                            'proforma' => function ($url, $model) {
+                                                if (AccessComponent::hasAccess(Yii::$app->controller->module->id, Yii::$app->controller->id, 'proforma')) {
+                                                    $url = Url::to(['proforma', 'id' => $model->id]);
+                                                    $status = $model->invoice_payment_status === SalesInvoice::STATUS_PAYMENT_PAID ? 1 : 0;
+                                                    return Html::a('<span class="btn btn-outline-info btn-sm"><i class="la la-print"></i></span> ', $url, ['title' => 'Proforma', 'class' => 'btn-print', 'id' => 'id-invoice-'.$model->id.'-'.$status]);
+                                                }
+                                                return "";
+                                            },
                                         ],
                                         'headerOptions' => ['style' => 'width:7%'],
                                     ],

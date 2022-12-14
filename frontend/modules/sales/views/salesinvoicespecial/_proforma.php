@@ -50,7 +50,7 @@ function penyebut($nilai) {
         <td class="" style="width: 45%;">
         </td>
         <td>
-            <div class="store-name"><u>PROFORMA</u></div>
+            <div class="store-name"><u>INVOICE BIASA</u></div>
         </td>
     </tr>
 </table>
